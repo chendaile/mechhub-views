@@ -11,6 +11,7 @@ import {
     Square,
 } from "lucide-react";
 import type { ChatMode, FileAttachment } from "../types";
+import styles from "../../shared/scrollbar.module.css";
 
 interface ImageAttachmentPreview {
     id: string;
@@ -96,7 +97,9 @@ export const UnifiedInputBarView = ({
 
             <AnimatePresence>
                 {(imageAttachments.length > 0 || fileAttachments.length > 0) && (
-                    <div className="flex gap-2 mb-2 px-2 overflow-x-auto pb-2">
+                    <div
+                        className={`flex gap-2 mb-2 px-2 overflow-x-auto pb-2 ${styles.scrollbar}`}
+                    >
                         {imageAttachments.map((att) => (
                             <motion.div
                                 key={att.id}
@@ -226,7 +229,7 @@ export const UnifiedInputBarView = ({
                         (mode === "correct" ? "上传你的解答." : "提出你的疑问.")
                     }
                     rows={1}
-                    className="flex-1 min-w-0 resize-none overflow-y-auto bg-transparent border-none outline-none py-3 px-2 text-lg text-slate-700 placeholder:text-slate-400 max-h-[200px]"
+                    className={`flex-1 min-w-0 resize-none overflow-y-auto bg-transparent border-none outline-none py-3 px-2 text-lg text-slate-700 placeholder:text-slate-400 max-h-[200px] ${styles.scrollbar}`}
                     onKeyDown={(e) => {
                         if (e.nativeEvent.isComposing) return;
                         if (e.key === "Enter" && !e.shiftKey) {

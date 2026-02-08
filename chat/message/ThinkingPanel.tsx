@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MarkdownRenderer } from "../../shared/MarkdownRenderer";
+import styles from "../../shared/scrollbar.module.css";
 
 interface ThinkingPanelProps {
     label: string;
@@ -36,7 +37,9 @@ export const ThinkingPanel: React.FC<ThinkingPanelProps> = ({
             </button>
 
             {open && (
-                <div className="mt-2 text-base leading-loose p-3 overflow-y-auto min-w-0 bg-slate-50 border border-slate-200 text-slate-700 rounded-xl">
+                <div
+                    className={`mt-2 text-base leading-loose p-3 overflow-y-auto min-w-0 bg-slate-50 border border-slate-200 text-slate-700 rounded-xl ${styles.scrollbar}`}
+                >
                     <div className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">
                         {label}
                     </div>

@@ -1,0 +1,23 @@
+.scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.hideScrollbar {
+  scrollbar-width: none;
+}
+
+.hideScrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

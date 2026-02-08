@@ -5,6 +5,7 @@ import { AIAvatar } from "../../shared/AIAvatar";
 import { MarkdownRenderer } from "../../shared/MarkdownRenderer";
 import { FileAttachmentPreview } from "./FileAttachmentPreview";
 import { ThinkingPanel } from "./ThinkingPanel";
+import styles from "../../shared/scrollbar.module.css";
 
 interface TextMessageViewProps {
     role: "user" | "assistant";
@@ -97,7 +98,7 @@ export const TextMessageView: React.FC<TextMessageViewProps> = ({
                 {text && text.trim() && (
                     <div className="group flex flex-col gap-2">
                         <div
-                            className={`text-base leading-loose p-3 overflow-y-auto min-w-0 ${
+                            className={`text-base leading-loose p-3 overflow-y-auto min-w-0 ${styles.scrollbar} ${
                                 role === "user"
                                     ? "bg-slate-900 text-white rounded-xl rounded-tr-xs"
                                     : "bg-fill-muted border-none text-slate-700 rounded-none"

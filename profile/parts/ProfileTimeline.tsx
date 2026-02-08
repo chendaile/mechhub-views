@@ -1,12 +1,15 @@
-﻿import React from "react";
+import React from "react";
 import { motion } from "motion/react";
 import { TimelineNode } from "./TimelineNode";
+import styles from "../../shared/scrollbar.module.css";
 
 export const ProfileTimeline = () => {
     return (
-        <div>
+        <>
             <h3 className="text-xl font-bold text-slate-900 mb-8">课程进度</h3>
-            <div className="relative w-full h-80 overflow-x-auto overflow-y-hidden hide-scrollbar">
+            <div
+                className={`relative w-full h-80 overflow-x-auto overflow-y-hidden ${styles.hideScrollbar}`}
+            >
                 <div className="relative flex h-full min-w-[900px] items-center">
                     <svg
                         className="absolute top-0 left-0 w-full h-full pointer-events-none"
@@ -47,6 +50,6 @@ export const ProfileTimeline = () => {
                     <TimelineNode x={750} y={236} title="振动与波" status="locked" delay={2.2} isTop={false} />
                 </div>
             </div>
-        </div>
+        </>
     );
 };

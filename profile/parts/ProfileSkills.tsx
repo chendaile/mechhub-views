@@ -1,10 +1,10 @@
-﻿import React from "react";
+import React from "react";
 import { Settings, Wind, Anchor, Waves, Thermometer, Activity } from "lucide-react";
 import { SkillCard } from "./SkillCard";
 
 export const ProfileSkills = () => {
     return (
-        <div className="mb-16">
+        <>
             <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
                 证书与技能
             </h3>
@@ -16,6 +16,6 @@ export const ProfileSkills = () => {
                 <SkillCard icon={<Thermometer strokeWidth={1.5} />} title="热力学" status="locked" delay={0.4} />
                 <SkillCard icon={<Activity strokeWidth={1.5} />} title="振动理论" status="locked" delay={0.5} />
             </div>
-        </div>
+        </>
     );
 };

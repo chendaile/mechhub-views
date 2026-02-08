@@ -1,8 +1,9 @@
-﻿import React from "react";
+import React from "react";
 import { MessageSquare } from "lucide-react";
 import type { ActiveView } from "../../shared/types";
 import type { ChatSession } from "../../chat/types";
 import { SessionItem } from "./SessionItem";
+import styles from "../../shared/scrollbar.module.css";
 
 interface SidebarSessionsProps {
     sessions: ChatSession[];
@@ -24,7 +25,7 @@ export const SidebarSessions = ({
     onRenameSession,
 }: SidebarSessionsProps) => {
     return (
-        <div className="flex-1 overflow-y-auto px-6 py-2">
+        <div className={`flex-1 overflow-y-auto px-6 py-2 ${styles.scrollbar}`}>
             <h3 className="text-xs font-bold text-text-faint uppercase tracking-wider mb-4">
                 最近对话
             </h3>

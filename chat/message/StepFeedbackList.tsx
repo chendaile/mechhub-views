@@ -3,6 +3,7 @@ import { GradingStep } from "../types";
 import { motion } from "motion/react";
 import { CheckCircle2, XCircle, Lightbulb } from "lucide-react";
 import { MarkdownRenderer } from "../../shared/MarkdownRenderer";
+import styles from "../../shared/scrollbar.module.css";
 
 interface StepFeedbackListProps {
     steps: GradingStep[];
@@ -27,7 +28,7 @@ export const StepFeedbackList: React.FC<StepFeedbackListProps> = ({
 
             <div
                 ref={stepListContainerRef}
-                className="space-y-4 flex-1 min-h-0 overflow-y-auto pr-2"
+                className={`space-y-4 flex-1 min-h-0 overflow-y-auto pr-2 ${styles.scrollbar}`}
             >
                 {steps.map((step, idx) => (
                     <motion.div

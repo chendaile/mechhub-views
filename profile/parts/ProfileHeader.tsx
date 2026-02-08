@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Edit2, Save, X } from "lucide-react";
 
 interface ProfileHeaderProps {
@@ -15,7 +15,7 @@ export const ProfileHeader = ({
     onSave,
 }: ProfileHeaderProps) => {
     return (
-        <div className="flex items-center justify-between mb-12">
+        <>
             <div className="w-10" />
             <h2 className="text-3xl font-bold text-slate-900 text-center tracking-tight">
                 账号设置
@@ -43,6 +43,6 @@ export const ProfileHeader = ({
                     <Edit2 size={20} />
                 </button>
             )}
-        </div>
+        </>
     );
 };

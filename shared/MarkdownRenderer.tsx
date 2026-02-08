@@ -6,6 +6,7 @@ import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import styles from "./scrollbar.module.css";
 
 interface MarkdownRendererProps {
     content: string;
@@ -24,7 +25,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
                         const match = /language-(\w+)/.exec(className || "");
                         return !inline && match ? (
                             <div
-                                className="rounded-lg overflow-x-auto my-2 shadow-sm border border-slate-700/50"
+                                className={`rounded-lg overflow-x-auto my-2 shadow-sm border border-slate-700/50 ${styles.scrollbar}`}
                                 style={{ width: 0, minWidth: "100%" }}
                             >
                                 <SyntaxHighlighter
@@ -94,7 +95,9 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
                         </blockquote>
                     ),
                     table: ({ children }) => (
-                        <div className="overflow-x-auto my-4 border border-slate-200 rounded-lg">
+                        <div
+                            className={`overflow-x-auto my-4 border border-slate-200 rounded-lg ${styles.scrollbar}`}
+                        >
                             <table className="min-w-full divide-y divide-slate-200">
                                 {children}
                             </table>
