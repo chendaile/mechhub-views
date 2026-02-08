@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { SidebarFooter } from "./parts/SidebarFooter";
 import { SidebarHeader } from "./parts/SidebarHeader";
 import { SidebarResizeHandle } from "./parts/SidebarResizeHandle";
@@ -24,7 +24,7 @@ export const SidebarView: React.FC<SidebarViewProps> = ({
 }) => {
     return (
         <div
-            className="relative flex flex-col border-r border-canvas-alt bg-canvas-alt"
+            className="relative flex flex-col border-r border-[#f0f4f9] bg-[#f0f4f9]"
             style={{ width: `${sidebarWidth}px` }}
         >
             <SidebarResizeHandle onMouseDown={onResizeMouseDown} />

@@ -1,4 +1,4 @@
-﻿import type { FormEvent } from "react";
+import type { FormEvent } from "react";
 import { ArrowRight, Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { Button } from "../../shared/ui/button";
 import { Input } from "../../shared/ui/input";
@@ -41,11 +41,11 @@ export const AuthForm = ({
 
             <form onSubmit={onSubmit}>
                 <div>
-                    <label className="block text-xs font-bold text-text-subtle uppercase tracking-wider mb-2 ml-1">
+                    <label className="block text-xs font-bold text-[#64748b] uppercase tracking-wider mb-2 ml-1">
                         邮箱地址
                     </label>
                     <div className="relative">
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-text-faint">
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#94a3b8]">
                             <Mail size={ICON_SIZE.lg} />
                         </div>
                         <Input
@@ -61,7 +61,7 @@ export const AuthForm = ({
 
                 <div>
                     <div className="flex justify-between items-center mb-2 ml-1 min-h-6">
-                        <label className="block text-xs font-bold text-text-subtle uppercase tracking-wider">
+                        <label className="block text-xs font-bold text-[#64748b] uppercase tracking-wider">
                             密码
                         </label>
                         <Button
@@ -71,7 +71,7 @@ export const AuthForm = ({
                             tabIndex={mode === "signin" ? 0 : -1}
                             aria-hidden={mode !== "signin"}
                             className={cn(
-                                "text-xs font-semibold text-text-primary hover:underline",
+                                "text-xs font-semibold text-[#0f172a] hover:underline",
                                 mode === "signin"
                                     ? "visible"
                                     : "invisible pointer-events-none",
@@ -81,7 +81,7 @@ export const AuthForm = ({
                         </Button>
                     </div>
                     <div className="relative">
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-text-faint">
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#94a3b8]">
                             <Lock size={ICON_SIZE.lg} />
                         </div>
                         <Input
@@ -97,7 +97,7 @@ export const AuthForm = ({
                             onClick={() => setShowPassword(!showPassword)}
                             variant="ghost"
                             size="sm"
-                            className="absolute right-4 top-1/2 -translate-y-1/2 px-0 py-0 text-text-faint hover:text-text-muted"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 px-0 py-0 text-[#94a3b8] hover:text-[#475569]"
                         >
                             {showPassword ? (
                                 <Eye size={ICON_SIZE.md} />
@@ -127,10 +127,10 @@ export const AuthForm = ({
 
             <div className="relative my-8">
                 <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-border-subtle"></div>
+                    <div className="w-full border-t border-[#e2e8f0]"></div>
                 </div>
                 <div className="relative flex justify-center text-xs">
-                    <span className="bg-surface px-2 text-text-subtle">
+                    <span className="bg-[#ffffff] px-2 text-[#64748b]">
                         或通过以下方式继续
                     </span>
                 </div>

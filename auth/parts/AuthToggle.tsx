@@ -1,4 +1,4 @@
-﻿import { motion } from "motion/react";
+import { motion } from "motion/react";
 import { Button } from "../../shared/ui/button";
 import { cn } from "../../shared/utils";
 import type { AuthMode } from "../types";
@@ -10,9 +10,9 @@ interface AuthToggleProps {
 
 export const AuthToggle = ({ mode, setMode }: AuthToggleProps) => {
     return (
-        <div className="bg-fill-soft rounded-pill flex relative mb-8">
+        <div className="bg-[#f1f5f9] rounded-[999px] flex relative mb-8">
             <motion.div
-                className="absolute top-1.5 bottom-1.5 bg-surface rounded-pill shadow-sm z-0"
+                className="absolute top-1.5 bottom-1.5 bg-[#ffffff] rounded-[999px] shadow-sm z-0"
                 layoutId="authMode"
                 initial={false}
                 animate={{
@@ -31,7 +31,7 @@ export const AuthToggle = ({ mode, setMode }: AuthToggleProps) => {
                 size="sm"
                 className={cn(
                     "flex-1 relative z-10 py-2.5 text-center transition-colors",
-                    mode === "signin" ? "text-text-primary" : "text-text-subtle",
+                    mode === "signin" ? "text-[#0f172a]" : "text-[#64748b]",
                 )}
             >
                 登录
@@ -42,7 +42,7 @@ export const AuthToggle = ({ mode, setMode }: AuthToggleProps) => {
                 size="sm"
                 className={cn(
                     "flex-1 relative z-10 py-2.5 text-center transition-colors",
-                    mode === "register" ? "text-text-primary" : "text-text-subtle",
+                    mode === "register" ? "text-[#0f172a]" : "text-[#64748b]",
                 )}
             >
                 注册

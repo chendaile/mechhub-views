@@ -43,7 +43,7 @@ export const StepAnnotationBox: React.FC<StepAnnotationBoxProps> = ({
         >
             {/* 边框 */}
             <motion.div
-                className="w-full h-full rounded-xl border-2"
+                className="w-full h-full rounded-[1.5rem] border-2"
                 animate={{
                     borderColor: baseColor,
                     borderWidth: isActive ? "4px" : "2px",
@@ -60,7 +60,7 @@ export const StepAnnotationBox: React.FC<StepAnnotationBoxProps> = ({
             {/* 标签 - Compact模式下不显示 */}
             {!isCompact && (
                 <motion.div
-                    className="absolute left-1/2 -bottom-5 px-3 py-1.5 rounded-lg shadow-md whitespace-nowrap text-xs font-semibold z-10"
+                    className="absolute left-1/2 -bottom-5 px-3 py-1.5 rounded-[1rem] shadow-md whitespace-nowrap text-xs font-semibold z-10"
                     style={{ transform: "translateX(-50%)" }}
                     animate={{
                         backgroundColor: isActive ? baseColor : "#ffffff",

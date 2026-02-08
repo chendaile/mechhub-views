@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 
 interface ProfileFieldsProps {
     name: string;
@@ -26,7 +26,7 @@ export const ProfileFields = ({
                     value={name}
                     onChange={(e) => onNameChange(e.target.value)}
                     disabled={!isEditing}
-                    className={`w-full px-4 py-3 rounded-xl border bg-white text-slate-900 transition-all shadow-sm font-medium ${
+                    className={`w-full px-4 py-3 rounded-[1.5rem] border bg-white text-slate-900 transition-all shadow-sm font-medium ${
                         isEditing
                             ? "border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
                             : "border-slate-200 bg-slate-50 text-slate-600"
@@ -42,7 +42,7 @@ export const ProfileFields = ({
                     value={role}
                     onChange={(e) => onRoleChange(e.target.value)}
                     disabled={!isEditing}
-                    className={`w-full px-4 py-3 rounded-xl border bg-white text-slate-900 transition-all shadow-sm font-medium ${
+                    className={`w-full px-4 py-3 rounded-[1.5rem] border bg-white text-slate-900 transition-all shadow-sm font-medium ${
                         isEditing
                             ? "border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
                             : "border-slate-200 bg-slate-50 text-slate-600"

@@ -31,14 +31,14 @@ export const ThinkingPanel: React.FC<ThinkingPanelProps> = ({
             <button
                 type="button"
                 onClick={() => setOpen((prev) => !prev)}
-                className="self-start rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600 shadow-sm hover:border-slate-300 hover:text-slate-800 transition-colors"
+                className="self-start rounded-[9999px] border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600 shadow-sm hover:border-slate-300 hover:text-slate-800 transition-colors"
             >
                 {open ? "隐藏思考过程" : buttonLabel}
             </button>
 
             {open && (
                 <div
-                    className={`mt-2 text-base leading-loose p-3 overflow-y-auto min-w-0 bg-slate-50 border border-slate-200 text-slate-700 rounded-xl ${styles.scrollbar}`}
+                    className={`mt-2 text-base leading-loose p-3 overflow-y-auto min-w-0 bg-slate-50 border border-slate-200 text-slate-700 rounded-[1.5rem] ${styles.scrollbar}`}
                 >
                     <div className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">
                         {label}

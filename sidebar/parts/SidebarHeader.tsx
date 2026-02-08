@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Plus } from "lucide-react";
 import { MechHubLogo } from "../../shared/MechHubLogo";
 import { Button } from "../../shared/ui/button";
@@ -26,13 +26,13 @@ export const SidebarHeader = ({
             <Button
                 onClick={onNewQuest}
                 size="sm"
-                className="w-full rounded-xl text-on-ink text-[1.125rem]"
+                className="w-full rounded-[1.5rem] text-[#ffffff] text-[1.125rem]"
             >
                 <Plus
                     size={ICON_SIZE.lg}
                     strokeWidth={ICON_STROKE_WIDTH.strong}
                 />
-                <span className="text-on-ink text-[1.1875rem]">新对话</span>
+                <span className="text-[#ffffff] text-[1.1875rem]">新对话</span>
             </Button>
         </div>
     );

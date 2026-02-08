@@ -3,17 +3,17 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../utils";
 
 const inputVariants = cva(
-    "flex w-full border text-text-secondary outline-none transition-all placeholder:text-text-faint disabled:cursor-not-allowed disabled:opacity-70",
+    "flex w-full border text-[#334155] outline-none transition-all placeholder:text-[#94a3b8] disabled:cursor-not-allowed disabled:opacity-70",
     {
         variants: {
             variant: {
                 default:
-                    "border-border-subtle bg-fill-muted focus:border-ink focus:ring-1 focus:ring-ink",
-                ghost: "border-border-subtle bg-surface focus:border-text-faint focus:ring-1 focus:ring-focus-ring",
+                    "border-[#e2e8f0] bg-[#f8fafc] focus:border-[#000000] focus:ring-1 focus:ring-[#000000]",
+                ghost: "border-[#e2e8f0] bg-[#ffffff] focus:border-[#94a3b8] focus:ring-1 focus:ring-[#cbd5e1]",
             },
             inputSize: {
-                sm: "px-3 py-2 text-sm rounded-md",
-                md: "px-4 py-3 text-base rounded-lg",
+                sm: "px-3 py-2 text-sm rounded-[0.75rem]",
+                md: "px-4 py-3 text-base rounded-[1rem]",
             },
         },
         defaultVariants: {

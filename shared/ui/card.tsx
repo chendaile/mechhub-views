@@ -5,14 +5,14 @@ import { cn } from "../utils";
 const cardVariants = cva("border", {
     variants: {
         variant: {
-            surface: "border-border-soft bg-surface",
-            glass: "border-white/50 bg-surface-glass",
+            surface: "border-[#f1f5f9] bg-[#ffffff]",
+            glass: "border-white/50 bg-[rgb(255_255_255_/_0.3)]",
         },
         radius: {
-            lg: "rounded-lg",
-            xl: "rounded-xl",
-            "3xl": "rounded-3xl",
-            hero: "rounded-hero",
+            lg: "rounded-[1rem]",
+            xl: "rounded-[1.5rem]",
+            "3xl": "rounded-[3rem]",
+            hero: "rounded-[2.5rem]",
         },
         shadow: {
             sm: "shadow-sm",

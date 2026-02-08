@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { motion } from "motion/react";
 import { Lock } from "lucide-react";
 
@@ -28,7 +28,7 @@ export const TimelineNode = ({
             transition={{ delay, type: "spring", stiffness: 200 }}
         >
             <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center border-[4px] z-10 shadow-sm relative ${
+                className={`w-10 h-10 rounded-[9999px] flex items-center justify-center border-[4px] z-10 shadow-sm relative ${
                     status === "completed"
                         ? "bg-white border-blue-500"
                         : status === "current"
@@ -37,10 +37,10 @@ export const TimelineNode = ({
                 }`}
             >
                 {status === "completed" && (
-                    <div className="w-3 h-3 bg-blue-500 rounded-full" />
+                    <div className="w-3 h-3 bg-blue-500 rounded-[9999px]" />
                 )}
                 {status === "current" && (
-                    <div className="w-3 h-3 bg-white rounded-full animate-pulse" />
+                    <div className="w-3 h-3 bg-white rounded-[9999px] animate-pulse" />
                 )}
                 {status === "locked" && (
                     <Lock size={14} className="text-slate-300" />

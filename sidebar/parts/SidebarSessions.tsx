@@ -26,18 +26,18 @@ export const SidebarSessions = ({
 }: SidebarSessionsProps) => {
     return (
         <div className={`flex-1 overflow-y-auto px-6 py-2 ${styles.scrollbar}`}>
-            <h3 className="text-xs font-bold text-text-faint uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-4">
                 最近对话
             </h3>
             <div className="space-y-1">
                 {isLoading ? (
                     <div className="animate-pulse space-y-3">
-                        <div className="h-10 bg-fill-soft rounded-lg w-full"></div>
-                        <div className="h-10 bg-fill-soft rounded-lg w-full"></div>
-                        <div className="h-10 bg-fill-soft rounded-lg w-full"></div>
+                        <div className="h-10 bg-[#f1f5f9] rounded-[1rem] w-full"></div>
+                        <div className="h-10 bg-[#f1f5f9] rounded-[1rem] w-full"></div>
+                        <div className="h-10 bg-[#f1f5f9] rounded-[1rem] w-full"></div>
                     </div>
                 ) : sessions.length === 0 ? (
-                    <div className="text-sm text-text-faint text-center py-4">
+                    <div className="text-sm text-[#94a3b8] text-center py-4">
                         暂无历史记录
                     </div>
                 ) : (

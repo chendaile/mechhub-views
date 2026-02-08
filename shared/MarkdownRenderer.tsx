@@ -25,7 +25,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
                         const match = /language-(\w+)/.exec(className || "");
                         return !inline && match ? (
                             <div
-                                className={`rounded-lg overflow-x-auto my-2 shadow-sm border border-slate-700/50 ${styles.scrollbar}`}
+                                className={`rounded-[1rem] overflow-x-auto my-2 shadow-sm border border-slate-700/50 ${styles.scrollbar}`}
                                 style={{ width: 0, minWidth: "100%" }}
                             >
                                 <SyntaxHighlighter
@@ -46,7 +46,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
                             </div>
                         ) : (
                             <code
-                                className={`${className ?? ""} rounded border border-slate-200 bg-slate-100 px-1.5 py-0.5 text-sm font-mono text-slate-800`}
+                                className={`${className ?? ""} rounded-[0.25rem] border border-slate-200 bg-slate-100 px-1.5 py-0.5 text-sm font-mono text-slate-800`}
                                 {...props}
                             >
                                 {children}
@@ -90,13 +90,13 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
                         </a>
                     ),
                     blockquote: ({ children }) => (
-                        <blockquote className="border-l-4 border-slate-300 pl-4 my-2 italic text-slate-500 bg-slate-50 py-1 pr-2 rounded-r">
+                        <blockquote className="border-l-4 border-slate-300 pl-4 my-2 italic text-slate-500 bg-slate-50 py-1 pr-2 rounded-r-[0.25rem]">
                             {children}
                         </blockquote>
                     ),
                     table: ({ children }) => (
                         <div
-                            className={`overflow-x-auto my-4 border border-slate-200 rounded-lg ${styles.scrollbar}`}
+                            className={`overflow-x-auto my-4 border border-slate-200 rounded-[1rem] ${styles.scrollbar}`}
                         >
                             <table className="min-w-full divide-y divide-slate-200">
                                 {children}

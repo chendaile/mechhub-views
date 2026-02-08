@@ -36,7 +36,7 @@ export const FileAttachmentPreview: React.FC<FileAttachmentPreviewProps> = ({
 
     return (
         <div
-            className={`border rounded-lg overflow-hidden shadow-sm ${
+            className={`border rounded-[1rem] overflow-hidden shadow-sm ${
                 role === "user"
                     ? "bg-slate-800 border-slate-700"
                     : "bg-slate-50 border-slate-200"

@@ -1,4 +1,4 @@
-﻿import { Chrome, GraduationCap } from "lucide-react";
+import { Chrome, GraduationCap } from "lucide-react";
 import { Button } from "../../shared/ui/button";
 import { ICON_SIZE } from "../../shared/ui-constants";
 
@@ -17,13 +17,13 @@ export const AuthSocialButtons = ({ onSocialLogin }: AuthSocialButtonsProps) => 
             >
                 <Chrome
                     size={ICON_SIZE["2xl"]}
-                    className="text-text-secondary"
+                    className="text-[#334155]"
                 />
             </Button>
             <Button variant="soft" size="icon" title="校园账号登录 (模拟)">
                 <GraduationCap
                     size={ICON_SIZE["2xl"]}
-                    className="text-text-secondary"
+                    className="text-[#334155]"
                 />
             </Button>
         </div>

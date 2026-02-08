@@ -24,13 +24,13 @@ export const ProfileHeader = ({
                 <div className="flex gap-2">
                     <button
                         onClick={onCancel}
-                        className="p-2 rounded-full hover:bg-slate-200 text-slate-500 transition-colors"
+                        className="p-2 rounded-[9999px] hover:bg-slate-200 text-slate-500 transition-colors"
                     >
                         <X size={20} />
                     </button>
                     <button
                         onClick={onSave}
-                        className="p-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 shadow-md transition-all hover:scale-105"
+                        className="p-2 rounded-[9999px] bg-blue-600 text-white hover:bg-blue-700 shadow-md transition-all hover:scale-105"
                     >
                         <Save size={20} />
                     </button>
@@ -38,7 +38,7 @@ export const ProfileHeader = ({
             ) : (
                 <button
                     onClick={onStartEdit}
-                    className="p-2 rounded-full hover:bg-slate-200 text-slate-500 transition-colors"
+                    className="p-2 rounded-[9999px] hover:bg-slate-200 text-slate-500 transition-colors"
                 >
                     <Edit2 size={20} />
                 </button>

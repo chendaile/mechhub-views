@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
     ArrowRight,
@@ -106,7 +106,7 @@ export const UnifiedInputBarView = ({
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.8 }}
-                                className="relative w-16 h-16 rounded-lg overflow-hidden border border-slate-200 shadow-sm shrink-0 group"
+                                className="relative w-16 h-16 rounded-[1rem] overflow-hidden border border-slate-200 shadow-sm shrink-0 group"
                             >
                                 <img
                                     src={att.previewUrl}
@@ -122,7 +122,7 @@ export const UnifiedInputBarView = ({
                                     <button
                                         type="button"
                                         onClick={() => onRemoveImage(att.id)}
-                                        className="absolute top-1 right-1 bg-white text-slate-700 rounded-full p-1 shadow-sm border border-slate-200 hover:bg-slate-100 transition-colors z-10"
+                                        className="absolute top-1 right-1 bg-white text-slate-700 rounded-[9999px] p-1 shadow-sm border border-slate-200 hover:bg-slate-100 transition-colors z-10"
                                     >
                                         <X size={14} />
                                     </button>
@@ -136,7 +136,7 @@ export const UnifiedInputBarView = ({
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.8 }}
-                                className="relative px-3 py-2 rounded-lg bg-slate-100 border border-slate-200 shadow-sm shrink-0 group flex items-center gap-2"
+                                className="relative px-3 py-2 rounded-[1rem] bg-slate-100 border border-slate-200 shadow-sm shrink-0 group flex items-center gap-2"
                             >
                                 <FileText size={14} className="text-slate-600" />
                                 <span className="text-xs text-slate-700 truncate max-w-[80px]">
@@ -145,7 +145,7 @@ export const UnifiedInputBarView = ({
                                 <button
                                     type="button"
                                     onClick={() => onRemoveFile(att.filename)}
-                                    className="ml-1 text-slate-400 hover:text-slate-600 p-0.5 hover:bg-slate-200 rounded"
+                                    className="ml-1 text-slate-400 hover:text-slate-600 p-0.5 hover:bg-slate-200 rounded-[0.25rem]"
                                 >
                                     <X size={14} />
                                 </button>
@@ -242,7 +242,7 @@ export const UnifiedInputBarView = ({
                 <button
                     type="button"
                     onClick={onUploadClick}
-                    className="p-3 rounded-full hover:bg-slate-200 text-slate-400 transition-colors"
+                    className="p-3 rounded-[9999px] hover:bg-slate-200 text-slate-400 transition-colors"
                     title="上传文件（图片或文本）"
                 >
                     <Paperclip size={20} />
@@ -258,7 +258,7 @@ export const UnifiedInputBarView = ({
                         }
                     }}
                     disabled={isSendDisabled}
-                    className={`p-3 rounded-full transition-all shadow-md ml-1 flex items-center justify-center ${
+                    className={`p-3 rounded-[9999px] transition-all shadow-md ml-1 flex items-center justify-center ${
                         showStopButton
                             ? "bg-red-500 hover:bg-red-600 text-white"
                             : "bg-slate-900 text-white hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed"

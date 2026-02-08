@@ -45,7 +45,7 @@ export const StepFeedbackList: React.FC<StepFeedbackListProps> = ({
                             stiffness: 300,
                             damping: 20,
                         }}
-                        className={`bg-white rounded-xl p-4 m-2 cursor-pointer border-2 transition-colors ${
+                        className={`bg-white rounded-[1.5rem] p-4 m-2 cursor-pointer border-2 transition-colors ${
                             activeStepIndex === idx
                                 ? "border-slate-800 shadow-lg"
                                 : "border-transparent hover:border-slate-200"
@@ -70,7 +70,7 @@ export const StepFeedbackList: React.FC<StepFeedbackListProps> = ({
 
                         {/* 公式 */}
                         {step.formula && step.formula.trim() !== "" && (
-                            <div className="mt-3 ml-7 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                            <div className="mt-3 ml-7 rounded-[1rem] border border-slate-200 bg-slate-50 px-3 py-2">
                                 <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">
                                     公式
                                 </div>
@@ -82,7 +82,7 @@ export const StepFeedbackList: React.FC<StepFeedbackListProps> = ({
 
                         {/* 文字说明 */}
                         {step.text && step.text.trim() !== "" && (
-                            <div className="mt-3 ml-7 rounded-lg border border-slate-200 bg-white px-3 py-2">
+                            <div className="mt-3 ml-7 rounded-[1rem] border border-slate-200 bg-white px-3 py-2">
                                 <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">
                                     文字说明
                                 </div>
@@ -96,7 +96,7 @@ export const StepFeedbackList: React.FC<StepFeedbackListProps> = ({
                         {!step.isCorrect &&
                             step.correctFormula &&
                             step.correctFormula.trim() !== "" && (
-                                <div className="mt-3 ml-7 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2">
+                                <div className="mt-3 ml-7 rounded-[1rem] border border-emerald-200 bg-emerald-50 px-3 py-2">
                                     <div className="text-[11px] font-semibold text-emerald-700 uppercase tracking-wider mb-1">
                                         正确修正公式
                                     </div>
@@ -110,7 +110,7 @@ export const StepFeedbackList: React.FC<StepFeedbackListProps> = ({
 
                         {/* 建议（如果有） */}
                         {step.suggestion && (
-                            <div className="mt-3 ml-7 flex items-start gap-2 p-3 bg-amber-50 rounded-lg border border-amber-100">
+                            <div className="mt-3 ml-7 flex items-start gap-2 p-3 bg-amber-50 rounded-[1rem] border border-amber-100">
                                 <Lightbulb className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                                 <div className="text-xs text-amber-700 leading-relaxed">
                                     <MarkdownRenderer

@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Card } from "../shared/ui/card";
 import { MechHubLogo } from "../shared/MechHubLogo";
 import { AuthForm } from "./parts/AuthForm";
@@ -38,7 +38,7 @@ export const AuthPageView: React.FC<AuthPageViewProps> = ({
     setIsVerificationPending,
 }) => {
     return (
-        <div className="min-h-screen w-full flex items-center justify-center bg-canvas p-4">
+        <div className="min-h-screen w-full flex items-center justify-center bg-[#f8fafc] p-4">
             <Card
                 radius="3xl"
                 shadow="xl"

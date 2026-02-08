@@ -55,7 +55,7 @@ export const TextMessageView: React.FC<TextMessageViewProps> = ({
                         {displayImages.map((url, idx) => (
                             <div
                                 key={idx}
-                                className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-sm cursor-zoom-in group transition-transform hover:scale-[1.02]"
+                                className="relative rounded-[2rem] overflow-hidden border border-slate-200 shadow-sm cursor-zoom-in group transition-transform hover:scale-[1.02]"
                                 onClick={() => onImageClick(url)}
                                 style={{ width: "120px", height: "120px" }}
                             >
@@ -100,8 +100,8 @@ export const TextMessageView: React.FC<TextMessageViewProps> = ({
                         <div
                             className={`text-base leading-loose p-3 overflow-y-auto min-w-0 ${styles.scrollbar} ${
                                 role === "user"
-                                    ? "bg-slate-900 text-white rounded-xl rounded-tr-xs"
-                                    : "bg-fill-muted border-none text-slate-700 rounded-none"
+                                    ? "bg-slate-900 text-white rounded-[1.5rem] rounded-tr-[0.125rem]"
+                                    : "bg-[#f8fafc] border-none text-slate-700 rounded-none"
                             }`}
                         >
                             {role === "user" ? (
@@ -120,7 +120,7 @@ export const TextMessageView: React.FC<TextMessageViewProps> = ({
                         >
                             <button
                                 onClick={onCopy}
-                                className={`px-3 py-1.5 rounded-lg transition-all duration-200 flex items-center gap-1.5 text-xs font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                                className={`px-3 py-1.5 rounded-[1rem] transition-all duration-200 flex items-center gap-1.5 text-xs font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                                     role === "user"
                                         ? `${
                                               isCopied

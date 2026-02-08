@@ -96,10 +96,10 @@ export const SessionItem: React.FC<SessionItemProps> = ({
         <div
             onClick={onClick}
             className={cn(
-                "w-full group flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-colors relative cursor-pointer",
+                "w-full group flex items-center gap-3 px-3 py-3 rounded-[1.5rem] text-sm font-medium transition-colors relative cursor-pointer",
                 active
-                    ? "bg-surface text-text-secondary"
-                    : "text-text-subtle hover:bg-surface hover:text-text-secondary",
+                    ? "bg-[#ffffff] text-[#334155]"
+                    : "text-[#64748b] hover:bg-[#ffffff] hover:text-[#334155]",
             )}
         >
             {isEditing ? (
@@ -124,7 +124,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                                 e.stopPropagation();
                                 handleSaveRename();
                             }}
-                            className="p-1 hover:bg-success-bg rounded transition-all text-text-subtle hover:text-success"
+                            className="p-1 hover:bg-[#dcfce7] rounded-[0.25rem] transition-all text-[#64748b] hover:text-[#16a34a]"
                             title="保存 (Enter)"
                         >
                             <Check size={ICON_SIZE.xs} />
@@ -134,7 +134,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                                 e.stopPropagation();
                                 handleCancelRename();
                             }}
-                            className="p-1 hover:bg-danger-bg rounded transition-all text-text-subtle hover:text-danger-hover"
+                            className="p-1 hover:bg-[#fef2f2] rounded-[0.25rem] transition-all text-[#64748b] hover:text-[#dc2626]"
                             title="取消 (Esc)"
                         >
                             <X size={ICON_SIZE.xs} />
@@ -145,7 +145,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                 <>
                     {isGeneratingTitle ? (
                         <div className="flex-1 flex items-center gap-2">
-                            <div className="h-3 bg-border-subtle rounded animate-pulse flex-1 max-w-[7.5rem]"></div>
+                            <div className="h-3 bg-[#e2e8f0] rounded-[0.25rem] animate-pulse flex-1 max-w-[7.5rem]"></div>
                             <div className="text-meta animate-pulse">
                                 生成中...
                             </div>
@@ -164,7 +164,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                                         e.stopPropagation();
                                         setIsMenuOpen(!isMenuOpen);
                                     }}
-                                    className="rounded-md p-1.5 text-text-faint opacity-0 transition-all group-hover:opacity-100 hover:bg-border-subtle hover:text-text-secondary"
+                                    className="rounded-[0.75rem] p-1.5 text-[#94a3b8] opacity-0 transition-all group-hover:opacity-100 hover:bg-[#e2e8f0] hover:text-[#334155]"
                                     title="更多操作"
                                 >
                                     <MoreVertical size={ICON_SIZE.md} />
@@ -172,7 +172,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
 
                                 {/* Dropdown menu */}
                                 {isMenuOpen && (
-                                    <div className="absolute right-0 top-full mt-1 bg-surface rounded-lg shadow-xl border border-border-soft py-1.5 w-32 z-50 overflow-hidden">
+                                    <div className="absolute right-0 top-full mt-1 bg-[#ffffff] rounded-[1rem] shadow-xl border border-[#f1f5f9] py-1.5 w-32 z-50 overflow-hidden">
                                         {onRename && (
                                             <button
                                                 onClick={(e) => {
@@ -180,11 +180,11 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                                                     setIsMenuOpen(false);
                                                     setIsEditing(true);
                                                 }}
-                                                className="w-full px-3 py-2 text-left text-sm hover:bg-fill-muted flex items-center gap-2.5 text-text-secondary transition-colors whitespace-nowrap leading-none"
+                                                className="w-full px-3 py-2 text-left text-sm hover:bg-[#f8fafc] flex items-center gap-2.5 text-[#334155] transition-colors whitespace-nowrap leading-none"
                                             >
                                                 <Edit2
                                                     size={ICON_SIZE.sm}
-                                                    className="text-info stroke-[1.5]"
+                                                    className="text-[#3b82f6] stroke-[1.5]"
                                                 />
                                                 <span className="font-medium">
                                                     重命名
@@ -198,11 +198,11 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                                                     setIsMenuOpen(false);
                                                     onDelete(e);
                                                 }}
-                                                className="w-full px-3 py-2 text-left text-sm hover:bg-danger-bg flex items-center gap-2.5 text-text-secondary hover:text-danger-hover transition-colors whitespace-nowrap leading-none"
+                                                className="w-full px-3 py-2 text-left text-sm hover:bg-[#fef2f2] flex items-center gap-2.5 text-[#334155] hover:text-[#dc2626] transition-colors whitespace-nowrap leading-none"
                                             >
                                                 <Trash2
                                                     size={ICON_SIZE.sm}
-                                                    className="text-danger stroke-[1.5]"
+                                                    className="text-[#ef4444] stroke-[1.5]"
                                                 />
                                                 <span className="font-medium">
                                                     删除

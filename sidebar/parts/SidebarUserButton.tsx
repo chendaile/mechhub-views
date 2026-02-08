@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Settings } from "lucide-react";
 import { cn } from "../../shared/utils";
 import { ICON_SIZE } from "../../shared/ui-constants";
@@ -19,13 +19,13 @@ export const SidebarUserButton = ({
         <button
             onClick={onClick}
             className={cn(
-                "flex w-full items-center gap-3 rounded-xl p-2 text-left text-[1.25rem] transition-colors",
+                "flex w-full items-center gap-3 rounded-[1.5rem] p-2 text-left text-[1.25rem] transition-colors",
                 activeView === "profile"
-                    ? "bg-surface text-text-secondary"
-                    : "text-text-secondary hover:bg-surface",
+                    ? "bg-[#ffffff] text-[#334155]"
+                    : "text-[#334155] hover:bg-[#ffffff]",
             )}
         >
-            <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border-2 border-surface bg-border-subtle shadow-sm">
+            <div className="h-10 w-10 shrink-0 overflow-hidden rounded-[9999px] border-2 border-[#ffffff] bg-[#e2e8f0] shadow-sm">
                 <img
                     src={user.avatar}
                     alt={user.name}
@@ -33,11 +33,11 @@ export const SidebarUserButton = ({
                 />
             </div>
             <div className="flex-1 min-w-0">
-                <div className="font-bold text-sm text-text-secondary truncate">
+                <div className="font-bold text-sm text-[#334155] truncate">
                     {user.name}
                 </div>
             </div>
-            <Settings size={ICON_SIZE.md} className="text-focus-ring" />
+            <Settings size={ICON_SIZE.md} className="text-[#cbd5e1]" />
         </button>
     );
 };

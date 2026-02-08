@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Camera, Edit2 } from "lucide-react";
 
 interface ProfileAvatarProps {
@@ -10,7 +10,7 @@ export const ProfileAvatar = ({ avatar, isEditing }: ProfileAvatarProps) => {
     return (
         <div className="relative group cursor-pointer mb-8">
             <div
-                className={`w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-xl ring-1 ring-slate-100 relative ${
+                className={`w-32 h-32 rounded-[9999px] overflow-hidden border-4 border-white shadow-xl ring-1 ring-slate-100 relative ${
                     isEditing ? "ring-blue-400 ring-4" : ""
                 }`}
             >
@@ -26,7 +26,7 @@ export const ProfileAvatar = ({ avatar, isEditing }: ProfileAvatarProps) => {
                 )}
             </div>
             {!isEditing && (
-                <div className="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full shadow-lg border-2 border-white hover:bg-blue-700 transition-colors">
+                <div className="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-[9999px] shadow-lg border-2 border-white hover:bg-blue-700 transition-colors">
                     <Edit2 size={16} />
                 </div>
             )}

@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { ImageGradingResult } from "../types";
 import { StepAnnotationBox } from "./StepAnnotationBox";
 import { StepFeedbackList } from "./StepFeedbackList";
@@ -58,7 +58,7 @@ export const ImageGradingPanelView: React.FC<ImageGradingPanelViewProps> = ({
 }) => {
     return (
         <>
-            <div className="flex flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg">
+            <div className="flex flex-col overflow-hidden rounded-[3rem] border border-slate-200 bg-white shadow-lg">
                 <div
                     className="relative w-full bg-linear-to-b from-slate-50 to-slate-100 cursor-pointer group border-b border-slate-100 flex items-center justify-center overflow-hidden"
                     onClick={openDetail}
@@ -81,7 +81,7 @@ export const ImageGradingPanelView: React.FC<ImageGradingPanelViewProps> = ({
                         ))}
                     </div>
                     <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center transition-colors group-hover:bg-black/10">
-                        <motion.div className="rounded-full bg-white/95 px-6 py-3 shadow-xl opacity-0 transition-all translate-y-4 group-hover:translate-y-0 group-hover:opacity-100">
+                        <motion.div className="rounded-[9999px] bg-white/95 px-6 py-3 shadow-xl opacity-0 transition-all translate-y-4 group-hover:translate-y-0 group-hover:opacity-100">
                             <span className="text-base font-semibold text-slate-800 flex items-center gap-2">
                                 <ZoomIn size={18} /> 查看详情
                             </span>
@@ -103,7 +103,7 @@ export const ImageGradingPanelView: React.FC<ImageGradingPanelViewProps> = ({
                             <motion.div
                                 key={step.stepNumber}
                                 whileHover={{ scale: 1.1 }}
-                                className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shadow-md border-2 cursor-pointer transition-all hover:shadow-lg ${
+                                className={`w-10 h-10 rounded-[9999px] flex items-center justify-center text-sm font-bold shadow-md border-2 cursor-pointer transition-all hover:shadow-lg ${
                                     step.isCorrect
                                         ? "bg-green-500 border-green-600 text-white"
                                         : "bg-red-500 border-red-600 text-white"
@@ -136,7 +136,7 @@ export const ImageGradingPanelView: React.FC<ImageGradingPanelViewProps> = ({
                                 damping: 25,
                                 stiffness: 300,
                             }}
-                            className="bg-white rounded-2xl w-full max-w-7xl h-[90vh] overflow-hidden flex flex-col shadow-2xl"
+                            className="bg-white rounded-[2rem] w-full max-w-7xl h-[90vh] overflow-hidden flex flex-col shadow-2xl"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-white z-10">
@@ -145,7 +145,7 @@ export const ImageGradingPanelView: React.FC<ImageGradingPanelViewProps> = ({
                                 </h3>
                                 <button
                                     onClick={closeDetail}
-                                    className="p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-500 hover:text-slate-800"
+                                    className="p-2 hover:bg-slate-100 rounded-[9999px] transition-colors text-slate-500 hover:text-slate-800"
                                 >
                                     <X size={24} />
                                 </button>
@@ -167,7 +167,7 @@ export const ImageGradingPanelView: React.FC<ImageGradingPanelViewProps> = ({
                                     onMouseLeave={onMouseUp}
                                 >
                                     <div
-                                        className="relative shadow-2xl rounded-lg bg-white border border-slate-200 max-w-full max-h-full flex flex-col origin-center transition-transform duration-100 ease-out"
+                                        className="relative shadow-2xl rounded-[1rem] bg-white border border-slate-200 max-w-full max-h-full flex flex-col origin-center transition-transform duration-100 ease-out"
                                         style={{
                                             transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
                                         }}
@@ -192,7 +192,7 @@ export const ImageGradingPanelView: React.FC<ImageGradingPanelViewProps> = ({
                                     </div>
 
                                     <div
-                                        className="absolute top-4 left-4 bg-white/90 backdrop-blur shadow-lg border border-slate-200 rounded-full px-4 py-2 flex items-center gap-4 z-10"
+                                        className="absolute top-4 left-4 bg-white/90 backdrop-blur shadow-lg border border-slate-200 rounded-[9999px] px-4 py-2 flex items-center gap-4 z-10"
                                         onMouseDown={(e) => e.stopPropagation()}
                                         onClick={(e) => e.stopPropagation()}
                                     >
@@ -258,7 +258,7 @@ export const ImageGradingPanelView: React.FC<ImageGradingPanelViewProps> = ({
                                         stiffness: 300,
                                         damping: 30,
                                     }}
-                                    className="absolute top-1/2 z-30 -translate-y-1/2 rounded-l-lg border border-slate-200 bg-white p-1.5 shadow-md hover:bg-slate-50 hover:text-blue-600"
+                                    className="absolute top-1/2 z-30 -translate-y-1/2 rounded-l-[1rem] border border-slate-200 bg-white p-1.5 shadow-md hover:bg-slate-50 hover:text-blue-600"
                                     style={{
                                         borderRight: isSidebarOpen
                                             ? "none"

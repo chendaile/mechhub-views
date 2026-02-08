@@ -23,7 +23,7 @@ export const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({
                 {/* Close button fixed to top-right of screen */}
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 p-2 text-white/70 hover:text-white transition-colors z-50 rounded-full hover:bg-white/10"
+                    className="absolute top-4 right-4 p-2 text-white/70 hover:text-white transition-colors z-50 rounded-[9999px] hover:bg-white/10"
                 >
                     <X size={32} />
                 </button>
@@ -38,7 +38,7 @@ export const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({
                     <img
                         src={previewImage}
                         alt="Full preview"
-                        className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                        className="max-w-full max-h-[90vh] object-contain rounded-[1rem] shadow-2xl"
                     />
                 </motion.div>
             </motion.div>

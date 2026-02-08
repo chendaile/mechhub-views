@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { motion } from "motion/react";
 import { MechHubLogo } from "../shared/MechHubLogo";
 import { cardVariants } from "../shared/ui/card";
@@ -18,7 +18,7 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
     onLogin,
 }) => {
     return (
-        <div className="min-h-screen bg-canvas-alt flex items-center justify-center p-4 md:p-8 font-sans">
+        <div className="min-h-screen bg-[#f0f4f9] flex items-center justify-center p-4 md:p-8 font-sans">
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}

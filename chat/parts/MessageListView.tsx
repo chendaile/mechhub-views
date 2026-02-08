@@ -21,7 +21,7 @@ export const MessageListView: React.FC<MessageListViewProps> = ({
 }) => {
     return (
         <div
-            className={`flex-1 overflow-y-auto px-20 py-8 overflow-x-hidden bg-surface-muted ${styles.scrollbar}`}
+            className={`flex-1 overflow-y-auto px-20 py-8 overflow-x-hidden bg-[#f8fafc] ${styles.scrollbar}`}
             style={{ overflowAnchor: "none" }}
             onScroll={onScroll}
         >

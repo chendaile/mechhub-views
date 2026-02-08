@@ -1,4 +1,4 @@
-﻿import { motion } from "motion/react";
+import { motion } from "motion/react";
 import { Button } from "../../shared/ui/button";
 
 interface LandingHeroProps {
@@ -12,7 +12,7 @@ export const LandingHero = ({ onStart }: LandingHeroProps) => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-5xl md:text-6xl lg:text-7xl font-bold text-text-primary leading-[1.1] tracking-tight font-['Abhaya_Libre'] mb-10"
+                className="text-5xl md:text-6xl lg:text-7xl font-bold text-[#0f172a] leading-[1.1] tracking-tight font-['Abhaya_Libre'] mb-10"
             >
                 Theoretical Mechanics,
                 <br />

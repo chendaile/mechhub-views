@@ -57,9 +57,9 @@ export const GradingResultView: React.FC<GradingResultViewProps> = ({
             </div>
 
             {/* Enhanced Summary Card with Better Visual Hierarchy */}
-            <div className="bg-fill-muted rounded-3xl p-4">
+            <div className="bg-[#f8fafc] rounded-[3rem] p-4">
                 <div className="flex items-start gap-3 mb-4">
-                    <div className="shrink-0 w-1 h-10 bg-slate-900 rounded-full" />
+                    <div className="shrink-0 w-1 h-10 bg-slate-900 rounded-[9999px]" />
                     <div className="flex-1">
                         <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wider mb-3">
                             总体评价
@@ -75,7 +75,7 @@ export const GradingResultView: React.FC<GradingResultViewProps> = ({
                 <button
                     type="button"
                     onClick={() => setShowAnalysis((prev) => !prev)}
-                    className="rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs font-semibold text-slate-600 shadow-sm hover:border-slate-300 hover:text-slate-800 transition-colors"
+                    className="rounded-[9999px] border border-slate-200 bg-white px-4 py-1.5 text-xs font-semibold text-slate-600 shadow-sm hover:border-slate-300 hover:text-slate-800 transition-colors"
                 >
                     {showAnalysis ? "隐藏思考与正文" : "查看思考与正文"}
                 </button>
@@ -89,7 +89,7 @@ export const GradingResultView: React.FC<GradingResultViewProps> = ({
                             defaultOpen={true}
                         />
 
-                        <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                        <div className="rounded-[2rem] border border-slate-200 bg-white p-4">
                             <div className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">
                                 正文回复
                             </div>
@@ -109,10 +109,10 @@ export const GradingResultView: React.FC<GradingResultViewProps> = ({
 
             {/* Image Navigation Section */}
             {hasMultipleImages && (
-                <div className="flex items-center justify-center gap-6 mb-8 px-4 py-3 bg-slate-50 rounded-2xl">
+                <div className="flex items-center justify-center gap-6 mb-8 px-4 py-3 bg-slate-50 rounded-[2rem]">
                     <button
                         onClick={goToPrev}
-                        className="p-3 rounded-full bg-white border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all text-slate-700"
+                        className="p-3 rounded-[9999px] bg-white border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all text-slate-700"
                         aria-label="上一张"
                     >
                         <ChevronLeft size={20} strokeWidth={2} />
@@ -122,7 +122,7 @@ export const GradingResultView: React.FC<GradingResultViewProps> = ({
                     </span>
                     <button
                         onClick={goToNext}
-                        className="p-3 rounded-full bg-white border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all text-slate-700"
+                        className="p-3 rounded-[9999px] bg-white border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all text-slate-700"
                         aria-label="下一张"
                     >
                         <ChevronRight size={20} strokeWidth={2} />
@@ -132,11 +132,11 @@ export const GradingResultView: React.FC<GradingResultViewProps> = ({
 
             {/* Current Image Grading Panel */}
             {currentImage ? (
-                <div className="mb-2 border-2 border-black rounded-3xl overflow-hidden shadow-lg">
+                <div className="mb-2 border-2 border-black rounded-[3rem] overflow-hidden shadow-lg">
                     {renderImagePanel ? renderImagePanel(currentImage) : null}
                 </div>
             ) : (
-                <div className="bg-slate-100 rounded-2xl p-12 text-center text-slate-500 border border-slate-200">
+                <div className="bg-slate-100 rounded-[2rem] p-12 text-center text-slate-500 border border-slate-200">
                     <p className="font-semibold">未找到图片数据</p>
                     <p className="text-xs mt-2">
                         images: {JSON.stringify(images)}
