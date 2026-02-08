@@ -8,7 +8,7 @@ export const ProfileTimeline = () => {
         <>
             <h3 className="text-xl font-bold text-slate-900 mb-8">课程进度</h3>
             <div
-                className={`relative w-full h-80 overflow-x-auto overflow-y-hidden ${styles.hideScrollbar}`}
+                className={`relative w-full h-80 overflow-x-auto overflow-y-hidden ${styles.scrollbar}`}
             >
                 <div className="relative flex h-full min-w-[900px] items-center">
                     <svg

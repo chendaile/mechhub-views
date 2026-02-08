@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { FileAttachment } from "../types";
+import styles from "../../shared/scrollbar.module.css";
 
 interface FileAttachmentPreviewProps {
     file: FileAttachment;
@@ -96,7 +97,7 @@ export const FileAttachmentPreview: React.FC<FileAttachmentPreviewProps> = ({
                         <div
                             className={`max-h-96 overflow-auto ${
                                 role === "user" ? "bg-slate-800" : "bg-white"
-                            }`}
+                            } ${styles.scrollbar}`}
                         >
                             <SyntaxHighlighter
                                 language={file.language || "text"}
