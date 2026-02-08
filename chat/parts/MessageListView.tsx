@@ -1,0 +1,40 @@
+﻿import React from "react";
+import { ImagePreviewModal } from "../message/ImagePreviewModal";
+
+interface MessageListViewProps {
+    items: React.ReactNode[];
+    contentRef: React.RefObject<HTMLDivElement>;
+    messagesEndRef: React.RefObject<HTMLDivElement | null>;
+    onScroll: (e: React.UIEvent<HTMLDivElement>) => void;
+    previewImage: string | null;
+    onClosePreview: () => void;
+}
+
+export const MessageListView: React.FC<MessageListViewProps> = ({
+    items,
+    contentRef,
+    messagesEndRef,
+    onScroll,
+    previewImage,
+    onClosePreview,
+}) => {
+    return (
+        <div
+            className="flex-1 overflow-y-auto px-20 py-8 overflow-x-hidden bg-surface-muted"
+            style={{ overflowAnchor: "none" }}
+            onScroll={onScroll}
+        >
+            <div ref={contentRef} className="space-y-6">
+                {items.map((item, index) => (
+                    <div key={index} className="w-full">
+                        {item}
+                    </div>
+                ))}
+            </div>
+
+            <div ref={messagesEndRef} className="h-4" />
+
+            <ImagePreviewModal previewImage={previewImage} onClose={onClosePreview} />
+        </div>
+    );
+};
