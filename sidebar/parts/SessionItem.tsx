@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { Input } from "../../shared/ui/input";
-import { ICON_SIZE } from "../../shared/ui-constants";
 import { cn } from "../../shared/utils";
 
 interface SessionItemProps {
@@ -127,7 +126,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                             className="p-1 hover:bg-[#dcfce7] rounded-[0.25rem] transition-all text-[#64748b] hover:text-[#16a34a]"
                             title="保存 (Enter)"
                         >
-                            <Check size={ICON_SIZE.xs} />
+                            <Check size={14} />
                         </button>
                         <button
                             onClick={(e) => {
@@ -137,7 +136,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                             className="p-1 hover:bg-[#fef2f2] rounded-[0.25rem] transition-all text-[#64748b] hover:text-[#dc2626]"
                             title="取消 (Esc)"
                         >
-                            <X size={ICON_SIZE.xs} />
+                            <X size={14} />
                         </button>
                     </div>
                 </div>
@@ -167,7 +166,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                                     className="rounded-[0.75rem] p-1.5 text-[#94a3b8] opacity-0 transition-all group-hover:opacity-100 hover:bg-[#e2e8f0] hover:text-[#334155]"
                                     title="更多操作"
                                 >
-                                    <MoreVertical size={ICON_SIZE.md} />
+                                    <MoreVertical size={16} />
                                 </button>
 
                                 {/* Dropdown menu */}
@@ -183,7 +182,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                                                 className="w-full px-3 py-2 text-left text-sm hover:bg-[#f8fafc] flex items-center gap-2.5 text-[#334155] transition-colors whitespace-nowrap leading-none"
                                             >
                                                 <Edit2
-                                                    size={ICON_SIZE.sm}
+                                                    size={15}
                                                     className="text-[#3b82f6] stroke-[1.5]"
                                                 />
                                                 <span className="font-medium">
@@ -201,7 +200,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                                                 className="w-full px-3 py-2 text-left text-sm hover:bg-[#fef2f2] flex items-center gap-2.5 text-[#334155] hover:text-[#dc2626] transition-colors whitespace-nowrap leading-none"
                                             >
                                                 <Trash2
-                                                    size={ICON_SIZE.sm}
+                                                    size={15}
                                                     className="text-[#ef4444] stroke-[1.5]"
                                                 />
                                                 <span className="font-medium">

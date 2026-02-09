@@ -2,7 +2,6 @@ import React from "react";
 import { Plus } from "lucide-react";
 import { MechHubLogo } from "../../shared/MechHubLogo";
 import { Button } from "../../shared/ui/button";
-import { ICON_SIZE, ICON_STROKE_WIDTH } from "../../shared/ui-constants";
 
 interface SidebarHeaderProps {
     onLogoClick: () => void;
@@ -29,8 +28,8 @@ export const SidebarHeader = ({
                 className="w-full rounded-[1.5rem] text-[#ffffff] text-[1.125rem]"
             >
                 <Plus
-                    size={ICON_SIZE.lg}
-                    strokeWidth={ICON_STROKE_WIDTH.strong}
+                    size={18}
+                    strokeWidth={3}
                 />
                 <span className="text-[#ffffff] text-[1.1875rem]">新对话</span>
             </Button>

@@ -1,7 +1,6 @@
 import React from "react";
 import { Settings } from "lucide-react";
 import { cn } from "../../shared/utils";
-import { ICON_SIZE } from "../../shared/ui-constants";
 import type { UserProfile, ActiveView } from "../../shared/types";
 
 interface SidebarUserButtonProps {
@@ -37,7 +36,7 @@ export const SidebarUserButton = ({
                     {user.name}
                 </div>
             </div>
-            <Settings size={ICON_SIZE.md} className="text-[#cbd5e1]" />
+            <Settings size={16} className="text-[#cbd5e1]" />
         </button>
     );
 };

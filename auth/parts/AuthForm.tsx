@@ -2,7 +2,6 @@ import type { FormEvent } from "react";
 import { ArrowRight, Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { Button } from "../../shared/ui/button";
 import { Input } from "../../shared/ui/input";
-import { ICON_SIZE } from "../../shared/ui-constants";
 import { cn } from "../../shared/utils";
 import type { AuthMode } from "../types";
 import { AuthSocialButtons } from "./AuthSocialButtons";
@@ -46,7 +45,7 @@ export const AuthForm = ({
                     </label>
                     <div className="relative">
                         <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#94a3b8]">
-                            <Mail size={ICON_SIZE.lg} />
+                            <Mail size={18} />
                         </div>
                         <Input
                             type="email"
@@ -82,7 +81,7 @@ export const AuthForm = ({
                     </div>
                     <div className="relative">
                         <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#94a3b8]">
-                            <Lock size={ICON_SIZE.lg} />
+                            <Lock size={18} />
                         </div>
                         <Input
                             type={showPassword ? "text" : "password"}
@@ -100,9 +99,9 @@ export const AuthForm = ({
                             className="absolute right-4 top-1/2 -translate-y-1/2 px-0 py-0 text-[#94a3b8] hover:text-[#475569]"
                         >
                             {showPassword ? (
-                                <Eye size={ICON_SIZE.md} />
+                                <Eye size={16} />
                             ) : (
-                                <EyeOff size={ICON_SIZE.md} />
+                                <EyeOff size={16} />
                             )}
                         </Button>
                     </div>
@@ -115,11 +114,11 @@ export const AuthForm = ({
                     className="w-full mt-8"
                 >
                     {isLoading ? (
-                        <Loader2 size={ICON_SIZE.xl} className="animate-spin" />
+                        <Loader2 size={20} className="animate-spin" />
                     ) : (
                         <>
                             {mode === "signin" ? "登录" : "创建账户"}
-                            <ArrowRight size={ICON_SIZE.lg} />
+                            <ArrowRight size={18} />
                         </>
                     )}
                 </Button>
