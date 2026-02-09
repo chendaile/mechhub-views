@@ -1,4 +1,3 @@
-import React from "react";
 import { Card } from "../shared/ui/card";
 import { MechHubLogo } from "../shared/MechHubLogo";
 import { AuthForm } from "./parts/AuthForm";
@@ -22,7 +21,7 @@ interface AuthPageViewProps {
     setIsVerificationPending: (pending: boolean) => void;
 }
 
-export const AuthPageView: React.FC<AuthPageViewProps> = ({
+export const AuthPageView = ({
     mode,
     setMode,
     email,
@@ -36,7 +35,7 @@ export const AuthPageView: React.FC<AuthPageViewProps> = ({
     handleSocialLogin,
     isVerificationPending,
     setIsVerificationPending,
-}) => {
+}: AuthPageViewProps) => {
     return (
         <div className="min-h-screen w-full flex items-center justify-center bg-[#f8fafc] p-4">
             <Card

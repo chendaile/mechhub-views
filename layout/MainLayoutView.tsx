@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import type { ActiveView } from "../shared/types";
 
 interface MainLayoutViewProps {
@@ -17,7 +17,7 @@ export const MainLayoutView = ({
     profile,
 }: MainLayoutViewProps) => {
     return (
-        <div className="flex h-screen bg-white text-slate-800 font-sans overflow-hidden">
+        <div className="flex h-screen bg-white text-slate-800 overflow-hidden" style={{ fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif" }}>
             {sidebar}
 
             <main className="flex-1 flex flex-col h-full relative overflow-hidden min-w-0 min-h-0">

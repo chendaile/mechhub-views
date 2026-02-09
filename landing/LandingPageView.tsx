@@ -18,7 +18,7 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
     onLogin,
 }) => {
     return (
-        <div className="min-h-screen bg-[#f0f4f9] flex items-center justify-center p-4 md:p-8 font-sans">
+        <div className="min-h-screen bg-[#f0f4f9] flex items-center justify-center p-4 md:p-8" style={{ fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif" }}>
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}

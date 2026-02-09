@@ -145,7 +145,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                     {isGeneratingTitle ? (
                         <div className="flex-1 flex items-center gap-2">
                             <div className="h-3 bg-[#e2e8f0] rounded-[0.25rem] animate-pulse flex-1 max-w-[7.5rem]"></div>
-                            <div className="text-meta animate-pulse">
+                            <div className="text-[0.625rem] animate-pulse">
                                 生成中...
                             </div>
                         </div>
