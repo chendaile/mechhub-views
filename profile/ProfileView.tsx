@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { ProfileAvatar } from "./parts/ProfileAvatar";
 import { ProfileFields } from "./parts/ProfileFields";
 import { ProfileHeader } from "./parts/ProfileHeader";

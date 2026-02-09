@@ -1,5 +1,5 @@
 import { GradingStep } from "../types";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 interface StepAnnotationBoxProps {
     step: GradingStep;

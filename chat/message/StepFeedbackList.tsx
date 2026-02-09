@@ -1,6 +1,6 @@
 import React from "react";
 import { GradingStep } from "../types";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { CheckCircle2, XCircle, Lightbulb } from "lucide-react";
 import { MarkdownRenderer } from "../../shared/MarkdownRenderer";
 import styles from "../../shared/scrollbar.module.css";

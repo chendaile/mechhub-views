@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { Button } from "../../shared/ui/button";
 import { cn } from "../../shared/utils";
 import type { AuthMode } from "../types";

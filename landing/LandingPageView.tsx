@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { MechHubLogo } from "../shared/MechHubLogo";
 import { cardVariants } from "../shared/ui/card";
 import { cn } from "../shared/utils";
