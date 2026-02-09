@@ -12,9 +12,7 @@ interface MarkdownRendererProps {
     content: string;
 }
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
-    content,
-}) => {
+export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
     return (
         <div className="leading-normal">
             <ReactMarkdown

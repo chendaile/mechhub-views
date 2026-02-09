@@ -3,45 +3,61 @@ import { GradingResult, ImageGradingResult } from "../types";
 import { AIAvatar } from "../../shared/AIAvatar";
 import { MarkdownRenderer } from "../../shared/MarkdownRenderer";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { ThinkingPanel } from "./ThinkingPanel";
+import { DetailPanel } from "./DetailPanel";
 
 interface GradingResultViewProps {
     gradingResult: GradingResult;
-    reply?: string;
+    body?: string;
     reasoning?: string;
     showThinking?: boolean;
     renderImagePanel?: (image: ImageGradingResult) => ReactNode;
     currentImageIndex: number;
     onPrevImage: () => void;
     onNextImage: () => void;
-    showAnalysis: boolean;
-    onToggleAnalysis: () => void;
+    bodyOpen: boolean;
+    onToggleBody: () => void;
     thinkingOpen: boolean;
     onToggleThinking: () => void;
 }
 
 export const GradingResultView = ({
     gradingResult,
-    reply,
+    body,
     reasoning,
     showThinking = false,
     renderImagePanel,
     currentImageIndex,
     onPrevImage,
     onNextImage,
-    showAnalysis,
-    onToggleAnalysis,
+    bodyOpen,
+    onToggleBody,
     thinkingOpen,
     onToggleThinking,
 }: GradingResultViewProps) => {
-    const hasReply = !!reply && reply.trim().length > 0;
-
     const images = gradingResult.imageGradingResult || [];
     const hasMultipleImages = images.length > 1;
     const currentImage = images[currentImageIndex];
 
     return (
         <div className="w-full">
+            <DetailPanel
+                content={reasoning}
+                show={showThinking}
+                open={thinkingOpen}
+                onToggle={onToggleThinking}
+                className="mb-4"
+            />
+
+            <DetailPanel
+                buttonLabel="查看文字回复"
+                emptyLabel="暂无文字回复"
+                label="文字回复"
+                content={body}
+                open={bodyOpen}
+                onToggle={onToggleBody}
+                className="mb-4"
+            />
+
             {/* Prominent Header with Enhanced Styling */}
             <div className="flex items-center gap-3 mb-6">
                 <AIAvatar isThinking={false} />
@@ -56,55 +72,14 @@ export const GradingResultView = ({
             </div>
 
             {/* Enhanced Summary Card with Better Visual Hierarchy */}
-            <div className="bg-[#f8fafc] rounded-[3rem] p-4">
-                <div className="flex items-start gap-3 mb-4">
-                    <div className="shrink-0 w-1 h-10 bg-slate-900 rounded-[9999px]" />
-                    <div className="flex-1">
-                        <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wider mb-3">
-                            总体评价
-                        </h3>
-                        <div className="text-base leading-relaxed text-slate-900">
-                            <MarkdownRenderer content={gradingResult.summary} />
-                        </div>
-                    </div>
+            <div className="flex items-start gap-3 mb-4 pl-4">
+                <div className="shrink-0 w-1 h-10 bg-slate-900" />
+                <div>
+                    <h3 className="text-sm font-semibold text-slate-900 ">
+                        总体评价
+                    </h3>
+                    <MarkdownRenderer content={gradingResult.summary} />
                 </div>
-            </div>
-
-            <div className="mt-4">
-                <button
-                    type="button"
-                    onClick={onToggleAnalysis}
-                    className="rounded-[9999px] border border-slate-200 bg-white px-4 py-1.5 text-xs font-semibold text-slate-600 shadow-sm hover:border-slate-300 hover:text-slate-800 transition-colors"
-                >
-                    {showAnalysis ? "隐藏思考与正文" : "查看思考与正文"}
-                </button>
-
-                {showAnalysis && (
-                    <div className="mt-3 space-y-3">
-                        <ThinkingPanel
-                            label="思考过程"
-                            reasoning={reasoning}
-                            show={showThinking}
-                            open={thinkingOpen}
-                            onToggle={onToggleThinking}
-                        />
-
-                        <div className="rounded-[2rem] border border-slate-200 bg-white p-4">
-                            <div className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">
-                                正文回复
-                            </div>
-                            {hasReply ? (
-                                <pre className="whitespace-pre-wrap text-sm text-slate-700 font-mono">
-                                    {reply}
-                                </pre>
-                            ) : (
-                                <div className="text-sm text-slate-500">
-                                    暂无正文回复
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                )}
             </div>
 
             {/* Image Navigation Section */}

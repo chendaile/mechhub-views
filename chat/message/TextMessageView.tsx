@@ -3,7 +3,7 @@ import { FileAttachment } from "../types";
 import { AIAvatar } from "../../shared/AIAvatar";
 import { MarkdownRenderer } from "../../shared/MarkdownRenderer";
 import { FileAttachmentPreview } from "./FileAttachmentPreview";
-import { ThinkingPanel } from "./ThinkingPanel";
+import { DetailPanel } from "./DetailPanel";
 import styles from "../../shared/scrollbar.module.css";
 
 interface TextMessageViewProps {
@@ -99,13 +99,12 @@ export const TextMessageView = ({
                     </div>
                 )}
 
-                <ThinkingPanel
+                <DetailPanel
                     label="思考过程"
-                    reasoning={reasoning}
+                    content={reasoning}
                     show={canShowThinking}
                     open={thinkingOpen}
                     onToggle={onToggleThinking}
-                    className="group flex flex-col gap-2"
                 />
 
                 {text && text.trim() && (
