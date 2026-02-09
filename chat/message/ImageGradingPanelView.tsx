@@ -35,7 +35,7 @@ interface ImageGradingPanelViewProps {
     onMouseUp: () => void;
 }
 
-export const ImageGradingPanelView: React.FC<ImageGradingPanelViewProps> = ({
+export const ImageGradingPanelView = ({
     imageGrading,
     showDetail,
     openDetail,
@@ -55,7 +55,7 @@ export const ImageGradingPanelView: React.FC<ImageGradingPanelViewProps> = ({
     onMouseDown,
     onMouseMove,
     onMouseUp,
-}) => {
+}: ImageGradingPanelViewProps) => {
     return (
         <>
             <div className="flex flex-col overflow-hidden rounded-[3rem] border border-slate-200 bg-white shadow-lg">
@@ -180,15 +180,21 @@ export const ImageGradingPanelView: React.FC<ImageGradingPanelViewProps> = ({
                                                 maxHeight: "calc(90vh - 100px)",
                                             }}
                                         />
-                                        {imageGrading.steps?.map((step, idx) => (
-                                            <StepAnnotationBox
-                                                key={step.stepNumber}
-                                                step={step}
-                                                isActive={activeStepIndex === idx}
-                                                onSelect={() => onSelectStep(idx)}
-                                                isCompact={false}
-                                            />
-                                        ))}
+                                        {imageGrading.steps?.map(
+                                            (step, idx) => (
+                                                <StepAnnotationBox
+                                                    key={step.stepNumber}
+                                                    step={step}
+                                                    isActive={
+                                                        activeStepIndex === idx
+                                                    }
+                                                    onSelect={() =>
+                                                        onSelectStep(idx)
+                                                    }
+                                                    isCompact={false}
+                                                />
+                                            ),
+                                        )}
                                     </div>
 
                                     <div
@@ -220,7 +226,9 @@ export const ImageGradingPanelView: React.FC<ImageGradingPanelViewProps> = ({
                                             title="重置视图"
                                         >
                                             <RotateCcw size={16} />
-                                            <span className="text-xs">重置</span>
+                                            <span className="text-xs">
+                                                重置
+                                            </span>
                                         </button>
                                     </div>
                                 </div>
@@ -240,10 +248,14 @@ export const ImageGradingPanelView: React.FC<ImageGradingPanelViewProps> = ({
                                         >
                                             <StepFeedbackList
                                                 steps={imageGrading.steps || []}
-                                                activeStepIndex={activeStepIndex}
+                                                activeStepIndex={
+                                                    activeStepIndex
+                                                }
                                                 onSelectStep={onSelectStep}
                                                 stepRefs={stepRefs}
-                                                stepListContainerRef={stepListContainerRef}
+                                                stepListContainerRef={
+                                                    stepListContainerRef
+                                                }
                                             />
                                         </motion.div>
                                     )}
@@ -264,7 +276,9 @@ export const ImageGradingPanelView: React.FC<ImageGradingPanelViewProps> = ({
                                             ? "none"
                                             : "1px solid #e2e8f0",
                                     }}
-                                    title={isSidebarOpen ? "收起列表" : "展开列表"}
+                                    title={
+                                        isSidebarOpen ? "收起列表" : "展开列表"
+                                    }
                                 >
                                     {isSidebarOpen ? (
                                         <ChevronRight size={20} />

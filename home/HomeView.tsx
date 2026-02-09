@@ -15,11 +15,11 @@ export const HomeView = ({ userName, inputBar }: HomeViewProps) => {
                 <HomeGreeting userName={userName} />
 
                 <div className="w-[90%] max-w-5xl">
-                    <h1
-                        className="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-3 tracking-tight leading-tight min-h-[1.2em]"
-                        style={{ fontFamily: "Courier New, monospace" }}
-                    >
-                        <TypewriterText text="Where should we start?" delay={0.3} />
+                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-3 tracking-tight leading-tight min-h-[1.2em] font-['Courier_New']">
+                        <TypewriterText
+                            text="Where should we start?"
+                            delay={0.3}
+                        />
                     </h1>
 
                     <HomeInput inputBar={inputBar} />

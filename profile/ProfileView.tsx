@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "motion/react";
 import { ProfileAvatar } from "./parts/ProfileAvatar";
 import { ProfileFields } from "./parts/ProfileFields";
@@ -21,7 +20,7 @@ interface ProfileViewProps {
     itemVariants: Record<string, any>;
 }
 
-export const ProfileView: React.FC<ProfileViewProps> = ({
+export const ProfileView = ({
     name,
     setName,
     role,
@@ -33,9 +32,11 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
     handleCancel,
     containerVariants,
     itemVariants,
-}) => {
+}: ProfileViewProps) => {
     return (
-        <div className={`flex-1 h-full overflow-y-auto bg-slate-50/50 ${styles.scrollbar}`}>
+        <div
+            className={`flex-1 h-full overflow-y-auto bg-slate-50/50 ${styles.scrollbar}`}
+        >
             <motion.div
                 className="max-w-5xl mx-auto p-8 md:p-12 pb-24"
                 variants={containerVariants}

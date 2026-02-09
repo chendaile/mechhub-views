@@ -1,4 +1,5 @@
-﻿import type { ActiveView, UserProfile } from "../shared/types";
+import type { ReactNode } from "react";
+import type { ActiveView, UserProfile } from "../shared/types";
 import type { ChatSession, DeleteChatResult } from "../chat/types";
 
 export interface SidebarViewProps {
@@ -12,9 +13,7 @@ export interface SidebarViewProps {
     onLogoClick: () => void;
     onLogoIconClick: (event: React.MouseEvent) => void;
     onNewQuest: () => void;
-    onSelectSession: (id: string) => void;
-    onDeleteSession: (id: string) => void;
-    onRenameSession?: (id: string, newTitle: string) => Promise<boolean>;
+    renderSession: (session: ChatSession, active: boolean) => ReactNode;
     onOpenProfile: () => void;
     onSignOut?: () => void;
 }

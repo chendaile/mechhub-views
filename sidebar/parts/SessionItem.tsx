@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import {
     Trash2,
     LucideIcon,
@@ -7,7 +7,6 @@ import {
     X,
     MoreVertical,
 } from "lucide-react";
-import { toast } from "sonner";
 import { Input } from "../../shared/ui/input";
 import { cn } from "../../shared/utils";
 
@@ -16,9 +15,18 @@ interface SessionItemProps {
     icon: LucideIcon;
     active: boolean;
     onClick: () => void;
-    onDelete?: (e: React.MouseEvent) => void;
-    onRename?: (newTitle: string) => Promise<boolean>;
     isGeneratingTitle?: boolean;
+    isEditing: boolean;
+    editTitle: string;
+    isMenuOpen: boolean;
+    inputRef: React.RefObject<HTMLInputElement>;
+    menuRef: React.RefObject<HTMLDivElement>;
+    onStartEdit?: () => void;
+    onChangeTitle: (value: string) => void;
+    onSave: () => void;
+    onCancel: () => void;
+    onToggleMenu: () => void;
+    onDelete?: () => void;
 }
 
 export const SessionItem: React.FC<SessionItemProps> = ({
@@ -26,68 +34,24 @@ export const SessionItem: React.FC<SessionItemProps> = ({
     icon: Icon,
     active,
     onClick,
-    onDelete,
-    onRename,
     isGeneratingTitle = false,
+    isEditing,
+    editTitle,
+    isMenuOpen,
+    inputRef,
+    menuRef,
+    onStartEdit,
+    onChangeTitle,
+    onSave,
+    onCancel,
+    onToggleMenu,
+    onDelete,
 }) => {
-    const [isEditing, setIsEditing] = useState(false);
-    const [editTitle, setEditTitle] = useState(label);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const inputRef = useRef<HTMLInputElement>(null);
-    const menuRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        if (isEditing && inputRef.current) {
-            inputRef.current.focus();
-            inputRef.current.select();
-        }
-    }, [isEditing]);
-
-    // Close menu when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (
-                menuRef.current &&
-                !menuRef.current.contains(event.target as Node)
-            ) {
-                setIsMenuOpen(false);
-            }
-        };
-
-        if (isMenuOpen) {
-            document.addEventListener("mousedown", handleClickOutside);
-            return () =>
-                document.removeEventListener("mousedown", handleClickOutside);
-        }
-    }, [isMenuOpen]);
-
-    const handleSaveRename = async () => {
-        if (!onRename || editTitle.trim() === "" || editTitle === label) {
-            setIsEditing(false);
-            setEditTitle(label);
-            return;
-        }
-
-        const success = await onRename(editTitle.trim());
-        if (success) {
-            setIsEditing(false);
-            toast.success("重命名成功");
-        } else {
-            setEditTitle(label);
-            setIsEditing(false);
-        }
-    };
-
-    const handleCancelRename = () => {
-        setIsEditing(false);
-        setEditTitle(label);
-    };
-
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === "Enter") {
-            handleSaveRename();
+            onSave();
         } else if (e.key === "Escape") {
-            handleCancelRename();
+            onCancel();
         }
     };
 
@@ -112,16 +76,16 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                         inputSize="sm"
                         variant="ghost"
                         value={editTitle}
-                        onChange={(e) => setEditTitle(e.target.value)}
+                        onChange={(e) => onChangeTitle(e.target.value)}
                         onKeyDown={handleKeyDown}
-                        onBlur={handleSaveRename}
+                        onBlur={onSave}
                         className="flex-1 min-w-0"
                     />
                     <div className="flex shrink-0 items-center gap-0.5">
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
-                                handleSaveRename();
+                                onSave();
                             }}
                             className="p-1 hover:bg-[#dcfce7] rounded-[0.25rem] transition-all text-[#64748b] hover:text-[#16a34a]"
                             title="保存 (Enter)"
@@ -131,7 +95,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
-                                handleCancelRename();
+                                onCancel();
                             }}
                             className="p-1 hover:bg-[#fef2f2] rounded-[0.25rem] transition-all text-[#64748b] hover:text-[#dc2626]"
                             title="取消 (Esc)"
@@ -161,7 +125,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                                 <button
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        setIsMenuOpen(!isMenuOpen);
+                                        onToggleMenu();
                                     }}
                                     className="rounded-[0.75rem] p-1.5 text-[#94a3b8] opacity-0 transition-all group-hover:opacity-100 hover:bg-[#e2e8f0] hover:text-[#334155]"
                                     title="更多操作"
@@ -172,12 +136,11 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                                 {/* Dropdown menu */}
                                 {isMenuOpen && (
                                     <div className="absolute right-0 top-full mt-1 bg-[#ffffff] rounded-[1rem] shadow-xl border border-[#f1f5f9] py-1.5 w-32 z-50 overflow-hidden">
-                                        {onRename && (
+                                        {onStartEdit && (
                                             <button
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    setIsMenuOpen(false);
-                                                    setIsEditing(true);
+                                                    onStartEdit();
                                                 }}
                                                 className="w-full px-3 py-2 text-left text-sm hover:bg-[#f8fafc] flex items-center gap-2.5 text-[#334155] transition-colors whitespace-nowrap leading-none"
                                             >
@@ -194,8 +157,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                                             <button
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    setIsMenuOpen(false);
-                                                    onDelete(e);
+                                                    onDelete();
                                                 }}
                                                 className="w-full px-3 py-2 text-left text-sm hover:bg-[#fef2f2] flex items-center gap-2.5 text-[#334155] hover:text-[#dc2626] transition-colors whitespace-nowrap leading-none"
                                             >

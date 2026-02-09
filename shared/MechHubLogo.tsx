@@ -7,11 +7,11 @@ interface MechHubLogoProps {
     onIconClick?: (e: React.MouseEvent) => void;
 }
 
-export const MechHubLogo: React.FC<MechHubLogoProps> = ({
+export const MechHubLogo = ({
     className,
     onClick,
     onIconClick,
-}) => {
+}: MechHubLogoProps) => {
     return (
         <div
             className={`flex items-center gap-3 select-none ${className}`}
@@ -27,10 +27,7 @@ export const MechHubLogo: React.FC<MechHubLogoProps> = ({
                     strokeWidth={2.5}
                 />
             </div>
-            <span
-                className="text-[32px] font-bold tracking-tight"
-                style={{ fontFamily: "Courier New, monospace" }}
-            >
+            <span className="text-[32px] font-bold tracking-tight font-['Courier_New']">
                 MechHub
             </span>
         </div>

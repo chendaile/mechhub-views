@@ -16,9 +16,7 @@ export const SidebarView: React.FC<SidebarViewProps> = ({
     onLogoClick,
     onLogoIconClick,
     onNewQuest,
-    onSelectSession,
-    onDeleteSession,
-    onRenameSession,
+    renderSession,
     onOpenProfile,
     onSignOut,
 }) => {
@@ -40,9 +38,7 @@ export const SidebarView: React.FC<SidebarViewProps> = ({
                 activeView={activeView}
                 currentSessionId={currentSessionId}
                 isLoading={isLoading}
-                onSelectSession={onSelectSession}
-                onDeleteSession={onDeleteSession}
-                onRenameSession={onRenameSession}
+                renderSession={renderSession}
             />
 
             <SidebarFooter

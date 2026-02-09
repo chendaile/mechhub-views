@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -9,14 +8,16 @@ import styles from "../../shared/scrollbar.module.css";
 interface FileAttachmentPreviewProps {
     file: FileAttachment;
     role: "user" | "assistant";
+    isExpanded: boolean;
+    onToggleExpanded: () => void;
 }
 
-export const FileAttachmentPreview: React.FC<FileAttachmentPreviewProps> = ({
+export const FileAttachmentPreview = ({
     file,
     role,
-}) => {
-    const [isExpanded, setIsExpanded] = useState(false);
-    const toggleExpanded = () => setIsExpanded((prev) => !prev);
+    isExpanded,
+    onToggleExpanded,
+}: FileAttachmentPreviewProps) => {
     const MAX_CHARS_PER_LINE = 100;
 
     const originalLines = file.content.split("\n");
@@ -43,7 +44,7 @@ export const FileAttachmentPreview: React.FC<FileAttachmentPreviewProps> = ({
             }`}
         >
             <button
-                onClick={toggleExpanded}
+                onClick={onToggleExpanded}
                 className="w-full px-4 py-3 flex items-center gap-3 transition-colors"
                 style={{
                     backgroundColor: role === "user" ? "#334155" : "#ffffff",
@@ -131,5 +132,3 @@ export const FileAttachmentPreview: React.FC<FileAttachmentPreviewProps> = ({
         </div>
     );
 };
-
-

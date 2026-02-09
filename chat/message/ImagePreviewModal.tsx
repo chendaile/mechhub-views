@@ -1,4 +1,3 @@
-import React from "react";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -7,10 +6,10 @@ interface ImagePreviewModalProps {
     onClose: () => void;
 }
 
-export const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({
+export const ImagePreviewModal = ({
     previewImage,
     onClose,
-}) => (
+}: ImagePreviewModalProps) => (
     <AnimatePresence>
         {previewImage && (
             <motion.div

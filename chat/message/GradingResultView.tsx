@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import type { ReactNode } from "react";
 import { GradingResult, ImageGradingResult } from "../types";
 import { AIAvatar } from "../../shared/AIAvatar";
 import { MarkdownRenderer } from "../../shared/MarkdownRenderer";
@@ -10,36 +10,35 @@ interface GradingResultViewProps {
     reply?: string;
     reasoning?: string;
     showThinking?: boolean;
-    renderImagePanel?: (image: ImageGradingResult) => React.ReactNode;
+    renderImagePanel?: (image: ImageGradingResult) => ReactNode;
+    currentImageIndex: number;
+    onPrevImage: () => void;
+    onNextImage: () => void;
+    showAnalysis: boolean;
+    onToggleAnalysis: () => void;
+    thinkingOpen: boolean;
+    onToggleThinking: () => void;
 }
 
-export const GradingResultView: React.FC<GradingResultViewProps> = ({
+export const GradingResultView = ({
     gradingResult,
     reply,
     reasoning,
     showThinking = false,
     renderImagePanel,
-}) => {
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [showAnalysis, setShowAnalysis] = useState(false);
-
+    currentImageIndex,
+    onPrevImage,
+    onNextImage,
+    showAnalysis,
+    onToggleAnalysis,
+    thinkingOpen,
+    onToggleThinking,
+}: GradingResultViewProps) => {
     const hasReply = !!reply && reply.trim().length > 0;
 
     const images = gradingResult.imageGradingResult || [];
     const hasMultipleImages = images.length > 1;
     const currentImage = images[currentImageIndex];
-
-    const goToPrev = () => {
-        setCurrentImageIndex((prev) =>
-            prev > 0 ? prev - 1 : images.length - 1,
-        );
-    };
-
-    const goToNext = () => {
-        setCurrentImageIndex((prev) =>
-            prev < images.length - 1 ? prev + 1 : 0,
-        );
-    };
 
     return (
         <div className="w-full">
@@ -74,7 +73,7 @@ export const GradingResultView: React.FC<GradingResultViewProps> = ({
             <div className="mt-4">
                 <button
                     type="button"
-                    onClick={() => setShowAnalysis((prev) => !prev)}
+                    onClick={onToggleAnalysis}
                     className="rounded-[9999px] border border-slate-200 bg-white px-4 py-1.5 text-xs font-semibold text-slate-600 shadow-sm hover:border-slate-300 hover:text-slate-800 transition-colors"
                 >
                     {showAnalysis ? "隐藏思考与正文" : "查看思考与正文"}
@@ -86,7 +85,8 @@ export const GradingResultView: React.FC<GradingResultViewProps> = ({
                             label="思考过程"
                             reasoning={reasoning}
                             show={showThinking}
-                            defaultOpen={true}
+                            open={thinkingOpen}
+                            onToggle={onToggleThinking}
                         />
 
                         <div className="rounded-[2rem] border border-slate-200 bg-white p-4">
@@ -111,7 +111,7 @@ export const GradingResultView: React.FC<GradingResultViewProps> = ({
             {hasMultipleImages && (
                 <div className="flex items-center justify-center gap-6 mb-8 px-4 py-3 bg-slate-50 rounded-[2rem]">
                     <button
-                        onClick={goToPrev}
+                        onClick={onPrevImage}
                         className="p-3 rounded-[9999px] bg-white border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all text-slate-700"
                         aria-label="上一张"
                     >
@@ -121,7 +121,7 @@ export const GradingResultView: React.FC<GradingResultViewProps> = ({
                         图片 {currentImageIndex + 1} / {images.length}
                     </span>
                     <button
-                        onClick={goToNext}
+                        onClick={onNextImage}
                         className="p-3 rounded-[9999px] bg-white border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all text-slate-700"
                         aria-label="下一张"
                     >
@@ -146,5 +146,3 @@ export const GradingResultView: React.FC<GradingResultViewProps> = ({
         </div>
     );
 };
-
-

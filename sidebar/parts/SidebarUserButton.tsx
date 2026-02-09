@@ -1,4 +1,3 @@
-import React from "react";
 import { Settings } from "lucide-react";
 import { cn } from "../../shared/utils";
 import type { UserProfile, ActiveView } from "../../shared/types";

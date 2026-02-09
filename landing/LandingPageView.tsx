@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "motion/react";
 import { MechHubLogo } from "../shared/MechHubLogo";
 import { cardVariants } from "../shared/ui/card";
@@ -13,12 +12,9 @@ interface LandingPageViewProps {
     onLogin: () => void;
 }
 
-export const LandingPageView: React.FC<LandingPageViewProps> = ({
-    onStart,
-    onLogin,
-}) => {
+export const LandingPageView = ({ onStart, onLogin }: LandingPageViewProps) => {
     return (
-        <div className="min-h-screen bg-[#f0f4f9] flex items-center justify-center p-4 md:p-8" style={{ fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif" }}>
+        <div className="min-h-screen bg-[#f0f4f9] flex items-center justify-center p-4 md:p-8 font-['Inter']">
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}

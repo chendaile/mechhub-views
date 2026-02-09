@@ -11,14 +11,14 @@ interface MessageListViewProps {
     onClosePreview: () => void;
 }
 
-export const MessageListView: React.FC<MessageListViewProps> = ({
+export const MessageListView = ({
     items,
     contentRef,
     messagesEndRef,
     onScroll,
     previewImage,
     onClosePreview,
-}) => {
+}: MessageListViewProps) => {
     return (
         <div
             className={`flex-1 overflow-y-auto px-20 py-8 overflow-x-hidden bg-[#f8fafc] ${styles.scrollbar}`}

@@ -1,4 +1,3 @@
-import React from "react";
 import { GradingStep } from "../types";
 import { motion } from "motion/react";
 
@@ -9,12 +8,12 @@ interface StepAnnotationBoxProps {
     isCompact?: boolean;
 }
 
-export const StepAnnotationBox: React.FC<StepAnnotationBoxProps> = ({
+export const StepAnnotationBox = ({
     step,
     isActive,
     onSelect,
     isCompact = false,
-}) => {
+}: StepAnnotationBoxProps) => {
     const labelText = step.isCorrect
         ? `Step ${step.stepNumber}: Correct`
         : `Step ${step.stepNumber}: ${step.stepTitle}`;
@@ -75,5 +74,3 @@ export const StepAnnotationBox: React.FC<StepAnnotationBoxProps> = ({
         </motion.div>
     );
 };
-
-

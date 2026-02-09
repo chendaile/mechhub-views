@@ -1,4 +1,3 @@
-import React from "react";
 import { ZoomIn, Copy, Check } from "lucide-react";
 import { FileAttachment } from "../types";
 import { AIAvatar } from "../../shared/AIAvatar";
@@ -12,26 +11,34 @@ interface TextMessageViewProps {
     text: string;
     reasoning?: string;
     showThinking?: boolean;
+    thinkingOpen: boolean;
+    onToggleThinking: () => void;
     imageUrls?: string[];
     fileAttachments?: FileAttachment[];
+    isAttachmentExpanded: (index: number) => boolean;
+    onToggleAttachment: (index: number) => void;
     onImageClick: (url: string) => void;
     isGenerating?: boolean;
     isCopied: boolean;
     onCopy: () => void;
 }
 
-export const TextMessageView: React.FC<TextMessageViewProps> = ({
+export const TextMessageView = ({
     role,
     text,
     reasoning,
     showThinking = false,
+    thinkingOpen,
+    onToggleThinking,
     imageUrls,
     fileAttachments,
+    isAttachmentExpanded,
+    onToggleAttachment,
     onImageClick,
     isGenerating = false,
     isCopied,
     onCopy,
-}) => {
+}: TextMessageViewProps) => {
     const displayImages = imageUrls && imageUrls.length > 0 ? imageUrls : [];
     const canShowThinking = role === "assistant" && showThinking;
 
@@ -78,11 +85,15 @@ export const TextMessageView: React.FC<TextMessageViewProps> = ({
 
                 {fileAttachments && fileAttachments.length > 0 && (
                     <div className="mb-2 space-y-2">
-                        {fileAttachments.map((file) => (
+                        {fileAttachments.map((file, index) => (
                             <FileAttachmentPreview
-                                key={file.filename}
+                                key={`${file.filename}-${index}`}
                                 file={file}
                                 role={role}
+                                isExpanded={isAttachmentExpanded(index)}
+                                onToggleExpanded={() =>
+                                    onToggleAttachment(index)
+                                }
                             />
                         ))}
                     </div>
@@ -92,6 +103,8 @@ export const TextMessageView: React.FC<TextMessageViewProps> = ({
                     label="思考过程"
                     reasoning={reasoning}
                     show={canShowThinking}
+                    open={thinkingOpen}
+                    onToggle={onToggleThinking}
                     className="group flex flex-col gap-2"
                 />
 
@@ -157,5 +170,3 @@ export const TextMessageView: React.FC<TextMessageViewProps> = ({
         </div>
     );
 };
-
-

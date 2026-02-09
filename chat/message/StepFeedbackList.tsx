@@ -13,13 +13,13 @@ interface StepFeedbackListProps {
     stepListContainerRef: React.RefObject<HTMLDivElement | null>;
 }
 
-export const StepFeedbackList: React.FC<StepFeedbackListProps> = ({
+export const StepFeedbackList = ({
     steps,
     activeStepIndex,
     onSelectStep,
     stepRefs,
     stepListContainerRef,
-}) => {
+}: StepFeedbackListProps) => {
     return (
         <div className="p-2 bg-slate-50 h-full min-h-0 flex flex-col">
             <h4 className="font-bold text-lg text-slate-800 shrink-0 flex items-center justify-center mb-2">
@@ -125,5 +125,3 @@ export const StepFeedbackList: React.FC<StepFeedbackListProps> = ({
         </div>
     );
 };
-
-

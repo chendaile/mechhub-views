@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { MarkdownRenderer } from "../../shared/MarkdownRenderer";
 import styles from "../../shared/scrollbar.module.css";
 
@@ -8,20 +7,21 @@ interface ThinkingPanelProps {
     emptyLabel?: string;
     reasoning?: string;
     show?: boolean;
-    defaultOpen?: boolean;
+    open: boolean;
+    onToggle: () => void;
     className?: string;
 }
 
-export const ThinkingPanel: React.FC<ThinkingPanelProps> = ({
+export const ThinkingPanel = ({
     label,
     buttonLabel = "查看思考过程",
     emptyLabel = "暂无思考过程",
     reasoning,
     show = true,
-    defaultOpen = false,
+    open,
+    onToggle,
     className,
-}) => {
-    const [open, setOpen] = useState(defaultOpen);
+}: ThinkingPanelProps) => {
     const hasReasoning = !!reasoning && reasoning.trim().length > 0;
 
     if (!show) return null;
@@ -30,7 +30,7 @@ export const ThinkingPanel: React.FC<ThinkingPanelProps> = ({
         <div className={className}>
             <button
                 type="button"
-                onClick={() => setOpen((prev) => !prev)}
+                onClick={onToggle}
                 className="self-start rounded-[9999px] border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600 shadow-sm hover:border-slate-300 hover:text-slate-800 transition-colors"
             >
                 {open ? "隐藏思考过程" : buttonLabel}

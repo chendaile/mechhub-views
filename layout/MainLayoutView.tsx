@@ -17,7 +17,7 @@ export const MainLayoutView = ({
     profile,
 }: MainLayoutViewProps) => {
     return (
-        <div className="flex h-screen bg-white text-slate-800 overflow-hidden" style={{ fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif" }}>
+        <div className="flex h-screen bg-white text-slate-800 overflow-hidden font-['Inter']">
             {sidebar}
 
             <main className="flex-1 flex flex-col h-full relative overflow-hidden min-w-0 min-h-0">

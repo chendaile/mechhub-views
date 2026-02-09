@@ -1,5 +1,4 @@
-﻿import React from "react";
-import type { UserProfile, ActiveView } from "../../shared/types";
+﻿import type { UserProfile, ActiveView } from "../../shared/types";
 import { SidebarSignOut } from "./SidebarSignOut";
 import { SidebarUserButton } from "./SidebarUserButton";
 
