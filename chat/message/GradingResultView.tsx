@@ -52,6 +52,7 @@ export const GradingResultView = ({
                 buttonLabel="查看文字回复"
                 emptyLabel="暂无文字回复"
                 label="文字回复"
+                hideButton="隐藏文字回复"
                 content={body}
                 open={bodyOpen}
                 onToggle={onToggleBody}

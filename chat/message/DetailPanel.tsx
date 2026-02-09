@@ -1,5 +1,6 @@
 import { MarkdownRenderer } from "../../shared/MarkdownRenderer";
 import { Button } from "../../shared/ui/button";
+import styles from "../../shared/scrollbar.module.css";
 
 interface DetailPanelProps {
     label?: string;
@@ -44,11 +45,15 @@ export const DetailPanel = ({
                         <div className="text-[11px] font-bold uppercase tracking-widest text-slate-400">
                             {label}
                         </div>
-                        {hasReasoning ? (
-                            <MarkdownRenderer content={content || ""} />
-                        ) : (
-                            <div>{emptyLabel}</div>
-                        )}
+                        <div
+                            className={`max-h-60 overflow-y-auto pr-1 bg-slate-200 ${styles.scrollbar}`}
+                        >
+                            {hasReasoning ? (
+                                <MarkdownRenderer content={content || ""} />
+                            ) : (
+                                <div>{emptyLabel}</div>
+                            )}
+                        </div>
                     </div>
 
                     <div className="w-full h-px bg-black" />
