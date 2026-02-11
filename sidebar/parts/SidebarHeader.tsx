@@ -27,10 +27,7 @@ export const SidebarHeader = ({
                 size="sm"
                 className="w-full rounded-[1.5rem] text-[#ffffff] text-[1.125rem]"
             >
-                <Plus
-                    size={18}
-                    strokeWidth={3}
-                />
+                <Plus size={18} strokeWidth={3} />
                 <span className="text-[#ffffff] text-[1.1875rem]">新对话</span>
             </Button>
         </div>

@@ -22,9 +22,7 @@ export const AuthVerification = ({
             </h3>
             <p className="text-[#475569] mb-8">
                 我们已向{" "}
-                <span className="font-semibold text-[#0f172a]">
-                    {email}
-                </span>{" "}
+                <span className="font-semibold text-[#0f172a]">{email}</span>{" "}
                 发送了一封验证邮件。
                 <br />
                 请点击邮件中的链接以激活您的账户。

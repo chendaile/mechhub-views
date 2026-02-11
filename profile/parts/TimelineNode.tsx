@@ -32,8 +32,8 @@ export const TimelineNode = ({
                     status === "completed"
                         ? "bg-white border-blue-500"
                         : status === "current"
-                            ? "bg-blue-600 border-blue-200 ring-4 ring-blue-100"
-                            : "bg-slate-100 border-slate-200"
+                          ? "bg-blue-600 border-blue-200 ring-4 ring-blue-100"
+                          : "bg-slate-100 border-slate-200"
                 }`}
             >
                 {status === "completed" && (

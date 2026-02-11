@@ -21,7 +21,10 @@ export const ProfileAvatar = ({ avatar, isEditing }: ProfileAvatarProps) => {
                 />
                 {isEditing && (
                     <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                        <Camera className="text-white drop-shadow-md" size={32} />
+                        <Camera
+                            className="text-white drop-shadow-md"
+                            size={32}
+                        />
                     </div>
                 )}
             </div>

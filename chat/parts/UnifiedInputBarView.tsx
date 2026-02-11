@@ -96,7 +96,8 @@ export const UnifiedInputBarView = ({
             />
 
             <AnimatePresence>
-                {(imageAttachments.length > 0 || fileAttachments.length > 0) && (
+                {(imageAttachments.length > 0 ||
+                    fileAttachments.length > 0) && (
                     <div
                         className={`flex gap-2 mb-2 px-2 overflow-x-auto pb-2 ${styles.scrollbar}`}
                     >
@@ -138,7 +139,10 @@ export const UnifiedInputBarView = ({
                                 exit={{ opacity: 0, scale: 0.8 }}
                                 className="relative px-3 py-2 rounded-[1rem] bg-slate-100 border border-slate-200 shadow-sm shrink-0 group flex items-center gap-2"
                             >
-                                <FileText size={14} className="text-slate-600" />
+                                <FileText
+                                    size={14}
+                                    className="text-slate-600"
+                                />
                                 <span className="text-xs text-slate-700 truncate max-w-[80px]">
                                     {att.filename}
                                 </span>
@@ -219,7 +223,8 @@ export const UnifiedInputBarView = ({
                     ref={(el) => {
                         if (el) {
                             el.style.height = "auto";
-                            el.style.height = Math.min(el.scrollHeight, 200) + "px";
+                            el.style.height =
+                                Math.min(el.scrollHeight, 200) + "px";
                         }
                     }}
                     value={inputValue}
