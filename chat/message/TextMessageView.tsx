@@ -13,6 +13,7 @@ interface TextMessageViewProps {
     showThinking?: boolean;
     thinkingOpen: boolean;
     onToggleThinking: () => void;
+    autoScrollThinking?: boolean;
     imageUrls?: string[];
     fileAttachments?: FileAttachment[];
     isAttachmentExpanded: (index: number) => boolean;
@@ -30,6 +31,7 @@ export const TextMessageView = ({
     showThinking = false,
     thinkingOpen,
     onToggleThinking,
+    autoScrollThinking = false,
     imageUrls,
     fileAttachments,
     isAttachmentExpanded,
@@ -105,6 +107,7 @@ export const TextMessageView = ({
                     show={canShowThinking}
                     open={thinkingOpen}
                     onToggle={onToggleThinking}
+                    autoScroll={autoScrollThinking}
                 />
 
                 {text && text.trim() && (

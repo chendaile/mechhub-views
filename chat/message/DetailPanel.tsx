@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { MarkdownRenderer } from "../../shared/MarkdownRenderer";
 import { Button } from "../../shared/ui/button";
 import styles from "../../shared/scrollbar.module.css";
@@ -12,6 +13,7 @@ interface DetailPanelProps {
     open: boolean;
     onToggle: () => void;
     className?: string;
+    autoScroll?: boolean;
 }
 
 export const DetailPanel = ({
@@ -24,8 +26,21 @@ export const DetailPanel = ({
     open,
     onToggle,
     className,
+    autoScroll = false,
 }: DetailPanelProps) => {
     const hasReasoning = !!content && content.trim().length > 0;
+    const contentRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!open || !autoScroll) return;
+        const el = contentRef.current;
+        if (!el) return;
+        const raf = requestAnimationFrame(() => {
+            el.scrollTop = el.scrollHeight;
+        });
+        return () => cancelAnimationFrame(raf);
+    }, [autoScroll, content, open]);
+
     if (!show) return;
     return (
         <div className={`flex w-full flex-col ${className}`}>
@@ -46,6 +61,7 @@ export const DetailPanel = ({
                             {label}
                         </div>
                         <div
+                            ref={contentRef}
                             className={`max-h-60 overflow-y-auto pr-1 bg-slate-200 ${styles.scrollbar}`}
                         >
                             {hasReasoning ? (
