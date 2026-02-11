@@ -45,6 +45,7 @@ const MODEL_OPTIONS = [
     "qwen3-vl-235b-a22b-instruct",
     "qwen3-vl-32b-thinking",
     "qwen3-vl-32b-instruct",
+    "gemini-3-pro-preview",
 ];
 
 export const UnifiedInputBarView = ({
