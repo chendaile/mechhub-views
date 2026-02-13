@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import type { UserProfile, ActiveView } from "../../shared/types";
+import type { SidebarAssignmentAction } from "../types";
 import { SidebarSignOut } from "./SidebarSignOut";
 import { SidebarUserButton } from "./SidebarUserButton";
 
@@ -9,10 +9,10 @@ interface SidebarFooterProps {
     activeView: ActiveView;
     onOpenProfile?: () => void;
     onOpenClassHub?: () => void;
-    onSubmitAssignment?: () => void;
-    onViewFeedback?: () => void;
-    onPublishAssignment?: () => void;
-    onGradeAssignment?: () => void;
+    assignmentActions: SidebarAssignmentAction[];
+    assignmentsTitle: string;
+    isAssignmentsOpen: boolean;
+    onToggleAssignmentsOpen: () => void;
     onSignOut?: () => void;
 }
 
@@ -21,102 +21,58 @@ export const SidebarFooter = ({
     activeView,
     onOpenProfile,
     onOpenClassHub,
-    onSubmitAssignment,
-    onViewFeedback,
-    onPublishAssignment,
-    onGradeAssignment,
+    assignmentActions,
+    assignmentsTitle,
+    isAssignmentsOpen,
+    onToggleAssignmentsOpen,
     onSignOut,
 }: SidebarFooterProps) => {
-    const [isAssignmentsOpen, setIsAssignmentsOpen] = useState(false);
-
-    const quickActions = [
-        {
-            key: "submitAssignment" as const,
-            label: "Submit",
-            onClick: onSubmitAssignment,
-            audience: "student" as const,
-        },
-        {
-            key: "viewFeedback" as const,
-            label: "Feedback",
-            onClick: onViewFeedback,
-            audience: "student" as const,
-        },
-        {
-            key: "publishAssignment" as const,
-            label: "Publish",
-            onClick: onPublishAssignment,
-            audience: "teacher" as const,
-        },
-        {
-            key: "gradeAssignment" as const,
-            label: "Grade",
-            onClick: onGradeAssignment,
-            audience: "teacher" as const,
-        },
-    ].filter((action) => action.onClick);
-
-    const assignmentsTitle = useMemo(() => {
-        const hasStudentActions = quickActions.some(
-            (action) => action.audience === "student",
-        );
-        const hasTeacherActions = quickActions.some(
-            (action) => action.audience === "teacher",
-        );
-
-        if (hasStudentActions && !hasTeacherActions) {
-            return "Assignments (Student)";
-        }
-
-        if (!hasStudentActions && hasTeacherActions) {
-            return "Assignments (Teacher)";
-        }
-
-        return "Assignments";
-    }, [quickActions]);
-
     return (
         <div className="p-4">
             {onOpenClassHub && (
                 <button
                     type="button"
                     onClick={onOpenClassHub}
-                    className={`mb-3 w-full rounded-xl px-3 py-2 text-left text-xs font-semibold transition ${
+                    className={`mb-1 w-full rounded-[1rem] px-3 py-2 text-center text-xs font-semibold transition ${
                         activeView === "classHub"
-                            ? "bg-slate-900 text-white"
-                            : "bg-white/70 text-slate-700 hover:bg-white"
+                            ? "bg-[#ffffff] text-[#334155]"
+                            : "text-[#64748b] hover:bg-[#ffffff] hover:text-[#334155]"
                     }`}
                 >
-                    Class Hub
+                    我的班级
                 </button>
             )}
 
-            {quickActions.length > 0 && (
-                <div className="mb-3 rounded-2xl border border-white bg-white/70 p-2">
+            {assignmentActions.length > 0 && (
+                <div>
                     <button
                         type="button"
-                        onClick={() => setIsAssignmentsOpen((prev) => !prev)}
-                        className="flex w-full items-center justify-between rounded-xl px-2 py-2 text-left text-[11px] font-bold uppercase tracking-wide text-slate-500 hover:bg-slate-100"
+                        onClick={onToggleAssignmentsOpen}
+                        className={`mb-3 flex w-full items-center justify-center gap-1 rounded-[1rem] px-3 py-2 text-xs font-semibold transition ${
+                            activeView === "classHub"
+                                ? "bg-[#ffffff] text-[#334155]"
+                                : "text-[#64748b] hover:bg-[#ffffff] hover:text-[#334155]"
+                        }`}
                     >
-                        <span>{assignmentsTitle}</span>
                         {isAssignmentsOpen ? (
                             <ChevronDown size={14} />
                         ) : (
                             <ChevronRight size={14} />
                         )}
+                        <span>{assignmentsTitle}</span>
                     </button>
 
                     {isAssignmentsOpen && (
                         <div className="mt-2 grid grid-cols-2 gap-2">
-                            {quickActions.map((action) => (
+                            {assignmentActions.map((action) => (
                                 <button
                                     key={action.key}
                                     type="button"
                                     onClick={action.onClick}
                                     className={`rounded-xl px-2 py-2 text-xs font-semibold transition ${
                                         activeView === action.key
-                                            ? "bg-slate-900 text-white"
-                                            : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                                            ? "bg-[#ffffff] text-[#334155]"
+                                            : "text-[#64748b] hover:bg-[#ffffff] hover:text-[#334155]"
                                     }`}
                                 >
                                     {action.label}

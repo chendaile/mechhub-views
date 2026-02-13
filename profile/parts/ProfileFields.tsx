@@ -1,5 +1,3 @@
-import React from "react";
-
 interface ProfileFieldsProps {
     name: string;
     role: string;

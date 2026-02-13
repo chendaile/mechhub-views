@@ -7,7 +7,7 @@ interface ChatViewProps {
 
 export const ChatView = ({ messageList, chatInput }: ChatViewProps) => {
     return (
-        <div className="absolute inset-0 z-0 flex flex-col bg-white">
+        <div className="absolute inset-0 z-0 flex flex-col">
             {messageList}
             {chatInput}
         </div>

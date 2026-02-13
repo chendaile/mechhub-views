@@ -1,11 +1,10 @@
-import React from "react";
 import { SidebarFooter } from "./parts/SidebarFooter";
 import { SidebarHeader } from "./parts/SidebarHeader";
 import { SidebarResizeHandle } from "./parts/SidebarResizeHandle";
 import { SidebarSessions } from "./parts/SidebarSessions";
 import type { SidebarViewProps } from "./types";
 
-export const SidebarView: React.FC<SidebarViewProps> = ({
+export const SidebarView = ({
     activeView,
     canAccessChat,
     sidebarWidth,
@@ -22,15 +21,17 @@ export const SidebarView: React.FC<SidebarViewProps> = ({
     onCreateClassThread,
     creatingClassThreadId,
     onSelectClassThread,
+    openGroupIds,
+    onToggleGroup,
     renderSession,
+    assignmentActions,
+    assignmentsTitle,
+    isAssignmentsOpen,
+    onToggleAssignmentsOpen,
     onOpenProfile,
     onOpenClassHub,
-    onSubmitAssignment,
-    onViewFeedback,
-    onPublishAssignment,
-    onGradeAssignment,
     onSignOut,
-}) => {
+}: SidebarViewProps) => {
     return (
         <div
             className="relative flex flex-col border-r border-[#f0f4f9] bg-[#f0f4f9]"
@@ -55,6 +56,8 @@ export const SidebarView: React.FC<SidebarViewProps> = ({
                     onCreateClassThread={onCreateClassThread}
                     creatingClassThreadId={creatingClassThreadId}
                     onSelectClassThread={onSelectClassThread}
+                    openGroupIds={openGroupIds}
+                    onToggleGroup={onToggleGroup}
                     renderSession={renderSession}
                 />
             ) : (
@@ -70,10 +73,10 @@ export const SidebarView: React.FC<SidebarViewProps> = ({
                 activeView={activeView}
                 onOpenProfile={onOpenProfile}
                 onOpenClassHub={onOpenClassHub}
-                onSubmitAssignment={onSubmitAssignment}
-                onViewFeedback={onViewFeedback}
-                onPublishAssignment={onPublishAssignment}
-                onGradeAssignment={onGradeAssignment}
+                assignmentActions={assignmentActions}
+                assignmentsTitle={assignmentsTitle}
+                isAssignmentsOpen={isAssignmentsOpen}
+                onToggleAssignmentsOpen={onToggleAssignmentsOpen}
                 onSignOut={onSignOut}
             />
         </div>

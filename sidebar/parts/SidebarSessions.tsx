@@ -1,4 +1,4 @@
-import React from "react";
+import { Fragment, type ReactNode } from "react";
 import { ChevronDown, ChevronRight, Plus } from "lucide-react";
 import type { ActiveView } from "../../shared/types";
 import type { ChatSession } from "../../chat/types";
@@ -15,7 +15,9 @@ interface SidebarSessionsProps {
     onCreateClassThread?: (classId: string) => void;
     creatingClassThreadId?: string | null;
     onSelectClassThread?: (thread: SidebarClassThread) => void;
-    renderSession: (session: ChatSession, active: boolean) => React.ReactNode;
+    openGroupIds: Set<string>;
+    onToggleGroup: (classId: string) => void;
+    renderSession: (session: ChatSession, active: boolean) => ReactNode;
 }
 
 export const SidebarSessions = ({
@@ -28,42 +30,10 @@ export const SidebarSessions = ({
     onCreateClassThread,
     creatingClassThreadId,
     onSelectClassThread,
+    openGroupIds,
+    onToggleGroup,
     renderSession,
 }: SidebarSessionsProps) => {
-    const [openGroupIds, setOpenGroupIds] = React.useState<Set<string>>(new Set());
-
-    React.useEffect(() => {
-        if (classGroups.length === 0) {
-            setOpenGroupIds(new Set());
-            return;
-        }
-
-        setOpenGroupIds((previous) => {
-            const next = new Set<string>();
-            classGroups.forEach((group) => {
-                if (previous.has(group.classId)) {
-                    next.add(group.classId);
-                }
-            });
-            if (next.size === 0) {
-                next.add(classGroups[0].classId);
-            }
-            return next;
-        });
-    }, [classGroups]);
-
-    const toggleGroup = (classId: string) => {
-        setOpenGroupIds((previous) => {
-            const next = new Set(previous);
-            if (next.has(classId)) {
-                next.delete(classId);
-            } else {
-                next.add(classId);
-            }
-            return next;
-        });
-    };
-
     return (
         <div className={`flex-1 overflow-y-auto px-6 py-2 ${styles.scrollbar}`}>
             <h3 className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-4">
@@ -86,9 +56,9 @@ export const SidebarSessions = ({
                             currentSessionId === session.id &&
                             activeView === "chat";
                         return (
-                            <React.Fragment key={session.id}>
+                            <Fragment key={session.id}>
                                 {renderSession(session, isActive)}
-                            </React.Fragment>
+                            </Fragment>
                         );
                     })
                 )}
@@ -108,28 +78,25 @@ export const SidebarSessions = ({
                         return (
                             <div
                                 key={group.classId}
-                                className="rounded-2xl border border-slate-200 bg-white/70 p-2"
+                                className="rounded-[1rem] p-2"
                             >
                                 <div className="flex items-center gap-1">
                                     <button
                                         type="button"
-                                        onClick={() => toggleGroup(group.classId)}
+                                        onClick={() =>
+                                            onToggleGroup(group.classId)
+                                        }
                                         className="flex min-w-0 flex-1 items-center gap-2 rounded-xl px-2 py-1.5 text-left text-xs font-semibold text-slate-700 hover:bg-slate-100"
                                     >
-                                        {isOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-                                        <span className="truncate">{group.className}</span>
+                                        {isOpen ? (
+                                            <ChevronDown size={14} />
+                                        ) : (
+                                            <ChevronRight size={14} />
+                                        )}
+                                        <span className="truncate">
+                                            {group.className}
+                                        </span>
                                     </button>
-                                    {onCreateClassThread && (
-                                        <button
-                                            type="button"
-                                            onClick={() => onCreateClassThread(group.classId)}
-                                            disabled={creatingClassThreadId === group.classId}
-                                            className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 disabled:opacity-50"
-                                            title="创建话题"
-                                        >
-                                            <Plus size={13} />
-                                        </button>
-                                    )}
                                 </div>
 
                                 {isOpen && (
@@ -138,17 +105,25 @@ export const SidebarSessions = ({
                                             <button
                                                 key={thread.id}
                                                 type="button"
-                                                onClick={() => onSelectClassThread?.(thread)}
-                                                className={`rounded-lg border px-2 py-2 text-left text-xs transition ${
+                                                onClick={() =>
+                                                    onSelectClassThread?.(
+                                                        thread,
+                                                    )
+                                                }
+                                                className={`rounded-[1rem] px-2 py-2 text-left text-xs transition ${
                                                     activeView === "chat" &&
-                                                    activeClassThreadId === thread.id
-                                                        ? "border-slate-400 bg-slate-100 text-slate-800"
-                                                        : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+                                                    activeClassThreadId ===
+                                                        thread.id
+                                                        ? "bg-[#ffffff] text-[#334155]"
+                                                        : "text-[#64748b] hover:bg-[#ffffff] hover:text-[#334155]"
                                                 }`}
                                             >
-                                                <p className="truncate font-medium">{thread.title}</p>
+                                                <p className="truncate font-medium">
+                                                    {thread.title}
+                                                </p>
                                                 <p className="text-[10px] text-slate-500">
-                                                    {thread.threadType === "group"
+                                                    {thread.threadType ===
+                                                    "group"
                                                         ? "group"
                                                         : "shared chat"}
                                                 </p>

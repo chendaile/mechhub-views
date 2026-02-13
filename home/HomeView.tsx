@@ -10,7 +10,7 @@ interface HomeViewProps {
 
 export const HomeView = ({ userName, inputBar }: HomeViewProps) => {
     return (
-        <div className="relative flex h-full flex-1 flex-col items-center justify-center bg-white p-8 overflow-hidden">
+        <div className="relative flex h-full flex-1 flex-col items-center justify-center bg-[#f8fafc] p-8 overflow-hidden">
             <div className="ml-40 flex w-full max-w-6xl flex-col">
                 <HomeGreeting userName={userName} />
 

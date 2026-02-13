@@ -16,6 +16,23 @@ export interface SidebarClassGroup {
     threads: SidebarClassThread[];
 }
 
+export type SidebarAssignmentActionViewKey = Extract<
+    ActiveView,
+    | "submitAssignment"
+    | "viewFeedback"
+    | "publishAssignment"
+    | "gradeAssignment"
+>;
+
+export type SidebarActionAudience = "student" | "teacher";
+
+export interface SidebarAssignmentAction {
+    key: SidebarAssignmentActionViewKey;
+    label: string;
+    audience: SidebarActionAudience;
+    onClick: () => void;
+}
+
 export interface SidebarViewProps {
     activeView: ActiveView;
     canAccessChat: boolean;
@@ -33,13 +50,15 @@ export interface SidebarViewProps {
     onCreateClassThread?: (classId: string) => void;
     creatingClassThreadId?: string | null;
     onSelectClassThread?: (thread: SidebarClassThread) => void;
+    openGroupIds: Set<string>;
+    onToggleGroup: (classId: string) => void;
     renderSession: (session: ChatSession, active: boolean) => ReactNode;
+    assignmentActions: SidebarAssignmentAction[];
+    assignmentsTitle: string;
+    isAssignmentsOpen: boolean;
+    onToggleAssignmentsOpen: () => void;
     onOpenProfile?: () => void;
     onOpenClassHub?: () => void;
-    onSubmitAssignment?: () => void;
-    onViewFeedback?: () => void;
-    onPublishAssignment?: () => void;
-    onGradeAssignment?: () => void;
     onSignOut?: () => void;
 }
 

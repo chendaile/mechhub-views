@@ -1,4 +1,3 @@
-import React from "react";
 import { Edit2, Save, X } from "lucide-react";
 
 interface ProfileHeaderProps {

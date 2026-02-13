@@ -1,4 +1,5 @@
 import { ZoomIn, Copy, Check, Share2 } from "lucide-react";
+import type { RefObject } from "react";
 import { FileAttachment } from "../types";
 import { AIAvatar } from "../../shared/AIAvatar";
 import { MarkdownRenderer } from "../../shared/MarkdownRenderer";
@@ -13,7 +14,7 @@ interface TextMessageViewProps {
     showThinking?: boolean;
     thinkingOpen: boolean;
     onToggleThinking: () => void;
-    autoScrollThinking?: boolean;
+    thinkingContentRef?: RefObject<HTMLDivElement | null>;
     imageUrls?: string[];
     fileAttachments?: FileAttachment[];
     isAttachmentExpanded: (index: number) => boolean;
@@ -32,7 +33,7 @@ export const TextMessageView = ({
     showThinking = false,
     thinkingOpen,
     onToggleThinking,
-    autoScrollThinking = false,
+    thinkingContentRef,
     imageUrls,
     fileAttachments,
     isAttachmentExpanded,
@@ -109,7 +110,7 @@ export const TextMessageView = ({
                     show={canShowThinking}
                     open={thinkingOpen}
                     onToggle={onToggleThinking}
-                    autoScroll={autoScrollThinking}
+                    contentRef={thinkingContentRef}
                 />
 
                 {text && text.trim() && (

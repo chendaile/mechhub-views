@@ -13,7 +13,7 @@ const buttonVariants = cva(
                 pill_secondary:
                     "rounded-full border border-slate-200 bg-white px-5 py-2.5 text-slate-700 shadow-sm hover:bg-slate-50",
                 outline:
-                    "border border-slate-300 text-slate-900 hover:border-slate-900 hover:bg-slate-900 hover:text-white",
+                    "border-2 border-[#000000] text-[#000000] hover:bg-[#000000] hover:text-[#ffffff]",
                 soft: "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50",
                 ghost: "text-slate-600 hover:bg-slate-100",
                 tab: "rounded-lg border border-transparent text-slate-600 hover:bg-slate-100",

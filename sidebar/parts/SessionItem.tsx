@@ -39,7 +39,7 @@ interface SessionItemProps {
     menuActions?: SessionItemMenuAction[];
 }
 
-export const SessionItem: React.FC<SessionItemProps> = ({
+export const SessionItem = ({
     label,
     icon: Icon,
     active,
@@ -58,7 +58,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
     onCloseMenu,
     onDelete,
     menuActions = [],
-}) => {
+}: SessionItemProps) => {
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === "Enter") {
             onSave();
@@ -71,7 +71,7 @@ export const SessionItem: React.FC<SessionItemProps> = ({
         <div
             onClick={onClick}
             className={cn(
-                "w-full group flex items-center gap-3 px-3 py-3 rounded-[1.5rem] text-sm font-medium transition-colors relative cursor-pointer",
+                "w-full group flex items-center gap-3 px-2 py-1 rounded-[1rem] text-xs font-medium transition-colors relative cursor-pointer",
                 active
                     ? "bg-[#ffffff] text-[#334155]"
                     : "text-[#64748b] hover:bg-[#ffffff] hover:text-[#334155]",
