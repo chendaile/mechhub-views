@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import { MechHubLogo } from "../shared/MechHubLogo";
-import { cardVariants } from "../shared/ui/card";
-import { cn } from "../shared/utils";
-import { LandingActions } from "./parts/LandingActions";
 import { LandingBackground } from "./parts/LandingBackground";
+import { LandingEcosystemSection } from "./parts/LandingEcosystemSection";
+import { LandingFooter } from "./parts/LandingFooter";
+import { LandingGradingSection } from "./parts/LandingGradingSection";
+import { LandingHeader } from "./parts/LandingHeader";
 import { LandingHero } from "./parts/LandingHero";
 import { LandingImage } from "./parts/LandingImage";
+import { LandingTeachingSection } from "./parts/LandingTeachingSection";
 
 interface LandingPageViewProps {
     onStart: () => void;
@@ -14,30 +15,31 @@ interface LandingPageViewProps {
 
 export const LandingPageView = ({ onStart, onLogin }: LandingPageViewProps) => {
     return (
-        <div className="min-h-screen bg-[#f0f4f9] flex items-center justify-center p-4 md:p-8 font-['Inter']">
-            <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
+        <div className="flex h-screen flex-col overflow-hidden bg-white font-['Inter']">
+            <LandingHeader onLogin={onLogin} />
+            <motion.main
+                initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                className={cn(
-                    cardVariants({ radius: "hero", shadow: "sm" }),
-                    "w-full max-w-7xl relative min-h-[37.5rem] flex flex-col md:flex-row overflow-hidden",
-                )}
+                transition={{ duration: 0.45, ease: "easeOut" }}
+                className="min-h-0 flex-1 overflow-y-auto"
             >
-                <LandingBackground />
+                <div className="mx-auto flex min-h-full w-full max-w-7xl flex-col px-6 pb-16 md:px-12 lg:px-20">
+                    <section className="relative border-b border-slate-200 pb-20 pt-12 md:pt-16">
+                        <div className="pointer-events-none absolute inset-0 opacity-40">
+                            <LandingBackground />
+                        </div>
+                        <div className="relative grid min-h-[76vh] items-center gap-10 md:grid-cols-2">
+                            <LandingHero onStart={onStart} />
+                            <LandingImage />
+                        </div>
+                    </section>
 
-                <div className="relative z-10 w-full h-full flex flex-col md:flex-row p-8 md:p-12 lg:p-16">
-                    <div className="flex-1 flex flex-col justify-between">
-                        <MechHubLogo />
-                        <LandingHero onStart={onStart} />
-                    </div>
-
-                    <div className="flex-1 flex flex-col items-center md:items-end justify-between relative">
-                        <LandingActions onLogin={onLogin} />
-                        <LandingImage />
-                    </div>
+                    <LandingEcosystemSection />
+                    <LandingTeachingSection />
+                    <LandingGradingSection />
+                    <LandingFooter />
                 </div>
-            </motion.div>
+            </motion.main>
         </div>
     );
 };

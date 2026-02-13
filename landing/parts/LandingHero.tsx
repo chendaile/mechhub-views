@@ -7,12 +7,12 @@ interface LandingHeroProps {
 
 export const LandingHero = ({ onStart }: LandingHeroProps) => {
     return (
-        <div className="my-12 md:my-0 flex-1 flex flex-col justify-center">
+        <div className="my-12 flex-1 flex-col justify-center md:my-0 md:flex">
             <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-5xl md:text-6xl lg:text-7xl font-bold text-[#0f172a] leading-[1.1] tracking-tight font-['Abhaya_Libre'] mb-10"
+                className="mb-10 font-['Abhaya_Libre'] text-5xl leading-[1.1] font-bold tracking-tight text-[#0f172a] md:text-6xl lg:text-7xl"
             >
                 Theoretical Mechanics,
                 <br />

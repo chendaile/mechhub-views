@@ -1,12 +1,14 @@
-﻿import { Button } from "../../shared/ui/button";
+import { Button } from "../../shared/ui/button";
+import { cn } from "../../shared/utils";
 
 interface LandingActionsProps {
     onLogin: () => void;
+    className?: string;
 }
 
-export const LandingActions = ({ onLogin }: LandingActionsProps) => {
+export const LandingActions = ({ onLogin, className }: LandingActionsProps) => {
     return (
-        <div className="w-full flex justify-end mb-8 md:mb-0">
+        <div className={cn("flex items-center", className)}>
             <Button onClick={onLogin} variant="outline" size="md">
                 Login
             </Button>
