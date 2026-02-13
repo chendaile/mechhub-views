@@ -7,6 +7,11 @@ interface MainLayoutViewProps {
     home: React.ReactNode;
     chat: React.ReactNode;
     profile: React.ReactNode;
+    classHub?: React.ReactNode;
+    submitAssignment?: React.ReactNode;
+    viewFeedback?: React.ReactNode;
+    publishAssignment?: React.ReactNode;
+    gradeAssignment?: React.ReactNode;
 }
 
 export const MainLayoutView = ({
@@ -15,6 +20,11 @@ export const MainLayoutView = ({
     home,
     chat,
     profile,
+    classHub,
+    submitAssignment,
+    viewFeedback,
+    publishAssignment,
+    gradeAssignment,
 }: MainLayoutViewProps) => {
     return (
         <div className="flex h-screen bg-white text-slate-800 overflow-hidden font-['Inter']">
@@ -24,6 +34,11 @@ export const MainLayoutView = ({
                 {activeView === "home" && home}
                 {activeView === "chat" && chat}
                 {activeView === "profile" && profile}
+                {activeView === "classHub" && classHub}
+                {activeView === "submitAssignment" && submitAssignment}
+                {activeView === "viewFeedback" && viewFeedback}
+                {activeView === "publishAssignment" && publishAssignment}
+                {activeView === "gradeAssignment" && gradeAssignment}
             </main>
         </div>
     );

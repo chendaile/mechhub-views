@@ -1,4 +1,4 @@
-import { ZoomIn, Copy, Check } from "lucide-react";
+import { ZoomIn, Copy, Check, Share2 } from "lucide-react";
 import { FileAttachment } from "../types";
 import { AIAvatar } from "../../shared/AIAvatar";
 import { MarkdownRenderer } from "../../shared/MarkdownRenderer";
@@ -22,6 +22,7 @@ interface TextMessageViewProps {
     isGenerating?: boolean;
     isCopied: boolean;
     onCopy: () => void;
+    onShareToClass?: () => void;
 }
 
 export const TextMessageView = ({
@@ -40,6 +41,7 @@ export const TextMessageView = ({
     isGenerating = false,
     isCopied,
     onCopy,
+    onShareToClass,
 }: TextMessageViewProps) => {
     const displayImages = imageUrls && imageUrls.length > 0 ? imageUrls : [];
     const canShowThinking = role === "assistant" && showThinking;
@@ -133,6 +135,22 @@ export const TextMessageView = ({
                                     : "justify-start"
                             }`}
                         >
+                            {onShareToClass && (
+                                <button
+                                    onClick={onShareToClass}
+                                    className={`px-3 py-1.5 rounded-[1rem] transition-all duration-200 flex items-center gap-1.5 text-xs font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                                        role === "user"
+                                            ? "text-slate-400 hover:bg-slate-800/50 hover:text-white focus:ring-slate-600 focus:ring-offset-slate-900"
+                                            : "text-slate-400 hover:bg-slate-50 hover:text-slate-700 focus:ring-slate-300 focus:ring-offset-white"
+                                    }`}
+                                    aria-label="分享到班级"
+                                    title="Share to Class"
+                                >
+                                    <Share2 size={14} />
+                                    <span>分享班级</span>
+                                </button>
+                            )}
+
                             <button
                                 onClick={onCopy}
                                 className={`px-3 py-1.5 rounded-[1rem] transition-all duration-200 flex items-center gap-1.5 text-xs font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 ${

@@ -10,7 +10,6 @@ interface ProfileViewProps {
     name: string;
     setName: (value: string) => void;
     role: string;
-    setRole: (value: string) => void;
     avatar: string;
     isEditing: boolean;
     setIsEditing: (editing: boolean) => void;
@@ -24,7 +23,6 @@ export const ProfileView = ({
     name,
     setName,
     role,
-    setRole,
     avatar,
     isEditing,
     setIsEditing,
@@ -65,7 +63,6 @@ export const ProfileView = ({
                         role={role}
                         isEditing={isEditing}
                         onNameChange={setName}
-                        onRoleChange={setRole}
                     />
                 </motion.div>
 

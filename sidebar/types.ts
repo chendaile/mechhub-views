@@ -4,6 +4,7 @@ import type { ChatSession, DeleteChatResult } from "../chat/types";
 
 export interface SidebarViewProps {
     activeView: ActiveView;
+    canAccessChat: boolean;
     sidebarWidth: number;
     user: UserProfile;
     sessions: ChatSession[];
@@ -12,9 +13,14 @@ export interface SidebarViewProps {
     onResizeMouseDown: (event: React.MouseEvent<HTMLDivElement>) => void;
     onLogoClick: () => void;
     onLogoIconClick: (event: React.MouseEvent) => void;
-    onNewQuest: () => void;
+    onNewQuest?: () => void;
     renderSession: (session: ChatSession, active: boolean) => ReactNode;
-    onOpenProfile: () => void;
+    onOpenProfile?: () => void;
+    onOpenClassHub?: () => void;
+    onSubmitAssignment?: () => void;
+    onViewFeedback?: () => void;
+    onPublishAssignment?: () => void;
+    onGradeAssignment?: () => void;
     onSignOut?: () => void;
 }
 

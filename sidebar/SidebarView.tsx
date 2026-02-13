@@ -7,6 +7,7 @@ import type { SidebarViewProps } from "./types";
 
 export const SidebarView: React.FC<SidebarViewProps> = ({
     activeView,
+    canAccessChat,
     sidebarWidth,
     user,
     sessions,
@@ -18,6 +19,11 @@ export const SidebarView: React.FC<SidebarViewProps> = ({
     onNewQuest,
     renderSession,
     onOpenProfile,
+    onOpenClassHub,
+    onSubmitAssignment,
+    onViewFeedback,
+    onPublishAssignment,
+    onGradeAssignment,
     onSignOut,
 }) => {
     return (
@@ -30,21 +36,34 @@ export const SidebarView: React.FC<SidebarViewProps> = ({
             <SidebarHeader
                 onLogoClick={onLogoClick}
                 onLogoIconClick={onLogoIconClick}
-                onNewQuest={onNewQuest}
+                onNewQuest={canAccessChat ? onNewQuest : undefined}
             />
 
-            <SidebarSessions
-                sessions={sessions}
-                activeView={activeView}
-                currentSessionId={currentSessionId}
-                isLoading={isLoading}
-                renderSession={renderSession}
-            />
+            {canAccessChat ? (
+                <SidebarSessions
+                    sessions={sessions}
+                    activeView={activeView}
+                    currentSessionId={currentSessionId}
+                    isLoading={isLoading}
+                    renderSession={renderSession}
+                />
+            ) : (
+                <div className="flex-1 px-6 py-2">
+                    <div className="rounded-2xl border border-dashed border-slate-300 bg-white/60 p-4 text-xs text-slate-500">
+                        Chat access is not enabled for this account.
+                    </div>
+                </div>
+            )}
 
             <SidebarFooter
                 user={user}
                 activeView={activeView}
                 onOpenProfile={onOpenProfile}
+                onOpenClassHub={onOpenClassHub}
+                onSubmitAssignment={onSubmitAssignment}
+                onViewFeedback={onViewFeedback}
+                onPublishAssignment={onPublishAssignment}
+                onGradeAssignment={onGradeAssignment}
                 onSignOut={onSignOut}
             />
         </div>
