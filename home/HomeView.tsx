@@ -10,12 +10,12 @@ interface HomeViewProps {
 
 export const HomeView = ({ userName, inputBar }: HomeViewProps) => {
     return (
-        <div className="relative flex h-full flex-1 flex-col items-center justify-center bg-white p-8">
-            <div className="ml-[50px] flex w-full max-w-6xl flex-col items-start">
+        <div className="relative flex h-full flex-1 flex-col items-center justify-center bg-white p-8 overflow-hidden">
+            <div className="ml-40 flex w-full max-w-6xl flex-col">
                 <HomeGreeting userName={userName} />
 
                 <div className="w-[90%] max-w-5xl">
-                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-3 tracking-tight leading-tight min-h-[1.2em] font-['Courier_New']">
+                    <h1 className="text-7xl font-bold text-slate-900 mb-3 tracking-tight leading-tight min-h-1 font-['Courier_New']">
                         <TypewriterText
                             text="Where should we start?"
                             delay={0.3}

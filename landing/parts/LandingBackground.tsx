@@ -1,6 +1,6 @@
 export const LandingBackground = () => {
     return (
-        <div className="absolute inset-0 pointer-events-none opacity-40">
+        <div className="absolute inset-0 pointer-events-none">
             <svg
                 className="w-full h-full"
                 viewBox="0 0 800 600"

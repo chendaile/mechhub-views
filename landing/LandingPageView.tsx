@@ -23,12 +23,12 @@ export const LandingPageView = ({ onStart, onLogin }: LandingPageViewProps) => {
                 transition={{ duration: 0.45, ease: "easeOut" }}
                 className="min-h-0 flex-1 overflow-y-auto"
             >
-                <div className="mx-auto flex min-h-full w-full max-w-7xl flex-col px-6 pb-16 md:px-12 lg:px-20">
-                    <section className="relative border-b border-slate-200 pb-20 pt-12 md:pt-16">
-                        <div className="pointer-events-none absolute inset-0 opacity-40">
+                <div className="mx-auto flex min-h-full w-full max-w-7xl flex-col px-6 pb-16 ">
+                    <section className="relative p-12">
+                        <div className="pointer-events-none absolute inset-0">
                             <LandingBackground />
                         </div>
-                        <div className="relative grid min-h-[76vh] items-center gap-10 md:grid-cols-2">
+                        <div className="relative grid min-h-[76vh] items-center grid-cols-2">
                             <LandingHero onStart={onStart} />
                             <LandingImage />
                         </div>

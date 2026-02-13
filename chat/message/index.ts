@@ -6,3 +6,4 @@ export { StepAnnotationBox } from "./StepAnnotationBox";
 export { StepFeedbackList } from "./StepFeedbackList";
 export { FileAttachmentPreview } from "./FileAttachmentPreview";
 export { ImagePreviewModal } from "./ImagePreviewModal";
+export { GroupTextMessageView } from "./GroupTextMessageView";

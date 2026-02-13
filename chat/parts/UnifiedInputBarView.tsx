@@ -108,7 +108,7 @@ export const UnifiedInputBarView = ({
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.8 }}
-                                className="relative w-16 h-16 rounded-[1rem] overflow-hidden border border-slate-200 shadow-sm shrink-0 group"
+                                className="relative w-16 h-16 rounded-2xl overflow-hidden border border-slate-200 shadow-sm shrink-0 group"
                             >
                                 <img
                                     src={att.previewUrl}
@@ -138,7 +138,7 @@ export const UnifiedInputBarView = ({
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.8 }}
-                                className="relative px-3 py-2 rounded-[1rem] bg-slate-100 border border-slate-200 shadow-sm shrink-0 group flex items-center gap-2"
+                                className="relative px-3 py-2 rounded-2xl bg-slate-100 border border-slate-200 shadow-sm shrink-0 group flex items-center gap-2"
                             >
                                 <FileText
                                     size={14}
@@ -150,7 +150,7 @@ export const UnifiedInputBarView = ({
                                 <button
                                     type="button"
                                     onClick={() => onRemoveFile(att.filename)}
-                                    className="ml-1 text-slate-400 hover:text-slate-600 p-0.5 hover:bg-slate-200 rounded-[0.25rem]"
+                                    className="ml-1 text-slate-400 hover:text-slate-600 p-0.5 hover:bg-slate-200 rounded-sm"
                                 >
                                     <X size={14} />
                                 </button>

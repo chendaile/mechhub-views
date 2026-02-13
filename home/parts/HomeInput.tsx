@@ -5,5 +5,5 @@ interface HomeInputProps {
 }
 
 export const HomeInput = ({ inputBar }: HomeInputProps) => {
-    return <>{inputBar}</>;
+    return inputBar;
 };

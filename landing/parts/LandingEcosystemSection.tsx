@@ -30,8 +30,11 @@ const cardVariants = {
 
 export const LandingEcosystemSection = () => {
     return (
-        <LandingSectionMotion delay={0.05} className="border-b border-slate-200 py-24">
-            <h2 className="text-center font-['Abhaya_Libre'] text-4xl leading-tight font-bold text-[#0f172a] md:text-5xl">
+        <LandingSectionMotion
+            delay={0.05}
+            className="border-b border-slate-200 py-24"
+        >
+            <h2 className="text-center font-['Abhaya_Libre'] text-6xl leading-tight font-bold ">
                 Management Ecosystem
             </h2>
             <motion.div
@@ -39,7 +42,7 @@ export const LandingEcosystemSection = () => {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, amount: 0.2 }}
-                className="mt-12 grid gap-8 md:grid-cols-3"
+                className="mt-12 grid gap-8 grid-cols-3"
             >
                 {ecosystemFeatures.map((feature) => {
                     const Icon = iconByFeature[feature.id];

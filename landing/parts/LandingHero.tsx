@@ -24,8 +24,12 @@ export const LandingHero = ({ onStart }: LandingHeroProps) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
             >
-                <Button onClick={onStart} size="lg" className="hover:scale-105">
-                    Start Now
+                <Button
+                    onClick={onStart}
+                    size="xl"
+                    className="hover:scale-105 font-['courier_new'] font-extrabold"
+                >
+                    Start
                 </Button>
             </motion.div>
         </div>

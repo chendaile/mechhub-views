@@ -7,8 +7,7 @@ const buttonVariants = cva(
     {
         variants: {
             variant: {
-                primary:
-                    "bg-slate-900 text-white shadow-sm hover:bg-black/85",
+                primary: "bg-slate-900 text-white shadow-sm hover:bg-black/85",
                 pill_primary:
                     "rounded-full bg-slate-900 px-5 py-2.5 text-white shadow-sm hover:bg-black/85",
                 pill_secondary:
@@ -23,6 +22,7 @@ const buttonVariants = cva(
                 sm: "rounded-lg px-3 py-1.5 text-sm",
                 md: "rounded-xl px-4 py-2 text-sm",
                 lg: "rounded-full px-6 py-3 text-base",
+                xl: "rounded-full px-8 py-4 text-2xl",
                 icon: "h-10 w-10 rounded-xl",
             },
         },

@@ -1,3 +1,5 @@
+import { AppLoadingView } from "../layout/AppLoadingView";
+import { Button } from "../shared/ui/button";
 type PermissionEffect = "inherit" | "allow" | "deny";
 
 interface PermissionRow {
@@ -56,18 +58,14 @@ export const PermissionsConsoleView = ({
     message,
 }: PermissionsConsoleViewProps) => {
     if (mode === "loading") {
-        return (
-            <div className="flex h-screen items-center justify-center bg-slate-50">
-                <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-slate-900" />
-            </div>
-        );
+        return AppLoadingView();
     }
 
     if (mode === "forbidden") {
         return (
             <div className="flex h-screen items-center justify-center bg-slate-50 p-6">
                 <div className="w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-8 text-center">
-                    <h1 className="text-2xl font-bold text-slate-900">
+                    <h1 className="text-4xl font-bold text-slate-900 font-['courier_new']">
                         403 Forbidden
                     </h1>
                     <p className="mt-3 text-sm text-slate-600">
@@ -84,16 +82,12 @@ export const PermissionsConsoleView = ({
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 p-6 md:p-10">
+        <div className="min-h-screen bg-slate-50 p-6">
             <div className="mx-auto flex w-full max-w-6xl flex-col gap-6">
-                <header className="rounded-2xl border border-slate-200 bg-white p-6">
-                    <h1 className="text-3xl font-bold text-slate-900">
+                <header className="mx-auto">
+                    <h1 className="text-5xl font-bold text-slate-900 font-['courier_new']">
                         Permissions Console
                     </h1>
-                    <p className="mt-2 text-sm text-slate-600">
-                        Users are loaded by default. You can search by email and
-                        manage role + permission overrides.
-                    </p>
                     {requesterEmail && (
                         <p className="mt-2 text-xs text-slate-500">
                             Admin: {requesterEmail}
@@ -155,11 +149,12 @@ export const PermissionsConsoleView = ({
                     <section className="rounded-2xl border border-slate-200 bg-white p-6">
                         <div className="flex flex-wrap items-center justify-between gap-3">
                             <div>
-                                <h2 className="text-xl font-bold text-slate-900">
+                                <h2 className="text-3xl text-slate-900 font-bold font-['courier_new']">
                                     Access Control
                                 </h2>
                                 <p className="mt-1 text-sm text-slate-600">
-                                    Target: {selectedUserEmail ?? selectedUserId}
+                                    Target:{" "}
+                                    {selectedUserEmail ?? selectedUserId}
                                 </p>
                             </div>
                             {isAccessLoading && (
@@ -175,7 +170,9 @@ export const PermissionsConsoleView = ({
                                 value={baseRole}
                                 onChange={(event) =>
                                     onBaseRoleChange(
-                                        event.target.value as "student" | "teacher",
+                                        event.target.value as
+                                            | "student"
+                                            | "teacher",
                                     )
                                 }
                                 className="mt-2 w-full max-w-sm rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-slate-400"
@@ -199,32 +196,39 @@ export const PermissionsConsoleView = ({
                                             key={row.key}
                                             className="rounded-xl border border-slate-200 bg-slate-50"
                                         >
-                                            <td className="px-3 py-3 text-sm font-medium text-slate-800">
+                                            <td className="px-3 py-3 text-sm text-slate-800 ">
                                                 {row.label}
                                             </td>
                                             <td className="px-3 py-3">
                                                 <div className="flex flex-wrap gap-2">
-                                                    {(["inherit", "allow", "deny"] as const).map(
-                                                        (effect) => (
-                                                            <button
-                                                                key={effect}
-                                                                type="button"
-                                                                onClick={() =>
-                                                                    onPermissionChange(
-                                                                        row.key,
-                                                                        effect,
-                                                                    )
-                                                                }
-                                                                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
-                                                                    row.effect === effect
-                                                                        ? "bg-slate-900 text-white"
-                                                                        : "bg-white text-slate-700 hover:bg-slate-100"
-                                                                }`}
-                                                            >
-                                                                {effect}
-                                                            </button>
-                                                        ),
-                                                    )}
+                                                    {(
+                                                        [
+                                                            "inherit",
+                                                            "allow",
+                                                            "deny",
+                                                        ] as const
+                                                    ).map((effect) => (
+                                                        <Button
+                                                            key={effect}
+                                                            type="button"
+                                                            variant="primary"
+                                                            size="sm"
+                                                            onClick={() =>
+                                                                onPermissionChange(
+                                                                    row.key,
+                                                                    effect,
+                                                                )
+                                                            }
+                                                            className={` ${
+                                                                row.effect ===
+                                                                effect
+                                                                    ? "bg-slate-900 text-white"
+                                                                    : "bg-white text-slate-700 hover:bg-slate-100"
+                                                            }`}
+                                                        >
+                                                            {effect}
+                                                        </Button>
+                                                    ))}
                                                 </div>
                                             </td>
                                         </tr>
@@ -234,7 +238,7 @@ export const PermissionsConsoleView = ({
                         </div>
 
                         <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4">
-                            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                            <p className="text-2xl font-semibold uppercase tracking-wide text-slate-500 font-['courier_new']">
                                 Effective Permissions
                             </p>
                             <div className="mt-2 flex flex-wrap gap-2">
@@ -257,7 +261,9 @@ export const PermissionsConsoleView = ({
 
                         <div className="mt-5 flex flex-wrap items-center justify-end gap-3">
                             {message && (
-                                <p className="text-sm text-slate-600">{message}</p>
+                                <p className="text-sm text-slate-600">
+                                    {message}
+                                </p>
                             )}
                             <button
                                 type="button"

@@ -12,8 +12,8 @@ export const AuthGateView = ({
     landingView,
 }: AuthGateViewProps) => {
     if (showAuth) {
-        return <>{authView}</>;
+        return authView;
     }
 
-    return <>{landingView}</>;
+    return landingView;
 };

@@ -11,12 +11,17 @@ export const SidebarView: React.FC<SidebarViewProps> = ({
     sidebarWidth,
     user,
     sessions,
+    classGroups,
+    activeClassThreadId,
     currentSessionId,
     isLoading,
     onResizeMouseDown,
     onLogoClick,
     onLogoIconClick,
     onNewQuest,
+    onCreateClassThread,
+    creatingClassThreadId,
+    onSelectClassThread,
     renderSession,
     onOpenProfile,
     onOpenClassHub,
@@ -42,9 +47,14 @@ export const SidebarView: React.FC<SidebarViewProps> = ({
             {canAccessChat ? (
                 <SidebarSessions
                     sessions={sessions}
+                    classGroups={classGroups}
                     activeView={activeView}
                     currentSessionId={currentSessionId}
+                    activeClassThreadId={activeClassThreadId}
                     isLoading={isLoading}
+                    onCreateClassThread={onCreateClassThread}
+                    creatingClassThreadId={creatingClassThreadId}
+                    onSelectClassThread={onSelectClassThread}
                     renderSession={renderSession}
                 />
             ) : (

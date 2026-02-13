@@ -27,10 +27,10 @@ export const MainLayoutView = ({
     gradeAssignment,
 }: MainLayoutViewProps) => {
     return (
-        <div className="flex h-screen bg-white text-slate-800 overflow-hidden font-['Inter']">
+        <div className="flex h-screen font-['Inter']">
             {sidebar}
 
-            <main className="flex-1 flex flex-col h-full relative overflow-hidden min-w-0 min-h-0">
+            <main className="flex-1 relative ">
                 {activeView === "home" && home}
                 {activeView === "chat" && chat}
                 {activeView === "profile" && profile}

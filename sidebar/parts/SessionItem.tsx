@@ -10,6 +10,14 @@ import {
 import { Input } from "../../shared/ui/input";
 import { cn } from "../../shared/utils";
 
+interface SessionItemMenuAction {
+    key: string;
+    label: string;
+    icon: LucideIcon;
+    variant?: "default" | "danger";
+    onClick: () => void;
+}
+
 interface SessionItemProps {
     label: string;
     icon: LucideIcon;
@@ -26,7 +34,9 @@ interface SessionItemProps {
     onSave: () => void;
     onCancel: () => void;
     onToggleMenu: () => void;
+    onCloseMenu: () => void;
     onDelete?: () => void;
+    menuActions?: SessionItemMenuAction[];
 }
 
 export const SessionItem: React.FC<SessionItemProps> = ({
@@ -45,7 +55,9 @@ export const SessionItem: React.FC<SessionItemProps> = ({
     onSave,
     onCancel,
     onToggleMenu,
+    onCloseMenu,
     onDelete,
+    menuActions = [],
 }) => {
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === "Enter") {
@@ -136,6 +148,37 @@ export const SessionItem: React.FC<SessionItemProps> = ({
                                 {/* Dropdown menu */}
                                 {isMenuOpen && (
                                     <div className="absolute right-0 top-full mt-1 bg-[#ffffff] rounded-[1rem] shadow-xl border border-[#f1f5f9] py-1.5 w-32 z-50 overflow-hidden">
+                                        {menuActions.map((action) => {
+                                            const ActionIcon = action.icon;
+                                            const actionClass =
+                                                action.variant === "danger"
+                                                    ? "w-full px-3 py-2 text-left text-sm hover:bg-[#fef2f2] flex items-center gap-2.5 text-[#334155] hover:text-[#dc2626] transition-colors whitespace-nowrap leading-none"
+                                                    : "w-full px-3 py-2 text-left text-sm hover:bg-[#f8fafc] flex items-center gap-2.5 text-[#334155] transition-colors whitespace-nowrap leading-none";
+                                            const iconClass =
+                                                action.variant === "danger"
+                                                    ? "text-[#ef4444] stroke-[1.5]"
+                                                    : "text-[#3b82f6] stroke-[1.5]";
+                                            return (
+                                                <button
+                                                    key={action.key}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        onCloseMenu();
+                                                        action.onClick();
+                                                    }}
+                                                    className={actionClass}
+                                                >
+                                                    <ActionIcon
+                                                        size={15}
+                                                        className={iconClass}
+                                                    />
+                                                    <span className="font-medium">
+                                                        {action.label}
+                                                    </span>
+                                                </button>
+                                            );
+                                        })}
+
                                         {onStartEdit && (
                                             <button
                                                 onClick={(e) => {
