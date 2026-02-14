@@ -52,8 +52,11 @@ interface ClassHubViewProps {
     students: MemberItem[];
     threads: ThreadItem[];
     onCreateThread: () => void;
+    canCreateThread: boolean;
+    canManageThreads: boolean;
+    onRenameThread: (threadId: string) => void;
+    onDeleteThread: (threadId: string) => void;
     isCreatingThread: boolean;
-    onEnterGeneralChat: () => void;
     onEnterThreadChat: (threadId: string) => void;
     inviteCodeDisplayText?: string;
 }
@@ -126,8 +129,11 @@ export const ClassHubView = ({
     students,
     threads,
     onCreateThread,
+    canCreateThread,
+    canManageThreads,
+    onRenameThread,
+    onDeleteThread,
     isCreatingThread,
-    onEnterGeneralChat,
     onEnterThreadChat,
     inviteCodeDisplayText,
 }: ClassHubViewProps) => {
@@ -284,20 +290,18 @@ export const ClassHubView = ({
                                 <Button
                                     variant="outline"
                                     type="button"
-                                    onClick={onEnterGeneralChat}
-                                >
-                                    进入总聊天
-                                </Button>
-                                <Button
-                                    variant="outline"
-                                    type="button"
                                     onClick={onCreateThread}
-                                    disabled={isCreatingThread}
+                                    disabled={isCreatingThread || !canCreateThread}
                                 >
                                     {isCreatingThread
                                         ? "创建中..."
                                         : "创建话题"}
                                 </Button>
+                                {!canCreateThread && (
+                                    <p className="self-center text-xs text-slate-500">
+                                        仅教师或管理员可创建话题
+                                    </p>
+                                )}
                             </div>
                         </section>
 
@@ -349,15 +353,17 @@ export const ClassHubView = ({
                             </h3>
                             <div className="mt-3 grid gap-2">
                                 {threads.map((thread) => (
-                                    <button
+                                    <div
                                         key={thread.id}
-                                        type="button"
-                                        onClick={() =>
-                                            onEnterThreadChat(thread.id)
-                                        }
-                                        className="group flex w-full items-center justify-between rounded-xl bg-white px-3 py-2 text-left transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2"
+                                        className="group flex w-full items-center justify-between rounded-xl bg-white px-3 py-2 transition hover:bg-slate-50"
                                     >
-                                        <div className="min-w-0">
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                onEnterThreadChat(thread.id)
+                                            }
+                                            className="min-w-0 flex-1 text-left focus-visible:outline-none"
+                                        >
                                             <p className="truncate text-sm font-semibold text-slate-900">
                                                 {thread.title}
                                             </p>
@@ -366,12 +372,44 @@ export const ClassHubView = ({
                                                     ? "群聊话题"
                                                     : "分享话题"}
                                             </p>
+                                        </button>
+                                        <div className="ml-3 flex items-center gap-2">
+                                            {canManageThreads &&
+                                                thread.threadType ===
+                                                    "group" && (
+                                                    <>
+                                                        <button
+                                                            type="button"
+                                                            onClick={(event) => {
+                                                                event.stopPropagation();
+                                                                onRenameThread(
+                                                                    thread.id,
+                                                                );
+                                                            }}
+                                                            className="rounded-md px-2 py-1 text-xs text-slate-600 hover:bg-slate-200"
+                                                        >
+                                                            重命名
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            onClick={(event) => {
+                                                                event.stopPropagation();
+                                                                onDeleteThread(
+                                                                    thread.id,
+                                                                );
+                                                            }}
+                                                            className="rounded-md px-2 py-1 text-xs text-red-600 hover:bg-red-100"
+                                                        >
+                                                            删除
+                                                        </button>
+                                                    </>
+                                                )}
+                                            <ChevronRight
+                                                className="h-4 w-4 shrink-0 text-slate-400 transition group-hover:text-slate-600"
+                                                aria-hidden="true"
+                                            />
                                         </div>
-                                        <ChevronRight
-                                            className="h-4 w-4 shrink-0 text-slate-400 transition group-hover:text-slate-600"
-                                            aria-hidden="true"
-                                        />
-                                    </button>
+                                    </div>
                                 ))}
                                 {threads.length === 0 && (
                                     <p className="text-sm text-slate-500">

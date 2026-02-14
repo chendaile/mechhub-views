@@ -11,6 +11,7 @@ export const SidebarView = ({
     user,
     sessions,
     classGroups,
+    isClassAdmin,
     activeClassThreadId,
     currentSessionId,
     isLoading,
@@ -21,9 +22,12 @@ export const SidebarView = ({
     onCreateClassThread,
     creatingClassThreadId,
     onSelectClassThread,
+    onRenameClassThread,
+    onDeleteClassThread,
     openGroupIds,
     onToggleGroup,
     renderSession,
+    renderClassThread,
     assignmentActions,
     assignmentsTitle,
     isAssignmentsOpen,
@@ -50,6 +54,7 @@ export const SidebarView = ({
                 <SidebarSessions
                     sessions={sessions}
                     classGroups={classGroups}
+                    isClassAdmin={isClassAdmin}
                     activeView={activeView}
                     currentSessionId={currentSessionId}
                     activeClassThreadId={activeClassThreadId}
@@ -57,9 +62,12 @@ export const SidebarView = ({
                     onCreateClassThread={onCreateClassThread}
                     creatingClassThreadId={creatingClassThreadId}
                     onSelectClassThread={onSelectClassThread}
+                    onRenameClassThread={onRenameClassThread}
+                    onDeleteClassThread={onDeleteClassThread}
                     openGroupIds={openGroupIds}
                     onToggleGroup={onToggleGroup}
                     renderSession={renderSession}
+                    renderClassThread={renderClassThread}
                 />
             ) : (
                 <div className="flex-1 px-6 py-2">

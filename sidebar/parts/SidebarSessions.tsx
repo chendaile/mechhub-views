@@ -1,5 +1,5 @@
 import { Fragment, type ReactNode } from "react";
-import { ChevronDown, ChevronRight, Plus } from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import type { ActiveView } from "../../shared/types";
 import type { ChatSession } from "../../chat/types";
 import type { SidebarClassGroup, SidebarClassThread } from "../types";
@@ -8,6 +8,7 @@ import styles from "../../shared/scrollbar.module.css";
 interface SidebarSessionsProps {
     sessions: ChatSession[];
     classGroups: SidebarClassGroup[];
+    isClassAdmin?: boolean;
     activeView: ActiveView;
     currentSessionId: string | null;
     activeClassThreadId?: string;
@@ -15,14 +16,29 @@ interface SidebarSessionsProps {
     onCreateClassThread?: (classId: string) => void;
     creatingClassThreadId?: string | null;
     onSelectClassThread?: (thread: SidebarClassThread) => void;
+    onRenameClassThread?: (
+        classId: string,
+        threadId: string,
+        title: string,
+    ) => Promise<boolean>;
+    onDeleteClassThread?: (
+        classId: string,
+        threadId: string,
+    ) => Promise<boolean>;
     openGroupIds: Set<string>;
     onToggleGroup: (classId: string) => void;
     renderSession: (session: ChatSession, active: boolean) => ReactNode;
+    renderClassThread?: (
+        thread: SidebarClassThread,
+        active: boolean,
+        canManage: boolean,
+    ) => ReactNode;
 }
 
 export const SidebarSessions = ({
     sessions,
     classGroups,
+    isClassAdmin = false,
     activeView,
     currentSessionId,
     activeClassThreadId,
@@ -31,6 +47,7 @@ export const SidebarSessions = ({
     openGroupIds,
     onToggleGroup,
     renderSession,
+    renderClassThread,
 }: SidebarSessionsProps) => {
     return (
         <div className={`flex-1 overflow-y-auto px-6 py-2 ${styles.scrollbar}`}>
@@ -73,6 +90,8 @@ export const SidebarSessions = ({
                 ) : (
                     classGroups.map((group) => {
                         const isOpen = openGroupIds.has(group.classId);
+                        const canManageGroupThreads =
+                            isClassAdmin || group.role === "teacher";
                         return (
                             <div
                                 key={group.classId}
@@ -98,35 +117,52 @@ export const SidebarSessions = ({
                                 </div>
 
                                 {isOpen && (
-                                    <div className="mt-1 grid gap-1">
-                                        {group.threads.map((thread) => (
-                                            <button
-                                                key={thread.id}
-                                                type="button"
-                                                onClick={() =>
-                                                    onSelectClassThread?.(
-                                                        thread,
-                                                    )
-                                                }
-                                                className={`rounded-[1rem] px-2 py-2 text-left text-xs transition ${
-                                                    activeView === "chat" &&
-                                                    activeClassThreadId ===
-                                                        thread.id
-                                                        ? "bg-[#ffffff] text-[#334155]"
-                                                        : "text-[#64748b] hover:bg-[#ffffff] hover:text-[#334155]"
-                                                }`}
-                                            >
-                                                <p className="truncate font-medium">
-                                                    {thread.title}
-                                                </p>
-                                                <p className="text-[10px] text-slate-500">
-                                                    {thread.threadType ===
-                                                    "group"
-                                                        ? "group"
-                                                        : "shared chat"}
-                                                </p>
-                                            </button>
-                                        ))}
+                                    <div className="ml-4 mt-1 grid gap-1">
+                                        {group.threads.map((thread) => {
+                                            const isActive =
+                                                activeView === "chat" &&
+                                                activeClassThreadId ===
+                                                    thread.id;
+
+                                            if (renderClassThread) {
+                                                return (
+                                                    <Fragment key={thread.id}>
+                                                        {renderClassThread(
+                                                            thread,
+                                                            isActive,
+                                                            canManageGroupThreads,
+                                                        )}
+                                                    </Fragment>
+                                                );
+                                            }
+
+                                            return (
+                                                <button
+                                                    key={thread.id}
+                                                    type="button"
+                                                    onClick={() =>
+                                                        onSelectClassThread?.(
+                                                            thread,
+                                                        )
+                                                    }
+                                                    className={`rounded-[1rem] px-2 py-2 text-left text-xs transition ${
+                                                        isActive
+                                                            ? "bg-[#ffffff] text-[#334155]"
+                                                            : "text-[#64748b] hover:bg-[#ffffff] hover:text-[#334155]"
+                                                    }`}
+                                                >
+                                                    <p className="truncate font-medium">
+                                                        {thread.title}
+                                                    </p>
+                                                    <p className="text-[10px] text-slate-500">
+                                                        {thread.threadType ===
+                                                        "group"
+                                                            ? "group"
+                                                            : "shared chat"}
+                                                    </p>
+                                                </button>
+                                            );
+                                        })}
                                         {group.threads.length === 0 && (
                                             <p className="px-2 py-1 text-[11px] text-slate-500">
                                                 暂无会话

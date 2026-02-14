@@ -40,6 +40,7 @@ export interface SidebarViewProps {
     user: UserProfile;
     sessions: ChatSession[];
     classGroups: SidebarClassGroup[];
+    isClassAdmin?: boolean;
     activeClassThreadId?: string;
     currentSessionId: string | null;
     isLoading: boolean;
@@ -50,9 +51,23 @@ export interface SidebarViewProps {
     onCreateClassThread?: (classId: string) => void;
     creatingClassThreadId?: string | null;
     onSelectClassThread?: (thread: SidebarClassThread) => void;
+    onRenameClassThread?: (
+        classId: string,
+        threadId: string,
+        title: string,
+    ) => Promise<boolean>;
+    onDeleteClassThread?: (
+        classId: string,
+        threadId: string,
+    ) => Promise<boolean>;
     openGroupIds: Set<string>;
     onToggleGroup: (classId: string) => void;
     renderSession: (session: ChatSession, active: boolean) => ReactNode;
+    renderClassThread?: (
+        thread: SidebarClassThread,
+        active: boolean,
+        canManage: boolean,
+    ) => ReactNode;
     assignmentActions: SidebarAssignmentAction[];
     assignmentsTitle: string;
     isAssignmentsOpen: boolean;

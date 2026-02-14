@@ -66,6 +66,8 @@ export const SessionItem = ({
             onCancel();
         }
     };
+    const hasMenuOptions =
+        menuActions.length > 0 || !!onStartEdit || !!onDelete;
 
     return (
         <div
@@ -133,89 +135,91 @@ export const SessionItem = ({
                             </span>
 
                             {/* Three-dot menu button */}
-                            <div className="relative shrink-0" ref={menuRef}>
-                                <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        onToggleMenu();
-                                    }}
-                                    className="rounded-[0.75rem] p-1.5 text-[#94a3b8] opacity-0 transition-all group-hover:opacity-100 hover:bg-[#e2e8f0] hover:text-[#334155]"
-                                    title="更多操作"
-                                >
-                                    <MoreVertical size={16} />
-                                </button>
+                            {hasMenuOptions && (
+                                <div className="relative shrink-0" ref={menuRef}>
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            onToggleMenu();
+                                        }}
+                                        className="rounded-[0.75rem] p-1.5 text-[#94a3b8] opacity-0 transition-all group-hover:opacity-100 hover:bg-[#e2e8f0] hover:text-[#334155]"
+                                        title="更多操作"
+                                    >
+                                        <MoreVertical size={16} />
+                                    </button>
 
-                                {/* Dropdown menu */}
-                                {isMenuOpen && (
-                                    <div className="absolute right-0 top-full mt-1 bg-[#ffffff] rounded-[1rem] shadow-xl border border-[#f1f5f9] py-1.5 w-32 z-50 overflow-hidden">
-                                        {menuActions.map((action) => {
-                                            const ActionIcon = action.icon;
-                                            const actionClass =
-                                                action.variant === "danger"
-                                                    ? "w-full px-3 py-2 text-left text-sm hover:bg-[#fef2f2] flex items-center gap-2.5 text-[#334155] hover:text-[#dc2626] transition-colors whitespace-nowrap leading-none"
-                                                    : "w-full px-3 py-2 text-left text-sm hover:bg-[#f8fafc] flex items-center gap-2.5 text-[#334155] transition-colors whitespace-nowrap leading-none";
-                                            const iconClass =
-                                                action.variant === "danger"
-                                                    ? "text-[#ef4444] stroke-[1.5]"
-                                                    : "text-[#3b82f6] stroke-[1.5]";
-                                            return (
+                                    {/* Dropdown menu */}
+                                    {isMenuOpen && (
+                                        <div className="absolute right-0 top-full mt-1 bg-[#ffffff] rounded-[1rem] shadow-xl border border-[#f1f5f9] py-1.5 w-32 z-50 overflow-hidden">
+                                            {menuActions.map((action) => {
+                                                const ActionIcon = action.icon;
+                                                const actionClass =
+                                                    action.variant === "danger"
+                                                        ? "w-full px-3 py-2 text-left text-sm hover:bg-[#fef2f2] flex items-center gap-2.5 text-[#334155] hover:text-[#dc2626] transition-colors whitespace-nowrap leading-none"
+                                                        : "w-full px-3 py-2 text-left text-sm hover:bg-[#f8fafc] flex items-center gap-2.5 text-[#334155] transition-colors whitespace-nowrap leading-none";
+                                                const iconClass =
+                                                    action.variant === "danger"
+                                                        ? "text-[#ef4444] stroke-[1.5]"
+                                                        : "text-[#3b82f6] stroke-[1.5]";
+                                                return (
+                                                    <button
+                                                        key={action.key}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            onCloseMenu();
+                                                            action.onClick();
+                                                        }}
+                                                        className={actionClass}
+                                                    >
+                                                        <ActionIcon
+                                                            size={15}
+                                                            className={iconClass}
+                                                        />
+                                                        <span className="font-medium">
+                                                            {action.label}
+                                                        </span>
+                                                    </button>
+                                                );
+                                            })}
+
+                                            {onStartEdit && (
                                                 <button
-                                                    key={action.key}
                                                     onClick={(e) => {
                                                         e.stopPropagation();
-                                                        onCloseMenu();
-                                                        action.onClick();
+                                                        onStartEdit();
                                                     }}
-                                                    className={actionClass}
+                                                    className="w-full px-3 py-2 text-left text-sm hover:bg-[#f8fafc] flex items-center gap-2.5 text-[#334155] transition-colors whitespace-nowrap leading-none"
                                                 >
-                                                    <ActionIcon
+                                                    <Edit2
                                                         size={15}
-                                                        className={iconClass}
+                                                        className="text-[#3b82f6] stroke-[1.5]"
                                                     />
                                                     <span className="font-medium">
-                                                        {action.label}
+                                                        重命名
                                                     </span>
                                                 </button>
-                                            );
-                                        })}
-
-                                        {onStartEdit && (
-                                            <button
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    onStartEdit();
-                                                }}
-                                                className="w-full px-3 py-2 text-left text-sm hover:bg-[#f8fafc] flex items-center gap-2.5 text-[#334155] transition-colors whitespace-nowrap leading-none"
-                                            >
-                                                <Edit2
-                                                    size={15}
-                                                    className="text-[#3b82f6] stroke-[1.5]"
-                                                />
-                                                <span className="font-medium">
-                                                    重命名
-                                                </span>
-                                            </button>
-                                        )}
-                                        {onDelete && (
-                                            <button
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    onDelete();
-                                                }}
-                                                className="w-full px-3 py-2 text-left text-sm hover:bg-[#fef2f2] flex items-center gap-2.5 text-[#334155] hover:text-[#dc2626] transition-colors whitespace-nowrap leading-none"
-                                            >
-                                                <Trash2
-                                                    size={15}
-                                                    className="text-[#ef4444] stroke-[1.5]"
-                                                />
-                                                <span className="font-medium">
-                                                    删除
-                                                </span>
-                                            </button>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
+                                            )}
+                                            {onDelete && (
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        onDelete();
+                                                    }}
+                                                    className="w-full px-3 py-2 text-left text-sm hover:bg-[#fef2f2] flex items-center gap-2.5 text-[#334155] hover:text-[#dc2626] transition-colors whitespace-nowrap leading-none"
+                                                >
+                                                    <Trash2
+                                                        size={15}
+                                                        className="text-[#ef4444] stroke-[1.5]"
+                                                    />
+                                                    <span className="font-medium">
+                                                        删除
+                                                    </span>
+                                                </button>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                         </>
                     )}
                 </>

@@ -1,5 +1,7 @@
+import type { ReactNode } from "react";
+
 interface GroupTextMessageViewProps {
-    content: string;
+    content: ReactNode;
     senderName: string;
     senderAvatar?: string | null;
     createdAt: string;
