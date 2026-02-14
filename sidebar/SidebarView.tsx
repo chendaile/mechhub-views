@@ -27,6 +27,7 @@ export const SidebarView = ({
     assignmentActions,
     assignmentsTitle,
     isAssignmentsOpen,
+    isAssignmentsActive,
     onToggleAssignmentsOpen,
     onOpenProfile,
     onOpenClassHub,
@@ -62,7 +63,7 @@ export const SidebarView = ({
                 />
             ) : (
                 <div className="flex-1 px-6 py-2">
-                    <div className="rounded-2xl border border-dashed border-slate-300 bg-white/60 p-4 text-xs text-slate-500">
+                    <div className="rounded-2xl border border-dashed p-4 text-xs text-slate-500">
                         Chat access is not enabled for this account.
                     </div>
                 </div>
@@ -76,6 +77,7 @@ export const SidebarView = ({
                 assignmentActions={assignmentActions}
                 assignmentsTitle={assignmentsTitle}
                 isAssignmentsOpen={isAssignmentsOpen}
+                isAssignmentsActive={isAssignmentsActive}
                 onToggleAssignmentsOpen={onToggleAssignmentsOpen}
                 onSignOut={onSignOut}
             />

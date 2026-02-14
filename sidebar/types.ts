@@ -56,6 +56,7 @@ export interface SidebarViewProps {
     assignmentActions: SidebarAssignmentAction[];
     assignmentsTitle: string;
     isAssignmentsOpen: boolean;
+    isAssignmentsActive: boolean;
     onToggleAssignmentsOpen: () => void;
     onOpenProfile?: () => void;
     onOpenClassHub?: () => void;

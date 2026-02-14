@@ -27,8 +27,6 @@ export const SidebarSessions = ({
     currentSessionId,
     activeClassThreadId,
     isLoading,
-    onCreateClassThread,
-    creatingClassThreadId,
     onSelectClassThread,
     openGroupIds,
     onToggleGroup,
@@ -42,9 +40,9 @@ export const SidebarSessions = ({
             <div className="space-y-1">
                 {isLoading ? (
                     <div className="animate-pulse space-y-3">
-                        <div className="h-10 bg-[#f1f5f9] rounded-[1rem] w-full"></div>
-                        <div className="h-10 bg-[#f1f5f9] rounded-[1rem] w-full"></div>
-                        <div className="h-10 bg-[#f1f5f9] rounded-[1rem] w-full"></div>
+                        <div className="h-5 bg-[#e1e6ea] rounded-[1rem] w-full"></div>
+                        <div className="h-5 bg-[#e1e6ea] rounded-[1rem] w-full"></div>
+                        <div className="h-5 bg-[#e1e6ea] rounded-[1rem] w-full"></div>
                     </div>
                 ) : sessions.length === 0 ? (
                     <div className="text-sm text-[#94a3b8] text-center py-4">
@@ -70,7 +68,7 @@ export const SidebarSessions = ({
             <div className="space-y-2 pb-2">
                 {classGroups.length === 0 ? (
                     <div className="rounded-xl border border-dashed border-slate-300 bg-white/60 px-3 py-3 text-xs text-slate-500">
-                        还没有班级会话，先去 Class Hub 加入班级。
+                        还没有班级会话，先去加入班级。
                     </div>
                 ) : (
                     classGroups.map((group) => {
@@ -131,7 +129,7 @@ export const SidebarSessions = ({
                                         ))}
                                         {group.threads.length === 0 && (
                                             <p className="px-2 py-1 text-[11px] text-slate-500">
-                                                暂无会话，点击 + 创建话题。
+                                                暂无会话
                                             </p>
                                         )}
                                     </div>

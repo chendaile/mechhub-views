@@ -12,6 +12,7 @@ interface SidebarFooterProps {
     assignmentActions: SidebarAssignmentAction[];
     assignmentsTitle: string;
     isAssignmentsOpen: boolean;
+    isAssignmentsActive: boolean;
     onToggleAssignmentsOpen: () => void;
     onSignOut?: () => void;
 }
@@ -24,6 +25,7 @@ export const SidebarFooter = ({
     assignmentActions,
     assignmentsTitle,
     isAssignmentsOpen,
+    isAssignmentsActive,
     onToggleAssignmentsOpen,
     onSignOut,
 }: SidebarFooterProps) => {
@@ -49,9 +51,9 @@ export const SidebarFooter = ({
                         type="button"
                         onClick={onToggleAssignmentsOpen}
                         className={`mb-3 flex w-full items-center justify-center gap-1 rounded-[1rem] px-3 py-2 text-xs font-semibold transition ${
-                            activeView === "classHub"
+                            isAssignmentsActive
                                 ? "bg-[#ffffff] text-[#334155]"
-                                : "text-[#64748b] hover:bg-[#ffffff] hover:text-[#334155]"
+                                : "text-[#64748b]"
                         }`}
                     >
                         {isAssignmentsOpen ? (

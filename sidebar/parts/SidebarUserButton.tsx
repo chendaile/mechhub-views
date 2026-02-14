@@ -23,7 +23,7 @@ export const SidebarUserButton = ({
                     : "text-[#334155] hover:bg-[#ffffff]",
             )}
         >
-            <div className="h-10 w-10 shrink-0 overflow-hidden rounded-[9999px] border-2 border-[#ffffff] bg-[#e2e8f0] shadow-sm">
+            <div className="h-10 w-10 shrink-0 overflow-hidden rounded-[1rem] border-2  shadow-sm">
                 <img
                     src={user.avatar}
                     alt={user.name}
@@ -35,7 +35,6 @@ export const SidebarUserButton = ({
                     {user.name}
                 </div>
             </div>
-            <Settings size={16} className="text-[#cbd5e1]" />
         </button>
     );
 };
