@@ -65,7 +65,7 @@ export const SidebarFooter = ({
                     </button>
 
                     {isAssignmentsOpen && (
-                        <div className="mt-2 grid grid-cols-2 gap-2">
+                        <div className="m-2 grid grid-cols-2 gap-2">
                             {assignmentActions.map((action) => (
                                 <button
                                     key={action.key}
