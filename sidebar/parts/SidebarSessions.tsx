@@ -97,13 +97,13 @@ export const SidebarSessions = ({
                                 key={group.classId}
                                 className="rounded-[1rem] p-2"
                             >
-                                <div className="flex items-center gap-1">
+                                <div className="flex items-center">
                                     <button
                                         type="button"
                                         onClick={() =>
                                             onToggleGroup(group.classId)
                                         }
-                                        className="flex min-w-0 flex-1 items-center gap-2 rounded-xl px-2 py-1.5 text-left text-xs font-semibold text-slate-700 hover:bg-slate-100"
+                                        className="flex min-w-0 flex-1 items-center rounded-xl px-2 py-1.5 text-left text-xs font-semibold text-slate-700 hover:bg-slate-100"
                                     >
                                         {isOpen ? (
                                             <ChevronDown size={14} />
@@ -117,7 +117,7 @@ export const SidebarSessions = ({
                                 </div>
 
                                 {isOpen && (
-                                    <div className="ml-4 mt-1 grid gap-1">
+                                    <div className="ml-4 grid">
                                         {group.threads.map((thread) => {
                                             const isActive =
                                                 activeView === "chat" &&

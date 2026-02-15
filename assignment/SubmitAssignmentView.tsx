@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react";
+import { Button, buttonVariants } from "../shared/ui/button";
 
 interface SubmitAssignmentAttachment {
     name: string;
@@ -77,6 +78,9 @@ export const SubmitAssignmentView = ({
     const [expandedPreview, setExpandedPreview] = useState<
         Record<string, boolean>
     >({});
+    const [expandedDetails, setExpandedDetails] = useState<
+        Record<string, boolean>
+    >({});
     const pending = assignments.filter((item) => item.status === "pending");
     const submitted = assignments.filter((item) => item.status === "submitted");
     const overdue = assignments.filter((item) => item.status === "overdue");
@@ -91,200 +95,285 @@ export const SubmitAssignmentView = ({
             [assignmentId]: !prev[assignmentId],
         }));
     };
+    const toggleDetails = (assignmentId: string) => {
+        setExpandedDetails((prev) => ({
+            ...prev,
+            [assignmentId]: !prev[assignmentId],
+        }));
+    };
 
     return (
         <div className="flex-1 h-full overflow-y-auto bg-slate-50">
             <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-6 py-8 lg:px-10">
-                <header className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                    <div className="text-sm text-slate-500">作业中心 / 提交状态</div>
-                    <div className="mt-3 flex flex-wrap items-start justify-between gap-4">
-                        <div>
-                            <h1 className="font-serif-heading text-4xl font-bold text-slate-900">
-                                提交 Dashboard
-                            </h1>
-                            <p className="mt-2 text-sm text-slate-600">
-                                作业提交以聊天证据快照为准，最新提交会覆盖旧提交。
-                            </p>
-                        </div>
+                <div className="mt-3 flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                        <h1 className="font-serif-heading text-4xl font-bold text-slate-900">
+                            作业提交 Dashboard
+                        </h1>
                     </div>
-                </header>
+                </div>
 
-                <section className="grid gap-4 md:grid-cols-3">
-                    <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                        <p className="text-xs uppercase tracking-wide text-slate-500">
-                            待提交
-                        </p>
-                        <p className="mt-2 text-3xl font-bold text-amber-600">
-                            {pending.length}
-                        </p>
-                    </article>
-                    <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                        <p className="text-xs uppercase tracking-wide text-slate-500">
-                            已提交
-                        </p>
-                        <p className="mt-2 text-3xl font-bold text-emerald-600">
-                            {submitted.length}
-                        </p>
-                    </article>
-                    <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                        <p className="text-xs uppercase tracking-wide text-slate-500">
-                            已逾期
-                        </p>
-                        <p className="mt-2 text-3xl font-bold text-rose-600">
-                            {overdue.length}
-                        </p>
-                    </article>
-                </section>
-
-                <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-                    <h2 className="text-lg font-bold text-slate-900">作业列表</h2>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                        {(
-                            [
-                                { key: "all", label: "全部" },
-                                { key: "pending", label: "待提交" },
-                                { key: "submitted", label: "已提交" },
-                                { key: "overdue", label: "已逾期" },
-                            ] as const
-                        ).map((filter) => {
-                            const active = activeFilter === filter.key;
-                            return (
-                                <button
-                                    key={filter.key}
-                                    type="button"
-                                    onClick={() => setActiveFilter(filter.key)}
-                                    disabled={isSubmitting}
-                                    className={`rounded-full border px-3 py-1.5 text-sm transition ${
+                <section className="grid gap-4 md:grid-cols-4">
+                    {(
+                        [
+                            {
+                                key: "all",
+                                label: "全部",
+                                count: assignments.length,
+                                tone: "text-slate-900",
+                            },
+                            {
+                                key: "pending",
+                                label: "待提交",
+                                count: pending.length,
+                                tone: "text-amber-600",
+                            },
+                            {
+                                key: "submitted",
+                                label: "已提交",
+                                count: submitted.length,
+                                tone: "text-emerald-600",
+                            },
+                            {
+                                key: "overdue",
+                                label: "已逾期",
+                                count: overdue.length,
+                                tone: "text-rose-600",
+                            },
+                        ] as const
+                    ).map((filter) => {
+                        const active = activeFilter === filter.key;
+                        return (
+                            <Button
+                                key={filter.key}
+                                type="button"
+                                variant="outline"
+                                size="md"
+                                onClick={() => setActiveFilter(filter.key)}
+                                disabled={isSubmitting}
+                                className={`h-full w-full flex-col items-start justify-between rounded-2xl p-4 text-left shadow-sm transition ${
+                                    active
+                                        ? "border-slate-900 bg-slate-900 text-white hover:bg-slate-900 hover:text-white"
+                                        : "border-slate-900 text-slate-900"
+                                }`}
+                            >
+                                <span
+                                    className={`text-xs uppercase tracking-wide ${
                                         active
-                                            ? "border-slate-900 bg-slate-900 text-white"
-                                            : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
-                                    } disabled:cursor-not-allowed disabled:opacity-70`}
+                                            ? "text-white/80"
+                                            : "text-slate-500"
+                                    }`}
                                 >
                                     {filter.label}
-                                </button>
-                            );
-                        })}
-                    </div>
+                                </span>
+                                <span
+                                    className={`mt-2 text-3xl font-bold ${
+                                        active ? "text-white" : filter.tone
+                                    }`}
+                                >
+                                    {filter.count}
+                                </span>
+                            </Button>
+                        );
+                    })}
+                </section>
 
+                <section>
+                    <h2 className="font-serif-heading text-3xl font-bold text-slate-900">
+                        作业列表
+                    </h2>
                     <div className="mt-4 space-y-3">
                         {filteredAssignments.map((item) => {
                             const previewExpanded = !!expandedPreview[item.id];
+                            const detailsExpanded = !!expandedDetails[item.id];
                             return (
-                            <article
-                                key={item.id}
-                                className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3"
-                            >
-                                <div className="flex flex-wrap items-start justify-between gap-3">
-                                    <div>
-                                        <p className="text-sm font-semibold text-slate-900">
-                                            {item.title}
+                                <article
+                                    key={item.id}
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={() => toggleDetails(item.id)}
+                                    onKeyDown={(event) => {
+                                        if (
+                                            event.key === "Enter" ||
+                                            event.key === " "
+                                        ) {
+                                            event.preventDefault();
+                                            toggleDetails(item.id);
+                                        }
+                                    }}
+                                    className="rounded-2xl border-2 border-black bg-white p-4 text-left shadow-sm transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/40"
+                                >
+                                    <div className="flex w-full flex-wrap items-start justify-between gap-3">
+                                        <div>
+                                            <p className="text-sm font-semibold text-slate-900">
+                                                {item.title}
+                                            </p>
+                                            <p className="mt-0.5 text-xs text-slate-500">
+                                                {item.className} · 截止:{" "}
+                                                {formatDateTime(item.dueAt)}
+                                            </p>
+                                        </div>
+                                        <span
+                                            className={`rounded-full px-2.5 py-1 text-xs font-semibold ${statusClass[item.status]}`}
+                                        >
+                                            {statusLabel[item.status]}
+                                        </span>
+                                    </div>
+
+                                    <div className="mt-3 grid w-full gap-2 text-xs text-slate-600 md:grid-cols-3">
+                                        <p>
+                                            最近提交:{" "}
+                                            {formatDateTime(
+                                                item.latestSubmittedAt,
+                                            )}
                                         </p>
-                                        <p className="mt-0.5 text-xs text-slate-500">
-                                            {item.className} · 截止:
-                                            {" "}
-                                            {formatDateTime(item.dueAt)}
+                                        <p>
+                                            已提交次数: {item.latestAttemptNo}
+                                        </p>
+                                        <p>
+                                            得分: {item.latestGrade ?? "未发布"}
                                         </p>
                                     </div>
-                                    <span
-                                        className={`rounded-full px-2.5 py-1 text-xs font-semibold ${statusClass[item.status]}`}
-                                    >
-                                        {statusLabel[item.status]}
+
+                                    <span className="mt-3 block text-xs font-semibold text-slate-600">
+                                        {detailsExpanded
+                                            ? "收起详情"
+                                            : "展开详情"}
                                     </span>
-                                </div>
 
-                                <div className="mt-3 grid gap-2 text-xs text-slate-600 md:grid-cols-3">
-                                    <p>最近提交: {formatDateTime(item.latestSubmittedAt)}</p>
-                                    <p>尝试次数: {item.latestAttemptNo}</p>
-                                    <p>已发布得分: {item.latestGrade ?? "未发布"}</p>
-                                </div>
-
-                                <div className="mt-3 rounded-xl border border-slate-200 bg-white/80 px-3 py-3">
-                                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                                        作业说明
-                                    </p>
-                                    <p className="mt-2 whitespace-pre-wrap text-sm text-slate-700">
-                                        {item.instructions?.trim() || "暂无作业说明。"}
-                                    </p>
-                                </div>
-
-                                <div className="mt-3 rounded-xl border border-slate-200 bg-white/80 px-3 py-3">
-                                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                                        附件
-                                    </p>
-                                    {item.attachments.length > 0 ? (
-                                        <div className="mt-2 space-y-2">
-                                            {item.attachments.map((attachment, index) => (
-                                                <a
-                                                    key={`${attachment.name}-${index}`}
-                                                    href={attachment.url}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-50"
-                                                >
-                                                    <span className="font-medium">
-                                                        {attachment.name}
-                                                    </span>
-                                                    <span className="text-xs text-slate-500">
-                                                        {formatFileSize(attachment.size)}
-                                                    </span>
-                                                </a>
-                                            ))}
-                                        </div>
-                                    ) : (
-                                        <p className="mt-2 text-sm text-slate-500">
-                                            暂无附件。
-                                        </p>
-                                    )}
-                                </div>
-
-                                {item.hasPreview ? (
-                                    <div className="mt-3 rounded-xl border border-slate-200 bg-white/80 px-3 py-3">
-                                        <div className="flex items-center justify-between">
-                                            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                                                提交预览
-                                            </p>
-                                            <button
-                                                type="button"
-                                                onClick={() =>
-                                                    togglePreview(item.id)
-                                                }
-                                                disabled={isSubmitting}
-                                                className="text-xs font-semibold text-slate-600 transition hover:text-slate-900"
-                                            >
-                                                {previewExpanded ? "收起" : "展开"}
-                                            </button>
-                                        </div>
-                                        {previewExpanded ? (
-                                            <div className="mt-2 h-[280px] overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
-                                                {item.previewContent}
+                                    <div
+                                        className={`overflow-hidden transition-[max-height,opacity] duration-200 ease-out ${
+                                            detailsExpanded
+                                                ? "max-h-[1000px] opacity-100"
+                                                : "max-h-0 opacity-0 pointer-events-none"
+                                        }`}
+                                    >
+                                        <div
+                                            className="mt-3 border-t border-slate-200 pt-3"
+                                            onClick={(event) =>
+                                                event.stopPropagation()
+                                            }
+                                            onKeyDown={(event) =>
+                                                event.stopPropagation()
+                                            }
+                                        >
+                                            <div className="px-1">
+                                                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                                                    作业说明
+                                                </p>
+                                                <p className="mt-2 whitespace-pre-wrap text-sm text-slate-700">
+                                                    {item.instructions?.trim() ||
+                                                        "暂无作业说明。"}
+                                                </p>
                                             </div>
-                                        ) : (
-                                            <p className="mt-2 text-sm text-slate-500">
-                                                点击展开查看预览。
-                                            </p>
-                                        )}
+
+                                            <div className="mt-3 rounded-xl px-1">
+                                                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                                                    附件
+                                                </p>
+                                                {item.attachments.length > 0 ? (
+                                                    <div className="mt-2 space-y-2">
+                                                        {item.attachments.map(
+                                                            (
+                                                                attachment,
+                                                                index,
+                                                            ) => (
+                                                                <a
+                                                                    key={`${attachment.name}-${index}`}
+                                                                    href={
+                                                                        attachment.url
+                                                                    }
+                                                                    target="_blank"
+                                                                    rel="noreferrer"
+                                                                    onClick={(
+                                                                        event,
+                                                                    ) =>
+                                                                        event.stopPropagation()
+                                                                    }
+                                                                    onKeyDown={(
+                                                                        event,
+                                                                    ) =>
+                                                                        event.stopPropagation()
+                                                                    }
+                                                                    className={`${buttonVariants({ variant: "outline", size: "sm" })} w-full justify-between`}
+                                                                >
+                                                                    <span className="font-medium">
+                                                                        {
+                                                                            attachment.name
+                                                                        }
+                                                                    </span>
+                                                                    <span className="text-xs text-slate-500">
+                                                                        {formatFileSize(
+                                                                            attachment.size,
+                                                                        )}
+                                                                    </span>
+                                                                </a>
+                                                            ),
+                                                        )}
+                                                    </div>
+                                                ) : (
+                                                    <p className="mt-2 text-sm text-slate-500">
+                                                        暂无附件。
+                                                    </p>
+                                                )}
+                                            </div>
+
+                                            {item.hasPreview ? (
+                                                <div className="mt-3 px-1">
+                                                    <Button
+                                                        type="button"
+                                                        variant="outline"
+                                                        size="sm"
+                                                        onClick={(event) => {
+                                                            event.stopPropagation();
+                                                            togglePreview(
+                                                                item.id,
+                                                            );
+                                                        }}
+                                                        onKeyDown={(event) =>
+                                                            event.stopPropagation()
+                                                        }
+                                                        disabled={isSubmitting}
+                                                        className="w-full justify-between"
+                                                    >
+                                                        <span>提交预览</span>
+                                                        <span>
+                                                            {previewExpanded
+                                                                ? "收起"
+                                                                : "展开"}
+                                                        </span>
+                                                    </Button>
+                                                    {previewExpanded && (
+                                                        <div className="mt-2 h-[280px] overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                                                            {
+                                                                item.previewContent
+                                                            }
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ) : (
+                                                <div className="mt-3 px-1 text-sm text-slate-500">
+                                                    暂无提交预览。
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
-                                ) : (
-                                    <div className="mt-3 rounded-xl border border-slate-200 bg-white/80 px-3 py-3 text-sm text-slate-500">
-                                        暂无提交预览。
-                                    </div>
-                                )}
-                            </article>
-                        );
+                                </article>
+                            );
                         })}
 
                         {assignments.length === 0 && (
-                            <p className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-center text-sm text-slate-500">
+                            <p className=" px-4 text-center text-sm text-slate-500">
                                 当前没有可提交作业。
                             </p>
                         )}
 
                         {assignments.length > 0 &&
                             filteredAssignments.length === 0 && (
-                                <p className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-center text-sm text-slate-500">
+                                <p className=" px-4 text-center text-sm text-slate-500">
                                     当前筛选下没有作业。
                                 </p>
-                        )}
+                            )}
                     </div>
                 </section>
             </div>
