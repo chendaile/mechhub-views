@@ -1,5 +1,3 @@
-import { Button } from "../shared/ui/button";
-
 interface FeedbackListItem {
     submissionId: string;
     assignmentTitle: string;
@@ -25,7 +23,6 @@ interface ViewFeedbackViewProps {
     activeSubmissionId: string | null;
     onSelectSubmission: (submissionId: string) => void;
     detail: FeedbackDetail | null;
-    onOpenChat: () => void;
 }
 
 const formatDateTime = (value?: string | null) => {
@@ -44,7 +41,6 @@ export const ViewFeedbackView = ({
     activeSubmissionId,
     onSelectSubmission,
     detail,
-    onOpenChat,
 }: ViewFeedbackViewProps) => {
     return (
         <div className="flex-1 h-full overflow-y-auto bg-slate-50">
@@ -60,13 +56,6 @@ export const ViewFeedbackView = ({
                                 这里只展示你自己的作业反馈。AI 草稿仅用于老师内部审阅，发布后你看到的是最终结果。
                             </p>
                         </div>
-                        <Button
-                            type="button"
-                            variant="pill_secondary"
-                            onClick={onOpenChat}
-                        >
-                            打开私聊继续学习
-                        </Button>
                     </div>
                 </header>
 

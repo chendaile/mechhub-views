@@ -25,6 +25,7 @@ interface TextMessageViewProps {
     onCopy: () => void;
     onShareToClass?: () => void;
     onSubmitToAssignment?: () => void;
+    showActions?: boolean;
 }
 
 export const TextMessageView = ({
@@ -45,6 +46,7 @@ export const TextMessageView = ({
     onCopy,
     onShareToClass,
     onSubmitToAssignment,
+    showActions = true,
 }: TextMessageViewProps) => {
     const displayImages = imageUrls && imageUrls.length > 0 ? imageUrls : [];
     const canShowThinking = role === "assistant" && showThinking;
@@ -131,78 +133,84 @@ export const TextMessageView = ({
                             )}
                         </div>
 
-                        <div
-                            className={`flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ${
-                                role === "user"
-                                    ? "justify-end"
-                                    : "justify-start"
-                            }`}
-                        >
-                            {onShareToClass && (
-                                <button
-                                    onClick={onShareToClass}
-                                    className={`px-3 py-1.5 rounded-[1rem] transition-all duration-200 flex items-center gap-1.5 text-xs font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-                                        role === "user"
-                                            ? "text-slate-400 hover:bg-slate-800/50 hover:text-white focus:ring-slate-600 focus:ring-offset-slate-900"
-                                            : "text-slate-400 hover:bg-slate-50 hover:text-slate-700 focus:ring-slate-300 focus:ring-offset-white"
-                                    }`}
-                                    aria-label="分享到班级"
-                                    title="Share to Class"
-                                >
-                                    <Share2 size={14} />
-                                    <span>分享班级</span>
-                                </button>
-                            )}
-
-                            {onSubmitToAssignment && (
-                                <button
-                                    onClick={onSubmitToAssignment}
-                                    className={`px-3 py-1.5 rounded-[1rem] transition-all duration-200 flex items-center gap-1.5 text-xs font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-                                        role === "user"
-                                            ? "text-slate-400 hover:bg-slate-800/50 hover:text-white focus:ring-slate-600 focus:ring-offset-slate-900"
-                                            : "text-slate-400 hover:bg-slate-50 hover:text-slate-700 focus:ring-slate-300 focus:ring-offset-white"
-                                    }`}
-                                    aria-label="提交到作业"
-                                    title="提交到作业"
-                                >
-                                    <Upload size={14} />
-                                    <span>提交作业</span>
-                                </button>
-                            )}
-
-                            <button
-                                onClick={onCopy}
-                                className={`px-3 py-1.5 rounded-[1rem] transition-all duration-200 flex items-center gap-1.5 text-xs font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                        {showActions && (
+                            <div
+                                className={`flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ${
                                     role === "user"
-                                        ? `${
-                                              isCopied
-                                                  ? "bg-slate-800 text-green-400"
-                                                  : "text-slate-400 hover:bg-slate-800/50 hover:text-white"
-                                          } focus:ring-slate-600 focus:ring-offset-slate-900`
-                                        : `${
-                                              isCopied
-                                                  ? "bg-slate-100/50 text-green-600"
-                                                  : "text-slate-400 hover:bg-slate-50 hover:text-slate-700"
-                                          } focus:ring-slate-300 focus:ring-offset-white`
+                                        ? "justify-end"
+                                        : "justify-start"
                                 }`}
-                                aria-label={
-                                    isCopied ? "已复制到剪贴板" : "复制文本内容"
-                                }
-                                title={isCopied ? "已复制到剪贴板" : "复制文本"}
                             >
-                                {isCopied ? (
-                                    <>
-                                        <Check size={14} />
-                                        <span>已复制</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Copy size={14} />
-                                        <span>复制</span>
-                                    </>
+                                {onShareToClass && (
+                                    <button
+                                        onClick={onShareToClass}
+                                        className={`px-3 py-1.5 rounded-[1rem] transition-all duration-200 flex items-center gap-1.5 text-xs font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                                            role === "user"
+                                                ? "text-slate-400 hover:bg-slate-800/50 hover:text-white focus:ring-slate-600 focus:ring-offset-slate-900"
+                                                : "text-slate-400 hover:bg-slate-50 hover:text-slate-700 focus:ring-slate-300 focus:ring-offset-white"
+                                        }`}
+                                        aria-label="分享到班级"
+                                        title="Share to Class"
+                                    >
+                                        <Share2 size={14} />
+                                        <span>分享班级</span>
+                                    </button>
                                 )}
-                            </button>
-                        </div>
+
+                                {onSubmitToAssignment && (
+                                    <button
+                                        onClick={onSubmitToAssignment}
+                                        className={`px-3 py-1.5 rounded-[1rem] transition-all duration-200 flex items-center gap-1.5 text-xs font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                                            role === "user"
+                                                ? "text-slate-400 hover:bg-slate-800/50 hover:text-white focus:ring-slate-600 focus:ring-offset-slate-900"
+                                                : "text-slate-400 hover:bg-slate-50 hover:text-slate-700 focus:ring-slate-300 focus:ring-offset-white"
+                                        }`}
+                                        aria-label="提交到作业"
+                                        title="提交到作业"
+                                    >
+                                        <Upload size={14} />
+                                        <span>提交作业</span>
+                                    </button>
+                                )}
+
+                                <button
+                                    onClick={onCopy}
+                                    className={`px-3 py-1.5 rounded-[1rem] transition-all duration-200 flex items-center gap-1.5 text-xs font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                                        role === "user"
+                                            ? `${
+                                                  isCopied
+                                                      ? "bg-slate-800 text-green-400"
+                                                      : "text-slate-400 hover:bg-slate-800/50 hover:text-white"
+                                              } focus:ring-slate-600 focus:ring-offset-slate-900`
+                                            : `${
+                                                  isCopied
+                                                      ? "bg-slate-100/50 text-green-600"
+                                                      : "text-slate-400 hover:bg-slate-50 hover:text-slate-700"
+                                              } focus:ring-slate-300 focus:ring-offset-white`
+                                    }`}
+                                    aria-label={
+                                        isCopied
+                                            ? "已复制到剪贴板"
+                                            : "复制文本内容"
+                                    }
+                                    title={
+                                        isCopied ? "已复制到剪贴板" : "复制文本"
+                                    }
+                                >
+                                    {isCopied ? (
+                                        <>
+                                            <Check size={14} />
+                                            <span>已复制</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Copy size={14} />
+                                            <span>复制</span>
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

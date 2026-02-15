@@ -9,6 +9,8 @@ interface MessageListViewProps {
     onScroll: (e: React.UIEvent<HTMLDivElement>) => void;
     previewImage: string | null;
     onClosePreview: () => void;
+    className?: string;
+    contentClassName?: string;
 }
 
 export const MessageListView = ({
@@ -18,14 +20,21 @@ export const MessageListView = ({
     onScroll,
     previewImage,
     onClosePreview,
+    className,
+    contentClassName,
 }: MessageListViewProps) => {
+    const containerClassName = className
+        ? `${className} ${styles.scrollbar}`
+        : `flex-1 overflow-y-auto px-20 py-8 overflow-x-hidden bg-[#f8fafc] ${styles.scrollbar}`;
+    const bodyClassName = contentClassName ?? "space-y-6";
+
     return (
         <div
-            className={`flex-1 overflow-y-auto px-20 py-8 overflow-x-hidden bg-[#f8fafc] ${styles.scrollbar}`}
+            className={containerClassName}
             style={{ overflowAnchor: "none" }}
             onScroll={onScroll}
         >
-            <div ref={contentRef} className="space-y-6">
+            <div ref={contentRef} className={bodyClassName}>
                 {items}
             </div>
 

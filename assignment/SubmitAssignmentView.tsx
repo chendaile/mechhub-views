@@ -1,10 +1,21 @@
-import { Button } from "../shared/ui/button";
+import type { ReactNode } from "react";
+
+interface SubmitAssignmentAttachment {
+    name: string;
+    url: string;
+    size?: number;
+    contentType?: string;
+}
 
 interface SubmitAssignmentItem {
     id: string;
     title: string;
     className: string;
     dueAt: string | null;
+    instructions: string | null;
+    attachments: SubmitAssignmentAttachment[];
+    previewContent?: ReactNode;
+    hasPreview?: boolean;
     status: "pending" | "submitted" | "overdue";
     latestAttemptNo: number;
     latestSubmittedAt: string | null;
@@ -13,10 +24,7 @@ interface SubmitAssignmentItem {
 
 interface SubmitAssignmentViewProps {
     assignments: SubmitAssignmentItem[];
-    hasCurrentSession: boolean;
     isSubmitting: boolean;
-    onSubmitFromCurrentSession: (assignmentId: string) => void;
-    onOpenChat: () => void;
 }
 
 const statusLabel: Record<SubmitAssignmentItem["status"], string> = {
@@ -44,12 +52,24 @@ const formatDateTime = (value?: string | null) => {
     return date.toLocaleString();
 };
 
+const formatFileSize = (bytes?: number) => {
+    if (bytes === undefined || Number.isNaN(bytes)) {
+        return "未知大小";
+    }
+    if (bytes < 1024) {
+        return `${bytes} B`;
+    }
+    const kb = bytes / 1024;
+    if (kb < 1024) {
+        return `${kb.toFixed(1)} KB`;
+    }
+    const mb = kb / 1024;
+    return `${mb.toFixed(1)} MB`;
+};
+
 export const SubmitAssignmentView = ({
     assignments,
-    hasCurrentSession,
     isSubmitting,
-    onSubmitFromCurrentSession,
-    onOpenChat,
 }: SubmitAssignmentViewProps) => {
     const pending = assignments.filter((item) => item.status === "pending");
     const submitted = assignments.filter((item) => item.status === "submitted");
@@ -66,16 +86,9 @@ export const SubmitAssignmentView = ({
                                 提交 Dashboard
                             </h1>
                             <p className="mt-2 text-sm text-slate-600">
-                                作业提交以聊天证据快照为准，支持多次提交，系统按最后一次计入。
+                                作业提交以聊天证据快照为准，最新提交会覆盖旧提交。
                             </p>
                         </div>
-                        <Button
-                            type="button"
-                            variant="pill_secondary"
-                            onClick={onOpenChat}
-                        >
-                            打开私聊
-                        </Button>
                     </div>
                 </header>
 
@@ -139,32 +152,55 @@ export const SubmitAssignmentView = ({
                                     <p>已发布得分: {item.latestGrade ?? "未发布"}</p>
                                 </div>
 
-                                <div className="mt-3 flex justify-end">
-                                    {hasCurrentSession ? (
-                                        <Button
-                                            type="button"
-                                            size="sm"
-                                            variant="soft"
-                                            disabled={isSubmitting}
-                                            onClick={() =>
-                                                onSubmitFromCurrentSession(item.id)
-                                            }
-                                        >
-                                            {isSubmitting
-                                                ? "提交中..."
-                                                : "用当前会话提交"}
-                                        </Button>
+                                <div className="mt-3 rounded-xl border border-slate-200 bg-white/80 px-3 py-3">
+                                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                                        作业说明
+                                    </p>
+                                    <p className="mt-2 whitespace-pre-wrap text-sm text-slate-700">
+                                        {item.instructions?.trim() || "暂无作业说明。"}
+                                    </p>
+                                </div>
+
+                                <div className="mt-3 rounded-xl border border-slate-200 bg-white/80 px-3 py-3">
+                                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                                        附件
+                                    </p>
+                                    {item.attachments.length > 0 ? (
+                                        <div className="mt-2 space-y-2">
+                                            {item.attachments.map((attachment, index) => (
+                                                <a
+                                                    key={`${attachment.name}-${index}`}
+                                                    href={attachment.url}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-50"
+                                                >
+                                                    <span className="font-medium">
+                                                        {attachment.name}
+                                                    </span>
+                                                    <span className="text-xs text-slate-500">
+                                                        {formatFileSize(attachment.size)}
+                                                    </span>
+                                                </a>
+                                            ))}
+                                        </div>
                                     ) : (
-                                        <Button
-                                            type="button"
-                                            size="sm"
-                                            variant="soft"
-                                            onClick={onOpenChat}
-                                        >
-                                            去聊天选择提交
-                                        </Button>
+                                        <p className="mt-2 text-sm text-slate-500">
+                                            暂无附件。
+                                        </p>
                                     )}
                                 </div>
+
+                                {item.hasPreview && (
+                                    <div className="mt-3 rounded-xl border border-slate-200 bg-white/80 px-3 py-3">
+                                        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                                            提交预览
+                                        </p>
+                                        <div className="mt-2 h-[280px] overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                                            {item.previewContent}
+                                        </div>
+                                    </div>
+                                )}
                             </article>
                         ))}
 
