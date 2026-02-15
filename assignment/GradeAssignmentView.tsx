@@ -51,12 +51,21 @@ interface GradeAssignmentSummary {
 }
 
 interface GradeAssignmentViewProps {
-    mode: "dashboard" | "detail";
+    mode: "classList" | "classDashboard" | "detail";
     summary: GradeAssignmentSummary;
     dashboardAssignments: GradeDashboardAssignment[];
     isDashboardLoading: boolean;
+    teacherClasses: Array<{
+        id: string;
+        name: string;
+        studentCount: number;
+        teacherCount: number;
+    }>;
+    activeClassName: string | null;
+    onEnterClass: (classId: string) => void;
+    onBackToClassList: () => void;
     onEnterDetail: (assignmentId: string) => void;
-    onBackToDashboard: () => void;
+    onBackToClassDashboard: () => void;
     assignments: GradeAssignmentItem[];
     activeAssignmentId: string | null;
     onSelectAssignment: (assignmentId: string) => void;
@@ -108,8 +117,12 @@ export const GradeAssignmentView = ({
     summary,
     dashboardAssignments,
     isDashboardLoading,
+    teacherClasses,
+    activeClassName,
+    onEnterClass,
+    onBackToClassList,
     onEnterDetail,
-    onBackToDashboard,
+    onBackToClassDashboard,
     assignments,
     activeAssignmentId,
     onSelectAssignment,
@@ -168,23 +181,79 @@ export const GradeAssignmentView = ({
                                     ? aiGradingEnabled
                                         ? "AI 草稿会自动生成，确认后直接发布给学生。"
                                         : "直接填写分数与理由并发布反馈给学生。"
-                                    : "查看作业提交情况并进入详细批改。"}
+                                    : mode === "classDashboard"
+                                      ? `当前班级：${activeClassName ?? "未选择班级"}`
+                                      : "请选择一个班级进入批改。"}
                             </p>
                         </div>
+                        {mode === "classDashboard" && (
+                            <Button
+                                type="button"
+                                size="sm"
+                                variant="soft"
+                                onClick={onBackToClassList}
+                            >
+                                返回班级列表
+                            </Button>
+                        )}
                         {mode === "detail" && (
                             <Button
                                 type="button"
                                 size="sm"
                                 variant="soft"
-                                onClick={onBackToDashboard}
+                                onClick={onBackToClassDashboard}
                             >
-                                返回 Dashboard
+                                返回班级 Dashboard
                             </Button>
                         )}
                     </div>
                 </header>
 
-                {mode === "dashboard" ? (
+                {mode === "classList" ? (
+                    <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+                        <h2 className="text-lg font-bold text-slate-900">
+                            班级列表
+                        </h2>
+                        <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                            {teacherClasses.map((classItem) => (
+                                <article
+                                    key={classItem.id}
+                                    className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
+                                >
+                                    <p className="text-base font-semibold text-slate-900">
+                                        {classItem.name}
+                                    </p>
+                                    <div className="mt-2 text-sm text-slate-600">
+                                        <p>学生: {classItem.studentCount}</p>
+                                        <p>老师: {classItem.teacherCount}</p>
+                                        <p>
+                                            总人数:{" "}
+                                            {classItem.studentCount +
+                                                classItem.teacherCount}
+                                        </p>
+                                    </div>
+                                    <Button
+                                        type="button"
+                                        size="sm"
+                                        variant="pill_primary"
+                                        className="mt-4"
+                                        onClick={() =>
+                                            onEnterClass(classItem.id)
+                                        }
+                                    >
+                                        进入班级
+                                    </Button>
+                                </article>
+                            ))}
+
+                            {teacherClasses.length === 0 && (
+                                <p className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-center text-sm text-slate-500">
+                                    暂无可批改班级。
+                                </p>
+                            )}
+                        </div>
+                    </section>
+                ) : mode === "classDashboard" ? (
                     <>
                         <section className="grid gap-4 md:grid-cols-3">
                             <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">

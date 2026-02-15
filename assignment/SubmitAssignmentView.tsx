@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 interface SubmitAssignmentAttachment {
     name: string;
@@ -26,6 +26,8 @@ interface SubmitAssignmentViewProps {
     assignments: SubmitAssignmentItem[];
     isSubmitting: boolean;
 }
+
+type SubmitFilter = "all" | SubmitAssignmentItem["status"];
 
 const statusLabel: Record<SubmitAssignmentItem["status"], string> = {
     pending: "待提交",
@@ -71,9 +73,24 @@ export const SubmitAssignmentView = ({
     assignments,
     isSubmitting,
 }: SubmitAssignmentViewProps) => {
+    const [activeFilter, setActiveFilter] = useState<SubmitFilter>("all");
+    const [expandedPreview, setExpandedPreview] = useState<
+        Record<string, boolean>
+    >({});
     const pending = assignments.filter((item) => item.status === "pending");
     const submitted = assignments.filter((item) => item.status === "submitted");
     const overdue = assignments.filter((item) => item.status === "overdue");
+    const filteredAssignments =
+        activeFilter === "all"
+            ? assignments
+            : assignments.filter((item) => item.status === activeFilter);
+
+    const togglePreview = (assignmentId: string) => {
+        setExpandedPreview((prev) => ({
+            ...prev,
+            [assignmentId]: !prev[assignmentId],
+        }));
+    };
 
     return (
         <div className="flex-1 h-full overflow-y-auto bg-slate-50">
@@ -121,9 +138,38 @@ export const SubmitAssignmentView = ({
 
                 <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
                     <h2 className="text-lg font-bold text-slate-900">作业列表</h2>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                        {(
+                            [
+                                { key: "all", label: "全部" },
+                                { key: "pending", label: "待提交" },
+                                { key: "submitted", label: "已提交" },
+                                { key: "overdue", label: "已逾期" },
+                            ] as const
+                        ).map((filter) => {
+                            const active = activeFilter === filter.key;
+                            return (
+                                <button
+                                    key={filter.key}
+                                    type="button"
+                                    onClick={() => setActiveFilter(filter.key)}
+                                    disabled={isSubmitting}
+                                    className={`rounded-full border px-3 py-1.5 text-sm transition ${
+                                        active
+                                            ? "border-slate-900 bg-slate-900 text-white"
+                                            : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+                                    } disabled:cursor-not-allowed disabled:opacity-70`}
+                                >
+                                    {filter.label}
+                                </button>
+                            );
+                        })}
+                    </div>
 
                     <div className="mt-4 space-y-3">
-                        {assignments.map((item) => (
+                        {filteredAssignments.map((item) => {
+                            const previewExpanded = !!expandedPreview[item.id];
+                            return (
                             <article
                                 key={item.id}
                                 className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3"
@@ -191,23 +237,53 @@ export const SubmitAssignmentView = ({
                                     )}
                                 </div>
 
-                                {item.hasPreview && (
+                                {item.hasPreview ? (
                                     <div className="mt-3 rounded-xl border border-slate-200 bg-white/80 px-3 py-3">
-                                        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                                            提交预览
-                                        </p>
-                                        <div className="mt-2 h-[280px] overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
-                                            {item.previewContent}
+                                        <div className="flex items-center justify-between">
+                                            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                                                提交预览
+                                            </p>
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    togglePreview(item.id)
+                                                }
+                                                disabled={isSubmitting}
+                                                className="text-xs font-semibold text-slate-600 transition hover:text-slate-900"
+                                            >
+                                                {previewExpanded ? "收起" : "展开"}
+                                            </button>
                                         </div>
+                                        {previewExpanded ? (
+                                            <div className="mt-2 h-[280px] overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                                                {item.previewContent}
+                                            </div>
+                                        ) : (
+                                            <p className="mt-2 text-sm text-slate-500">
+                                                点击展开查看预览。
+                                            </p>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <div className="mt-3 rounded-xl border border-slate-200 bg-white/80 px-3 py-3 text-sm text-slate-500">
+                                        暂无提交预览。
                                     </div>
                                 )}
                             </article>
-                        ))}
+                        );
+                        })}
 
                         {assignments.length === 0 && (
                             <p className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-center text-sm text-slate-500">
                                 当前没有可提交作业。
                             </p>
+                        )}
+
+                        {assignments.length > 0 &&
+                            filteredAssignments.length === 0 && (
+                                <p className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-center text-sm text-slate-500">
+                                    当前筛选下没有作业。
+                                </p>
                         )}
                     </div>
                 </section>
