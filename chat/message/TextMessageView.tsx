@@ -1,4 +1,4 @@
-import { ZoomIn, Copy, Check, Share2 } from "lucide-react";
+import { ZoomIn, Copy, Check, Share2, Upload } from "lucide-react";
 import type { RefObject } from "react";
 import { FileAttachment } from "../types";
 import { AIAvatar } from "../../shared/AIAvatar";
@@ -24,6 +24,7 @@ interface TextMessageViewProps {
     isCopied: boolean;
     onCopy: () => void;
     onShareToClass?: () => void;
+    onSubmitToAssignment?: () => void;
 }
 
 export const TextMessageView = ({
@@ -43,6 +44,7 @@ export const TextMessageView = ({
     isCopied,
     onCopy,
     onShareToClass,
+    onSubmitToAssignment,
 }: TextMessageViewProps) => {
     const displayImages = imageUrls && imageUrls.length > 0 ? imageUrls : [];
     const canShowThinking = role === "assistant" && showThinking;
@@ -149,6 +151,22 @@ export const TextMessageView = ({
                                 >
                                     <Share2 size={14} />
                                     <span>分享班级</span>
+                                </button>
+                            )}
+
+                            {onSubmitToAssignment && (
+                                <button
+                                    onClick={onSubmitToAssignment}
+                                    className={`px-3 py-1.5 rounded-[1rem] transition-all duration-200 flex items-center gap-1.5 text-xs font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                                        role === "user"
+                                            ? "text-slate-400 hover:bg-slate-800/50 hover:text-white focus:ring-slate-600 focus:ring-offset-slate-900"
+                                            : "text-slate-400 hover:bg-slate-50 hover:text-slate-700 focus:ring-slate-300 focus:ring-offset-white"
+                                    }`}
+                                    aria-label="提交到作业"
+                                    title="提交到作业"
+                                >
+                                    <Upload size={14} />
+                                    <span>提交作业</span>
                                 </button>
                             )}
 
