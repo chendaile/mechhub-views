@@ -1,13 +1,20 @@
 import type { ChangeEvent } from "react";
 import { Button, buttonVariants } from "../shared/ui/button";
 import { Input } from "../shared/ui/input";
+import {
+    ASSIGNMENT_PAGE_LAYOUT,
+    ASSIGNMENT_PAGE_TITLE,
+} from "./assignmentSharedStyles";
 
 interface PublishAssignmentViewProps {
-    assignmentName: string;
-    setAssignmentName: (value: string) => void;
-    selectedModule: string;
-    setSelectedModule: (value: string) => void;
-    modules: string[];
+    title: string;
+    setTitle: (value: string) => void;
+    selectedClassId: string;
+    setSelectedClassId: (value: string) => void;
+    classOptions: Array<{
+        id: string;
+        name: string;
+    }>;
     dueDate: string;
     setDueDate: (value: string) => void;
     dueTime: string;
@@ -24,11 +31,11 @@ interface PublishAssignmentViewProps {
 }
 
 export const PublishAssignmentView = ({
-    assignmentName,
-    setAssignmentName,
-    selectedModule,
-    setSelectedModule,
-    modules,
+    title,
+    setTitle,
+    selectedClassId,
+    setSelectedClassId,
+    classOptions,
     dueDate,
     setDueDate,
     dueTime,
@@ -51,16 +58,13 @@ export const PublishAssignmentView = ({
         event.target.value = "";
     };
 
-    const canPublish =
-        !!assignmentName.trim() && !!selectedModule && !isLoading;
+    const canPublish = !!title.trim() && !!selectedClassId && !isLoading;
 
     return (
         <div className="flex-1 h-full overflow-y-auto ">
-            <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-6 py-8 lg:px-10">
+            <div className={ASSIGNMENT_PAGE_LAYOUT}>
                 <div className="mt-3 flex flex-wrap items-start justify-between gap-4">
-                    <h1 className="font-serif-heading text-4xl font-bold text-slate-900">
-                        发布新作业
-                    </h1>
+                    <h1 className={ASSIGNMENT_PAGE_TITLE}>发布新作业</h1>
                 </div>
 
                 {/* Summary cards removed per request */}
@@ -76,9 +80,9 @@ export const PublishAssignmentView = ({
                                 作业名称
                                 <Input
                                     className="mt-2"
-                                    value={assignmentName}
+                                    value={title}
                                     onChange={(event) =>
-                                        setAssignmentName(event.target.value)
+                                        setTitle(event.target.value)
                                     }
                                     placeholder="例如：理论力学 第三次作业"
                                 />
@@ -88,15 +92,18 @@ export const PublishAssignmentView = ({
                                 所属班级
                                 <select
                                     className="mt-2 w-full px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-100"
-                                    value={selectedModule}
+                                    value={selectedClassId}
                                     onChange={(event) =>
-                                        setSelectedModule(event.target.value)
+                                        setSelectedClassId(event.target.value)
                                     }
                                 >
                                     <option value="">请选择班级</option>
-                                    {modules.map((module) => (
-                                        <option key={module} value={module}>
-                                            {module}
+                                    {classOptions.map((classOption) => (
+                                        <option
+                                            key={classOption.id}
+                                            value={classOption.id}
+                                        >
+                                            {classOption.name}
                                         </option>
                                     ))}
                                 </select>

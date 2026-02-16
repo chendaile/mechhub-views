@@ -27,7 +27,7 @@ export const MainLayoutView = ({
     gradeAssignment,
 }: MainLayoutViewProps) => {
     return (
-        <div className="flex h-screen font-['Inter']">
+        <div className="flex h-screen">
             {sidebar}
 
             <main className="flex-1 relative ">

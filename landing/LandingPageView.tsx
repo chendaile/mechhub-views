@@ -15,7 +15,7 @@ interface LandingPageViewProps {
 
 export const LandingPageView = ({ onStart, onLogin }: LandingPageViewProps) => {
     return (
-        <div className="flex h-screen flex-col overflow-hidden bg-white font-['Inter']">
+        <div className="flex h-screen flex-col overflow-hidden bg-white">
             <LandingHeader onLogin={onLogin} />
             <motion.main
                 initial={{ opacity: 0, scale: 0.98 }}

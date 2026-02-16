@@ -1,5 +1,9 @@
 import { useState, type ReactNode } from "react";
 import { Button, buttonVariants } from "../shared/ui/button";
+import {
+    ASSIGNMENT_PAGE_LAYOUT,
+    ASSIGNMENT_PAGE_TITLE,
+} from "./assignmentSharedStyles";
 
 interface SubmitAssignmentAttachment {
     name: string;
@@ -104,10 +108,10 @@ export const SubmitAssignmentView = ({
 
     return (
         <div className="flex-1 h-full overflow-y-auto bg-slate-50">
-            <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-6 py-8 lg:px-10">
+            <div className={ASSIGNMENT_PAGE_LAYOUT}>
                 <div className="mt-3 flex flex-wrap items-start justify-between gap-4">
                     <div>
-                        <h1 className="font-serif-heading text-4xl font-bold text-slate-900">
+                        <h1 className={ASSIGNMENT_PAGE_TITLE}>
                             作业提交 Dashboard
                         </h1>
                     </div>
