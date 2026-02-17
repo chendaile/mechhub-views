@@ -12,7 +12,9 @@ interface ProfileViewProps {
     role: string;
     avatar: string;
     isEditing: boolean;
+    isUploadingAvatar: boolean;
     setIsEditing: (editing: boolean) => void;
+    handleAvatarUpload: (file: File) => void;
     handleSave: () => void;
     handleCancel: () => void;
     containerVariants: Record<string, any>;
@@ -25,7 +27,9 @@ export const ProfileView = ({
     role,
     avatar,
     isEditing,
+    isUploadingAvatar,
     setIsEditing,
+    handleAvatarUpload,
     handleSave,
     handleCancel,
     containerVariants,
@@ -57,7 +61,12 @@ export const ProfileView = ({
                     className="flex flex-col items-center mb-16"
                     variants={itemVariants}
                 >
-                    <ProfileAvatar avatar={avatar} isEditing={isEditing} />
+                    <ProfileAvatar
+                        avatar={avatar}
+                        isEditing={isEditing}
+                        isUploading={isUploadingAvatar}
+                        onUpload={handleAvatarUpload}
+                    />
                     <ProfileFields
                         name={name}
                         role={role}

@@ -21,7 +21,9 @@ interface GradeDashboardAssignment {
     submittedCount: number;
     missingCount: number;
     aiCompletedCount: number;
+    aiInProgressCount: number;
     teacherNotManualCount: number;
+    teacherManualCompletedCount: number;
     submittedStudents: GradeDashboardStudent[];
     missingStudents: GradeDashboardStudent[];
 }
@@ -411,9 +413,19 @@ export const GradeAssignmentView = ({
                                                 {assignment.aiCompletedCount}
                                             </div>
                                             <div className="px-3 py-2">
+                                                AI 正在标注{" "}
+                                                {assignment.aiInProgressCount}
+                                            </div>
+                                            <div className="px-3 py-2">
                                                 未手动批改{" "}
                                                 {
                                                     assignment.teacherNotManualCount
+                                                }
+                                            </div>
+                                            <div className="px-3 py-2">
+                                                手动已标注{" "}
+                                                {
+                                                    assignment.teacherManualCompletedCount
                                                 }
                                             </div>
                                         </div>

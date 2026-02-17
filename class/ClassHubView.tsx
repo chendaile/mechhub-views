@@ -40,8 +40,6 @@ interface ClassHubViewProps {
     onCreateClassNameChange: (value: string) => void;
     createClassDescription: string;
     onCreateClassDescriptionChange: (value: string) => void;
-    createTeacherUserId: string;
-    onCreateTeacherUserIdChange: (value: string) => void;
     onCreateClass: () => void;
     isCreatingClass: boolean;
     inviteCodeInput: string;
@@ -52,15 +50,22 @@ interface ClassHubViewProps {
     students: MemberItem[];
     threads: ThreadItem[];
     onCreateThread: () => void;
+    threadTitleInput: string;
+    onThreadTitleChange: (value: string) => void;
     canCreateThread: boolean;
     canManageThreads: boolean;
     canDeleteClass: boolean;
+    canLeaveClass: boolean;
     onRenameThread: (threadId: string) => void;
     onDeleteThread: (threadId: string) => void;
     onDeleteClass: () => void;
+    onLeaveClass: () => void;
     isCreatingThread: boolean;
+    isLoadingMembers: boolean;
     onEnterThreadChat: (threadId: string) => void;
     inviteCodeDisplayText?: string;
+    inviteCodeValue?: string;
+    onCopyInviteCode: () => void;
 }
 
 const buildInitial = (name: string) => {
@@ -105,6 +110,16 @@ const MemberAvatar = ({
     );
 };
 
+const MemberAvatarSkeleton = () => (
+    <div className="flex items-center gap-3 rounded-xl bg-white p-3 animate-pulse">
+        <div className="h-10 w-10 rounded-full bg-slate-200" />
+        <div className="flex-1 space-y-2">
+            <div className="h-3 w-24 rounded bg-slate-200" />
+            <div className="h-2 w-16 rounded bg-slate-200" />
+        </div>
+    </div>
+);
+
 export const ClassHubView = ({
     requesterEmail,
     isAdmin,
@@ -119,8 +134,6 @@ export const ClassHubView = ({
     onCreateClassNameChange,
     createClassDescription,
     onCreateClassDescriptionChange,
-    createTeacherUserId,
-    onCreateTeacherUserIdChange,
     onCreateClass,
     isCreatingClass,
     inviteCodeInput,
@@ -131,15 +144,22 @@ export const ClassHubView = ({
     students,
     threads,
     onCreateThread,
+    threadTitleInput,
+    onThreadTitleChange,
     canCreateThread,
     canManageThreads,
     canDeleteClass,
+    canLeaveClass,
     onRenameThread,
     onDeleteThread,
     onDeleteClass,
+    onLeaveClass,
     isCreatingThread,
+    isLoadingMembers,
     onEnterThreadChat,
     inviteCodeDisplayText,
+    inviteCodeValue,
+    onCopyInviteCode,
 }: ClassHubViewProps) => {
     const selectedClass = classOptions.find(
         (item) => item.id === selectedClassId,
@@ -244,17 +264,6 @@ export const ClassHubView = ({
                                         }
                                         placeholder="班级简介（可选）"
                                     />
-                                    {isAdmin && (
-                                        <Input
-                                            value={createTeacherUserId}
-                                            onChange={(event) =>
-                                                onCreateTeacherUserIdChange(
-                                                    event.target.value,
-                                                )
-                                            }
-                                            placeholder="教师用户 ID（可选）"
-                                        />
-                                    )}
                                     <Button
                                         variant="outline"
                                         type="button"
@@ -277,6 +286,16 @@ export const ClassHubView = ({
                                     {selectedClass?.name ?? "班级 dashboard"}
                                 </h2>
                                 <div className="flex items-center gap-2">
+                                    {canLeaveClass && (
+                                        <Button
+                                            variant="outline"
+                                            type="button"
+                                            onClick={onLeaveClass}
+                                            className="text-slate-600 hover:text-slate-700"
+                                        >
+                                            退出班级
+                                        </Button>
+                                    )}
                                     {canDeleteClass && (
                                         <Button
                                             variant="outline"
@@ -296,13 +315,35 @@ export const ClassHubView = ({
                                     </Button>
                                 </div>
                             </div>
-                            <p className="mt-1 text-sm text-slate-600">
-                                成员数 {totalMembers} · 话题数 {threads.length}
-                                {inviteCodeDisplayText
-                                    ? ` · 邀请码 ${inviteCodeDisplayText}`
-                                    : ""}
-                            </p>
+                            <div className="mt-1 flex flex-wrap items-center justify-between gap-2 text-sm text-slate-600">
+                                <p>
+                                    成员数 {totalMembers} · 话题数{" "}
+                                    {threads.length}
+                                    {inviteCodeDisplayText
+                                        ? ` · 邀请码 ${inviteCodeDisplayText}`
+                                        : ""}
+                                </p>
+                                {inviteCodeValue && (
+                                    <Button
+                                        variant="outline"
+                                        type="button"
+                                        onClick={onCopyInviteCode}
+                                        className="h-7 px-2 text-xs"
+                                    >
+                                        复制邀请码
+                                    </Button>
+                                )}
+                            </div>
                             <div className="mt-4 flex flex-wrap gap-2">
+                                <Input
+                                    value={threadTitleInput}
+                                    onChange={(event) =>
+                                        onThreadTitleChange(event.target.value)
+                                    }
+                                    placeholder="输入话题名称"
+                                    disabled={!canCreateThread}
+                                    className="min-w-[220px]"
+                                />
                                 <Button
                                     variant="outline"
                                     type="button"
@@ -326,15 +367,23 @@ export const ClassHubView = ({
                                 老师头像
                             </h3>
                             <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                                {teachers.map((teacher) => (
-                                    <MemberAvatar
-                                        key={teacher.userId}
-                                        name={teacher.name}
-                                        avatar={teacher.avatar}
-                                        role="teacher"
-                                    />
-                                ))}
-                                {teachers.length === 0 && (
+                                {isLoadingMembers ? (
+                                    Array.from({ length: 3 }).map((_, index) => (
+                                        <MemberAvatarSkeleton
+                                            key={`teacher-skeleton-${index}`}
+                                        />
+                                    ))
+                                ) : (
+                                    teachers.map((teacher) => (
+                                        <MemberAvatar
+                                            key={teacher.userId}
+                                            name={teacher.name}
+                                            avatar={teacher.avatar}
+                                            role="teacher"
+                                        />
+                                    ))
+                                )}
+                                {!isLoadingMembers && teachers.length === 0 && (
                                     <p className="text-sm text-slate-500">
                                         暂无老师成员
                                     </p>
@@ -347,15 +396,23 @@ export const ClassHubView = ({
                                 班级成员头像
                             </h3>
                             <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                                {students.map((student) => (
-                                    <MemberAvatar
-                                        key={student.userId}
-                                        name={student.name}
-                                        avatar={student.avatar}
-                                        role="student"
-                                    />
-                                ))}
-                                {students.length === 0 && (
+                                {isLoadingMembers ? (
+                                    Array.from({ length: 3 }).map((_, index) => (
+                                        <MemberAvatarSkeleton
+                                            key={`student-skeleton-${index}`}
+                                        />
+                                    ))
+                                ) : (
+                                    students.map((student) => (
+                                        <MemberAvatar
+                                            key={student.userId}
+                                            name={student.name}
+                                            avatar={student.avatar}
+                                            role="student"
+                                        />
+                                    ))
+                                )}
+                                {!isLoadingMembers && students.length === 0 && (
                                     <p className="text-sm text-slate-500">
                                         暂无学生成员
                                     </p>

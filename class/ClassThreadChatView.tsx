@@ -91,6 +91,8 @@ export const ClassThreadChatView = ({
                             const isSharedChatMessage =
                                 message.role === "system" &&
                                 message.content.kind === "shared_chat";
+                            const isAiTyping =
+                                message.content.kind === "ai_typing";
 
                             if (isSharedChatMessage) {
                                 return (
@@ -119,9 +121,17 @@ export const ClassThreadChatView = ({
                             return (
                                 <GroupTextMessageView
                                     key={message.id}
-                                    content={renderMessageContent(
-                                        message.content,
-                                    )}
+                                    content={
+                                        isAiTyping ? (
+                                            <span className="animate-pulse text-slate-500">
+                                                AI 正在回复...
+                                            </span>
+                                        ) : (
+                                            renderMessageContent(
+                                                message.content,
+                                            )
+                                        )
+                                    }
                                     senderName={
                                         message.senderName ?? "班级成员"
                                     }
