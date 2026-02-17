@@ -4,6 +4,7 @@ import type { ActiveView } from "../../shared/types";
 import type { ChatSession } from "../../chat/types";
 import type { SidebarClassGroup, SidebarClassThread } from "../types";
 import styles from "../../shared/scrollbar.module.css";
+import { LoadingList } from "../../shared/LoadingList";
 
 interface SidebarSessionsProps {
     sessions: ChatSession[];
@@ -56,11 +57,7 @@ export const SidebarSessions = ({
             </h3>
             <div className="space-y-1">
                 {isLoading ? (
-                    <div className="animate-pulse space-y-3">
-                        <div className="h-5 bg-[#e1e6ea] rounded-[1rem] w-full"></div>
-                        <div className="h-5 bg-[#e1e6ea] rounded-[1rem] w-full"></div>
-                        <div className="h-5 bg-[#e1e6ea] rounded-[1rem] w-full"></div>
-                    </div>
+                    <LoadingList />
                 ) : sessions.length === 0 ? (
                     <div className="text-sm text-[#94a3b8] text-center py-4">
                         暂无历史记录
@@ -84,7 +81,7 @@ export const SidebarSessions = ({
             </h3>
             <div className="space-y-2 pb-2">
                 {classGroups.length === 0 ? (
-                    <div className="rounded-xl border border-dashed border-slate-300 bg-white/60 px-3 py-3 text-xs text-slate-500">
+                    <div className=" px-3 py-3 text-xs text-slate-500">
                         还没有班级会话，先去加入班级。
                     </div>
                 ) : (

@@ -54,8 +54,10 @@ interface ClassHubViewProps {
     onCreateThread: () => void;
     canCreateThread: boolean;
     canManageThreads: boolean;
+    canDeleteClass: boolean;
     onRenameThread: (threadId: string) => void;
     onDeleteThread: (threadId: string) => void;
+    onDeleteClass: () => void;
     isCreatingThread: boolean;
     onEnterThreadChat: (threadId: string) => void;
     inviteCodeDisplayText?: string;
@@ -131,8 +133,10 @@ export const ClassHubView = ({
     onCreateThread,
     canCreateThread,
     canManageThreads,
+    canDeleteClass,
     onRenameThread,
     onDeleteThread,
+    onDeleteClass,
     isCreatingThread,
     onEnterThreadChat,
     inviteCodeDisplayText,
@@ -272,13 +276,25 @@ export const ClassHubView = ({
                                 <h2 className="mt-3 text-2xl font-bold text-slate-900">
                                     {selectedClass?.name ?? "班级 dashboard"}
                                 </h2>
-                                <Button
-                                    variant="outline"
-                                    type="button"
-                                    onClick={onBackToCollection}
-                                >
-                                    返回班级列表
-                                </Button>
+                                <div className="flex items-center gap-2">
+                                    {canDeleteClass && (
+                                        <Button
+                                            variant="outline"
+                                            type="button"
+                                            onClick={onDeleteClass}
+                                            className="text-red-600 hover:text-red-700"
+                                        >
+                                            删除班级
+                                        </Button>
+                                    )}
+                                    <Button
+                                        variant="outline"
+                                        type="button"
+                                        onClick={onBackToCollection}
+                                    >
+                                        返回班级列表
+                                    </Button>
+                                </div>
                             </div>
                             <p className="mt-1 text-sm text-slate-600">
                                 成员数 {totalMembers} · 话题数 {threads.length}

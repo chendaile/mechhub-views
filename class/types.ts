@@ -20,6 +20,7 @@ export interface ClassThreadChatViewProps {
     messages: ClassThreadMessageItem[];
     currentUserId: string;
     isSending: boolean;
+    isLoadingMessages?: boolean;
     renderMessageContent: ClassThreadContentRenderer;
     inputBar: ReactNode;
     onCopySharedChatToNewSession?: (content: Record<string, unknown>) => void;

@@ -40,6 +40,11 @@ export interface GradingResult {
     imageGradingResult: ImageGradingResult[];
 }
 
+export interface OcrResult {
+    imageUrl: string;
+    text: string;
+}
+
 export interface SubmitMessage {
     text: string;
     mode: ChatMode;
@@ -54,6 +59,7 @@ export interface Message extends SubmitMessage {
     type: "text" | "grading";
     gradingResult?: GradingResult;
     reasoning?: string;
+    ocrText?: string;
     createdAt?: string;
 }
 

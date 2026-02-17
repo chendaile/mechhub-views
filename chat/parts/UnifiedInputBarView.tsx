@@ -45,6 +45,8 @@ const MODEL_OPTIONS = [
     "qwen3-vl-235b-a22b-instruct",
     "qwen3-vl-32b-thinking",
     "qwen3-vl-32b-instruct",
+    "qwen3.5-plus",
+    "qwen3.5-397b-a17b",
     "gemini-3-pro-preview",
 ];
 

@@ -14,6 +14,7 @@ interface DetailPanelProps {
     onToggle: () => void;
     className?: string;
     contentRef?: RefObject<HTMLDivElement | null>;
+    renderAsPlainText?: boolean;
 }
 
 export const DetailPanel = ({
@@ -27,6 +28,7 @@ export const DetailPanel = ({
     onToggle,
     className,
     contentRef,
+    renderAsPlainText = false,
 }: DetailPanelProps) => {
     const hasReasoning = !!content && content.trim().length > 0;
 
@@ -54,7 +56,13 @@ export const DetailPanel = ({
                             className={`max-h-60 overflow-y-auto pr-1 bg-slate-200 ${styles.scrollbar}`}
                         >
                             {hasReasoning ? (
-                                <MarkdownRenderer content={content || ""} />
+                                renderAsPlainText ? (
+                                    <div className="whitespace-pre-wrap break-words text-base leading-relaxed text-slate-700">
+                                        {content}
+                                    </div>
+                                ) : (
+                                    <MarkdownRenderer content={content || ""} />
+                                )
                             ) : (
                                 <div>{emptyLabel}</div>
                             )}

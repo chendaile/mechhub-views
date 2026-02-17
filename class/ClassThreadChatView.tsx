@@ -1,10 +1,14 @@
 import { GroupTextMessageView } from "@views/chat/message";
 import styles from "@views/shared/scrollbar.module.css";
 import type { ClassThreadChatViewProps } from "./types";
+import { Button } from "@views/shared/ui/button";
+import { LoadingList } from "@views/shared/LoadingList";
 
 const formatSharedSummary = (content: Record<string, unknown>) => {
     const sourceTitle =
-        typeof content.sourceTitle === "string" ? content.sourceTitle : "未命名会话";
+        typeof content.sourceTitle === "string"
+            ? content.sourceTitle
+            : "未命名会话";
     const messageCount = Array.isArray(content.sharedMessages)
         ? content.sharedMessages.length
         : 0;
@@ -15,21 +19,34 @@ const formatSharedSummary = (content: Record<string, unknown>) => {
 const SharedChatMessageCard = ({
     content,
     onCopy,
+    alignRight = false,
 }: {
     content: Record<string, unknown>;
     onCopy?: (content: Record<string, unknown>) => void;
+    alignRight?: boolean;
 }) => (
-    <div className="rounded-2xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-slate-700">
+    <div
+        className={`py-3 text-sm text-slate-700 ${
+            alignRight ? "text-right" : "text-left"
+        }`}
+    >
         <p className="font-semibold text-slate-900">会话分享</p>
-        <p className="mt-1 text-xs text-slate-600">{formatSharedSummary(content)}</p>
+        <p className="mt-1 text-xs text-slate-600">
+            {formatSharedSummary(content)}
+        </p>
         {onCopy && (
-            <button
-                type="button"
-                onClick={() => onCopy(content)}
-                className="mt-3 inline-flex items-center rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-slate-800"
+            <div
+                className={`mt-3 flex ${alignRight ? "justify-end" : "justify-start"}`}
             >
-                复制到我的新会话
-            </button>
+                <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => onCopy(content)}
+                    className="inline-flex items-center px-3 py-1.5"
+                >
+                    复制到我的新会话
+                </Button>
+            </div>
         )}
     </div>
 );
@@ -43,9 +60,10 @@ export const ClassThreadChatView = ({
     inputBar,
     onCopySharedChatToNewSession,
     scrollAnchorRef,
+    isLoadingMessages = false,
 }: ClassThreadChatViewProps) => {
     return (
-        <div className="absolute inset-0 z-0 flex flex-col">
+        <div className="absolute inset-0 z-0 flex flex-col overflow-y-hidden">
             <header className="px-6 py-4">
                 <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                     班级群聊
@@ -60,12 +78,16 @@ export const ClassThreadChatView = ({
                 className={`flex-1 overflow-y-auto bg-slate-50 px-6 py-5 ${styles.scrollbar}`}
             >
                 <div className="mx-auto flex w-full max-w-5xl flex-col gap-4">
-                    {messages.length === 0 ? (
+                    {isLoadingMessages ? (
+                        <LoadingList className="px-1" />
+                    ) : messages.length === 0 ? (
                         <div className="rounded-2xl px-4 py-6 text-center text-sm text-slate-500">
                             暂时还没有消息，开始班级讨论吧。
                         </div>
                     ) : (
                         messages.map((message) => {
+                            const isOwnMessage =
+                                message.senderUserId === currentUserId;
                             const isSharedChatMessage =
                                 message.role === "system" &&
                                 message.content.kind === "shared_chat";
@@ -80,6 +102,7 @@ export const ClassThreadChatView = ({
                                                 onCopy={
                                                     onCopySharedChatToNewSession
                                                 }
+                                                alignRight={isOwnMessage}
                                             />
                                         }
                                         senderName={
@@ -87,10 +110,7 @@ export const ClassThreadChatView = ({
                                         }
                                         senderAvatar={message.senderAvatar}
                                         createdAt={message.createdAt}
-                                        isOwnMessage={
-                                            message.senderUserId ===
-                                            currentUserId
-                                        }
+                                        isOwnMessage={isOwnMessage}
                                         role={message.role}
                                     />
                                 );
@@ -102,12 +122,12 @@ export const ClassThreadChatView = ({
                                     content={renderMessageContent(
                                         message.content,
                                     )}
-                                    senderName={message.senderName ?? "班级成员"}
+                                    senderName={
+                                        message.senderName ?? "班级成员"
+                                    }
                                     senderAvatar={message.senderAvatar}
                                     createdAt={message.createdAt}
-                                    isOwnMessage={
-                                        message.senderUserId === currentUserId
-                                    }
+                                    isOwnMessage={isOwnMessage}
                                     role={message.role}
                                 />
                             );

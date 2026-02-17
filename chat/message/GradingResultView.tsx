@@ -9,6 +9,7 @@ interface GradingResultViewProps {
     gradingResult: GradingResult;
     body?: string;
     reasoning?: string;
+    ocrText?: string;
     showThinking?: boolean;
     renderImagePanel?: (image: ImageGradingResult) => ReactNode;
     currentImageIndex: number;
@@ -18,12 +19,15 @@ interface GradingResultViewProps {
     onToggleBody: () => void;
     thinkingOpen: boolean;
     onToggleThinking: () => void;
+    ocrOpen: boolean;
+    onToggleOcr: () => void;
 }
 
 export const GradingResultView = ({
     gradingResult,
     body,
     reasoning,
+    ocrText,
     showThinking = false,
     renderImagePanel,
     currentImageIndex,
@@ -33,18 +37,33 @@ export const GradingResultView = ({
     onToggleBody,
     thinkingOpen,
     onToggleThinking,
+    ocrOpen,
+    onToggleOcr,
 }: GradingResultViewProps) => {
     const images = gradingResult.imageGradingResult || [];
     const hasMultipleImages = images.length > 1;
     const currentImage = images[currentImageIndex];
+    const formattedOcrText = ocrText && ocrText.trim() ? ocrText : "";
 
     return (
         <div className="w-full">
+            <DetailPanel
+                label="OCR 过程"
+                buttonLabel="查看OCR过程"
+                hideButton="隐藏OCR过程"
+                emptyLabel="暂无OCR结果"
+                content={formattedOcrText}
+                open={ocrOpen}
+                onToggle={onToggleOcr}
+                className="mb-4"
+            />
+
             <DetailPanel
                 content={reasoning}
                 show={showThinking}
                 open={thinkingOpen}
                 onToggle={onToggleThinking}
+                renderAsPlainText
                 className="mb-4"
             />
 
@@ -56,6 +75,7 @@ export const GradingResultView = ({
                 content={body}
                 open={bodyOpen}
                 onToggle={onToggleBody}
+                renderAsPlainText
                 className="mb-4"
             />
 
